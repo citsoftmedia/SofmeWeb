@@ -239,7 +239,7 @@ table tbody tr td img.icon {
 }
 /*# sourceMappingURL=advent-calender.css.map */
 
-p {
+p.index {
   text-align: center;
   margin-bottom: 2px;
 }

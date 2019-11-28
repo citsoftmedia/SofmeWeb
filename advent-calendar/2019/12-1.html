@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>ソフトメディア研究会</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフトメディア研究会"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/img/logo/png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(/img/person_1.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2></h2>
+                            <p>すいま</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+            
+<h1>はじめに</h1>
+
+<p>みなさんメリークリスマス！<br>Unityで<strong>async/await</strong>やってますか？やってない？<br>そんなあなたに<strong>UniTask</strong>！  </p>
+<p>(初っ端から2日間、プログラム班以外興味がない記事を書いてしまいます申し訳ありません。。。)</p>
+
+<h2>書いた人</h2>
+
+<p>HN: すいま<br>所属班: プログラム班<br>回生: 3回生<br>Twitter: <a href="https://twitter.com/SuimezZZ">@SuimezZZ</a>  </p>
+
+<h1>目次</h1>
+
+<ul>
+<li><a href="#%E8%AA%B0%E5%90%91%E3%81%91%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%AA%E3%82%93%E3%81%A0%E3%81%93%E3%82%8C%E3%81%AF">誰向けの記事なんだこれは</a></li>
+<li><a href="#UniTask-%E3%81%A8%E3%81%AF">UniTask とは</a></li>
+<li><a href="#UniTask%E3%82%92%E4%BD%BF%E3%81%86%E6%9D%A1%E4%BB%B6">UniTaskを使う条件</a></li>
+<li><a href="#%E9%9D%9E%E5%90%8C%E6%9C%9F%E5%87%A6%E7%90%86%E3%81%A3%E3%81%A6%E3%81%AA%E3%81%AB?-async/await-%E3%81%A3%E3%81%A6%EF%BC%9F">非同期処理ってなに? async/await って？</a></li>
+<li><a href="#Unity%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E9%9D%9E%E5%90%8C%E6%9C%9F">Unityで使える非同期処理</a></li>
+<li><a href="#Task%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84">Taskとの違い</a></li>
+<li><a href="#UniTask%E3%81%8C%E6%8F%90%E4%BE%9B%E3%81%99%E3%82%8B%E6%A9%9F%E8%83%BD">UniTaskが提供する機能</a><ul>
+<li><a href="#UniTask-,-Unitask%3CT%3E%E5%9E%8B">UniTask , Unitask&lt;T&gt;型</a></li>
+<li><a href="#UniTaskCompletionSource">UniTaskCompletionSource</a></li>
+<li><a href="#UniTaskVoid%E5%9E%8B">UniTaskVoid型</a></li>
+<li><a href="#UniTask%E3%81%AE%E9%9D%99%E7%9A%84%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%81%9F%E3%81%A1">UniTaskの静的メソッドたち</a></li>
+<li><a href="#%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AAAwaiter">いろいろなAwaiter</a></li>
+<li><a href="#%E3%82%B3%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3,-UniRx%E3%81%A8%E3%81%AE%E7%9B%B8%E4%BA%92%E5%A4%89%E6%8F%9B">コルーチン、UniRxとの相互変換</a></li>
+<li><a href="#UniTaskTracker">UniTaskTracker</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%BB%E3%83%AB">キャンセル</a></li>
+<li><a href="#%E5%88%A5%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E3%81%A8%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91">別の非同期との使い分け</a></li>
+<li><a href="#%E7%B5%90%E5%B1%80UniTask%E3%82%92%E4%BD%BF%E3%81%86%E3%81%A8%E4%BD%95%E3%81%8C%E3%81%84%E3%81%84%E3%81%AE%EF%BC%9F">結局UniTaskを使うと何がいいの？</a></li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+<li><a href="#%E3%81%8A%E3%81%BE%E3%81%91(DOTween%E3%82%92await%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%97%E3%82%88%E3%81%86%EF%BC%81)">おまけ(DOTweenをawaitできるようにしよう！)</a></li>
+<li><a href="#%E3%81%82%E3%81%A8%E3%81%8C%E3%81%8D">あとがき</a></li>
+</ul>
+
+<h1>誰向けの記事なんだこれは</h1>
+
+<p>主にUnityやC#を触って<strong>結構慣れてきた人向け</strong>です。<br>async/awaitの説明は軽くしかしないので少し理解してる人が読むといいかと思います。<br>ところどころ難しポイントはあるのでそういうとこは読み飛ばしちゃってください。<br>全然わっかんねぇって人は、将来UniTaskを勉強したくなったらこの記事を見返してみてください。</p>
+<p>ネット上にUniTaskの情報は結構乗ってますが、この記事でUniTaskという存在そのものを知るきっかけになってくれたら良いかなと思います。<br>リファレンス的な記事なので良かったら何度も読み返してみてください。</p>
+
+<h1>UniTask とは</h1>
+
+<p><strong>『Unityでasync/awaitを最高のパフォーマンスで実現するライブラリ』</strong> (<a href="http://tech.cygames.co.jp/archives/3256/">公式</a>より引用)</p>
+<p>UniTaskは2019年12月1日現在、まだAssetStoreに公開されていないので<a href="https://github.com/Cysharp/UniTask">github</a>から入手します。</p>
+<p>昔はUniRxの一部だったので名前空間が今でもUniRx.Asyncという歴史的経緯があります。</p>
+
+<h1>UniTaskを使う条件</h1>
+
+<p>UniTaskはC#7の機能に依存しています。<br>ではUnityのどのバージョンから使えるんだ？ってことで対応表を作ってみました。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Unityのバージョン</th>
+<th align="center">C#のバージョン</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2017.4.x</td>
+<td align="center">6.0</td>
+</tr>
+<tr>
+<td align="center">2018.2.x</td>
+<td align="center">6.0</td>
+</tr>
+<tr>
+<td align="center">2018.3.x</td>
+<td align="center">7.3</td>
+</tr>
+<tr>
+<td align="center">2018.4.x</td>
+<td align="center">7.3</td>
+</tr>
+<tr>
+<td align="center">2019.x</td>
+<td align="center">7.3</td>
+</tr>
+</tbody></table>
+<p>対応表を見ると、C#7以上に対応しているのは、Unity2018.3以上です。<br>Incremental Compilerを導入すれば2018.2からでも使えますが、よっぽどの理由がない限り使わなくていいです。まあ今は2018.2以下を使っている人はあまりいないと思うので問題ないですかね。</p>
+
+<h1>非同期処理ってなに? async/await って？</h1>
+
+
+<h2>非同期処理とは</h2>
+
+<ul>
+<li>関数の<strong>結果を待たず</strong>に次の処理へ進む処理のこと</li>
+<li>処理を<strong>別のタイミング</strong>で実行すること</li>
+</ul>
+<p>なに言ってんだ？<br>とりあえず次のコードを見てみましょう</p>
+
+
+<pre><code class="language-C#">Debug.Log(&quot;はじまり～&quot;);
+StartCoroutine(TimerDebug(&quot;こるーちん！&quot;,3)); //3秒後に出力
+Debug.Log(&quot;おわり～&quot;);
+
+IEnumerator TimerDebug(object obj,float time){
+    yield return new WaitForSeconds(time);
+    Debug.Log(obj);
+}</code></pre>
+
+
+<p>よくあるコルーチンのコードですね。では出力結果はどうなるでしょうか？<br><img src="pic/1.png" alt="1"></p>
+<p>あれ？プログラムの順番は「はじまり～」→「こるーちん！」→「おわり～」なのに、順番が変わりました。<br>この例では</p>
+
+
+<pre><code class="language-C#"> StartCoroutine(TimerDebug(&quot;こるーちん！&quot;,3));</code></pre>
+
+
+<p>この関数の<strong>結果を待たず</strong>に次の行の処理が行われているのです。要するに、通常通り逐次実行されるものと、コルーチンを実行するもの、<strong>二手に分かれて</strong>います。<br><strong>これが非同期処理です。</strong><br>な～んだもうみんなやってたんだ。</p>
+
+<h2>async/await</h2>
+
+<p>読んで字のごとく、非同期を待つ。です。<br>さっきはコルーチンを待たずに2手に分岐して処理を行いました。<br>async/awaitでは、<strong>非同期メソッドがその結果を得るまで待つ</strong>ことができます。<br>難しいですが、あとでちゃんと解説します。</p>
+
+
+<pre><code class="language-C#">private async Task HogeAsync(){ //メソッド宣言時にasync修飾子をつける
+    Debug.Log(&quot;まつ！&quot;);
+    await Task.Delay(1000);  //1000ミリ秒待つ
+}
+
+await HogeAsync();  //使うときはawaitをつける</code></pre>
+
+
+
+<h1>Unityで使える非同期</h1>
+
+
+<h2>コルーチン</h2>
+
+<p>先ほどの例でだしたやつです。IEnumeratorを返り値とし、yieldなんちゃらを使うやつです。<br>大体はStartCoroutineで起動します。その場合GemeObjectと結びついていて扱いやすいですが、返り値を返すことができないというデメリットも抱えています。<br>try-catchブロック内では、yieldを使いことができないため、例外処理も困難です。<br>一応これらの問題は引数にデリゲートを渡すことで解消できますが冗長になってしまいがちです。</p>
+
+<h2>Invokeメソッド</h2>
+
+<p><del>これつかってる人いるの…？</del></p>
+
+
+<pre><code class="language-C#">void HogeMethod(){
+    Debug.Log(&quot;ほげほげ&quot;);
+}
+
+Invoke(nameof(HogeMethod),3); //3秒後に出力</code></pre>
+
+
+<p>コルーチンのStartCoroutine同様、メソッドを遅延起動させるメソッドです。手軽っちゃ手軽。<br>返り値を返せないし引数を渡すこともできません。</p>
+
+<h2>Task</h2>
+
+<p>C#標準の機能です。<br>Unityでも使えます。</p>
+
+<h2>UniRx</h2>
+
+<p>非同期処理向けライブラリです。イベント処理のイメージが強い印象です。</p>
+
+<h2>UniTask</h2>
+
+<p>そして今回紹介するのがこのUniTask<br>UniTask ＋ async/await で何でもできます。</p>
+
+
+<pre><code class="language-C#">var result = await HogeUniTaskAsync();
+//ちゃんとメインスレッドに戻ってくる
+Debug.Log(result);</code></pre>
+
+
+
+<h1>UniTaskでできること</h1>
+
+<ul>
+<li>C#のTaskをそのままUniTaskで書ける</li>
+<li>Unityイベントをawaitできる</li>
+<li>何をawaitしてるかが見れる(Editor拡張)</li>
+</ul>
+<p>こんな感じですかね。基本はC#のTaskが優秀で、それとほぼほぼ同じく使えるのが強いポイントかと。  </p>
+
+<h1>Taskとの違い</h1>
+
+<p>じゃあUniTaskじゃなくてTaskで良くない？ってことで違いをまとめてみました</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">Task</th>
+<th align="center">UniTask</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">機能</td>
+<td align="center">Unityで使うには<br>不要な機能が多い</td>
+<td align="center">Unity用に最適化</td>
+</tr>
+<tr>
+<td align="left">サイズ</td>
+<td align="center">Unityで使うには<br>無駄が多い</td>
+<td align="center">コンパクト</td>
+</tr>
+<tr>
+<td align="left">最低C#<br>バージョン</td>
+<td align="center">5.0</td>
+<td align="center">7.0</td>
+</tr>
+<tr>
+<td align="left">await中のタスク</td>
+<td align="center">見れない</td>
+<td align="center">見れる</td>
+</tr>
+</tbody></table>
+<p>こんな感じでしょうか。<br>C#のTaskにはUnityで使うにはいらない機能が多いようです。<br>UniTaskはその不要な機能をカットしたコンパクトなものになっています。<br>また、グラフでは省きましたが、依存しているものの違いもあります。<br>UniTaskはUnityのPlayerLoopを使っています。そのためUnityとの親和性が高いです。</p>
+
+<h1>UniTaskが提供する機能</h1>
+
+
+<h2>UniTask , Unitask&lt;T&gt;型</h2>
+
+<p>TaskとTask&lt;T&gt;をUnity向けに最適化したものです。<br>基本的に<strong>TaskをUniTaskに書き換えるだけ</strong>でUniTaskを使うことができます。  </p>
+
+
+<pre><code class="language-C#">// Task
+private async Task HogeAsync(){
+    Debug.Log(&quot;まつ！&quot;);
+    await Task.Delay(1000);
+}
+// UniTask
+private async UniTask HogeAsync(){
+    Debug.Log(&quot;まつ！&quot;);
+    await Task.Delay(1000); //Taskは自動でUniTaskに変換されて返される
+}</code></pre>
+
+
+<p>返り値をUniTaskに変えただけです。すごい！</p>
+<p>呼び出すときはこんな感じ</p>
+
+
+<pre><code class="language-C#">private async void Start(){
+    Debug.Log(&quot;はじめ！&quot;);
+    await HogeAsync();
+    Debug.Log(&quot;おわり！&quot;);
+}</code></pre>
+
+
+<p><img src="pic/2.png" alt="2">  </p>
+<p>ちゃんと1秒待ってからメインに戻ってきてくれました。<br>これが非同期を待つって感じです。便利ですね。</p>
+<p>ジェネリックでも同じです。</p>
+
+
+<pre><code class="language-C#">private async UniTask&lt;int&gt; SumAsync(int num1,int num2){
+    return await UniTask.Run(() =&gt; num1 + num2);
+}</code></pre>
+
+
+
+<h2>UniTaskCompletionSource</h2>
+
+<p>CompletionSourceからの生成も同様にTaskをUniTaskに書き換えるだけで使えます。</p>
+
+
+<pre><code class="language-C#">var taskCompletionSource = new TaskCompletionSource&lt;int&gt;(); // Task
+var uniTaskCompletionSource = new UniTaskCompletionSource(); // UniTask</code></pre>
+
+
+
+<h2>UniTaskVoid型</h2>
+
+<p>async/awaitには fire and forget という概念があります。<br>投げっぱなしってことですね。 async void 関数がそれにあたります。<br>ですがこれだと通常のTaskで動いてしまうのでUniTaskには<strong>UniTaskVoid</strong>構造体が用意されています。</p>
+
+
+<pre><code class="language-C#">async void HogeTaskAsync(){  //これだとTaskで動いちゃう
+    Debug.Log(&quot;ほげ&quot;);
+}
+async UniTaskVoid HogeUniTaskAsync(){ //UniTaskで動かす場合はこう
+    Debug.Log(&quot;ほげ&quot;);
+}</code></pre>
+
+
+
+<h2>UniTaskの静的メソッドたち</h2>
+
+<p>UniTaskが提供する静的メソッドの中から一部を紹介します。</p>
+
+<h3><strong>UniTask.Delay</strong></h3>
+
+<p>Task.Delayとほぼ同じ。<br>引数で指定した秒数分待機できます。<br>これは、後に紹介するものも同様に、時間やフレームで待機するメソッドは、引数にUnityの<strong>どのタイミングで計測するか</strong>(デフォルトはUpdate())を指定できます。便利。<br>ここがTaskと違うところですね。</p>
+
+
+<pre><code class="language-C#">// FixedUpdateのタイミングで10秒待つ
+await UniTask.Delay(1000, delayTiming : PlayerLoopTiming.FixedUpdate);</code></pre>
+
+
+
+<h3><strong>UniTask.DelayFrame</strong></h3>
+
+<p>UniTask.Delayのフレーム待機版です。<br>指定したフレーム数待機できます。</p>
+
+
+<pre><code class="language-C#">// FixedUpdateのタイミングで10フレーム待つ
+await UniTask.DelayFrame(10,PlayerLoopTiming.FixedUpdate);</code></pre>
+
+
+
+<h3><strong>UniTask.Yield</strong></h3>
+
+<p>指定したタイミングで1フレーム待機できます。<br>コルーチンの yield return null に近いです。</p>
+
+
+<pre><code class="language-C#">// Updateのタイミングで1フレーム待機する
+await UniTask.Yield();
+// 次のFixedUpdateのタイミングまで待機する
+await UniTask.Yield(PlayerLoopTiming.FixedUpdate);</code></pre>
+
+
+<p>ここで注意？というか良いところと言いますか。</p>
+
+
+<pre><code class="language-C#">// 次のFixedUpdateのタイミングまで待機する
+await UniTask.Yield(PlayerLoopTiming.FixedUpdate);</code></pre>
+
+
+<p>これを実行した次の行からFixeUpdateのタイミングで処理が走るという特性があります。</p>
+
+
+<pre><code class="language-C#">// 次のFixedUpdateのタイミングまで待機する
+await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+// ここからFixedUpdateのタイミングで実行される
+Debug.Log(&quot;ほげ&quot;)
+Debug.Log(&quot;ふが&quot;)</code></pre>
+
+
+<p>Updateのタイミングに戻したいときは</p>
+
+
+<pre><code class="language-C#">// 1フレーム待ってからUpdate()のタイミングに戻る
+await UniTask.Yield();
+//この行以降はUpdateのタイミング
+Debug.Log(&quot;ぴよ&quot;)</code></pre>
+
+
+<p>これでUpdateのタイミングに戻ります。  </p>
+<hr>
+
+<h3>※余談</h3>
+
+
+
+<pre><code class="language-C#">await UniTask.SwitchToThreadPool();</code></pre>
+
+
+<p>このメソッドにより、実行コンテキストをスレッドプールに変更できます。<br>それを戻すのにもUniTask.Yieldを使うこともできます。<br>しかしUniTask.SwitchToMainThreadというメソッドもあります。<br>読んで字のごとくメインスレッドにコンテキストを変更するメソッドです。<br>では何が違うのでしょうか？次のコードを見てください。</p>
+
+
+<pre><code class="language-C#">// 現在のコンテキストに関わらず1フレーム待ってからメインスレッドに変更する
+await UniTask.Yield();
+
+// 現在メインスレッドにいるなら何もせず通過する
+await UniTask.SwitchToMainThread();</code></pre>
+
+
+<p>この二つのメソッド、こんな感じで若干の違いがあります。注意しましょう～</p>
+<hr>
+
+<h3><strong>UniTask.Run</strong></h3>
+
+<p>Task.Runと同じです。<br>同期処理をまとめて別スレッドで実行します。</p>
+
+
+<pre><code class="language-C#">async UniTask&lt;string&gt; HogeUniTaskAsync(string str1, string str2){
+    return await UniTask.Run( () =&gt; str1 + str2 );
+}</code></pre>
+
+
+<p>しかし、別スレッド上では実行できないメソッドというものが存在します。注意しましょう。</p>
+
+
+<pre><code class="language-C#">async UniTask HogeUniTaskAsync(GameObject obj){
+    return await UniTask.Run( () =&gt; Instantiate(obj)); //Instantiateはメインスレッドでしか使えない
+}</code></pre>
+
+
+
+<h3><strong>UniTask.WhenAll</strong></h3>
+
+<p>指定した<strong>全てのUniTaskが完了するまで待機</strong>できます。<br>UniTaskの型引数が異なる型でもOKです。</p>
+
+
+<pre><code class="language-C#">var task1 = UniTask.DelayFrame(10);      // int型
+var task2 = UniTask.Run(() =&gt; &quot;完了！&quot;); // string型
+//結果をタプルで受け取れる
+var (re1, re2) = await UniTask.WhenAll(task1, task2);
+
+Debug.Log(re1); // 10
+Debug.Log(re2); // 完了！</code></pre>
+
+
+
+<h3><strong>UniTask.WhenAny</strong></h3>
+
+<p>指定した<strong>UniTaskのどれかが1つが完了するまで待機</strong>できます。<br>どれか1つのUniTaskが完了すると、他の待機中のUniTaskはキャンセルされます。</p>
+
+
+<pre><code class="language-C#">var task1 = UniTask.DelayFrame(10);
+var task2 = UniTask.Run(() =&gt; &quot;完了！&quot;);
+var task3 = subject.ToUniTask();
+
+await UniTask.WhenAny(task1, task2, task3);
+Debug.Log(&quot;どれかが完了！&quot;);</code></pre>
+
+
+<p>そして、どのUniTaskが完了したのかを、インデックスで取得することができます。</p>
+<p><img src="pic/5.png" alt="5"><br>winArgumentIndexが完了したUniTaskのインデックスです。</p>
+<p>さらに、型引数が全て一致しているなら、どのUniTaskが完了したのかをオブジェクトで直接取得できます。</p>
+
+
+<pre><code class="language-C#">foreach(var player in players){
+    var task = UniTask.WaitUntil(() =&gt; player.transform.position.y &gt; 30) //ゴール
+        .ContinueWith(() =&gt; player.Name);
+    playersTasks.Add(task);
+}
+var (_,p) = await UniTask.WhenAny(playersTasks.ToArray());
+Debug.Log(p); // 一番最初にゴールしたプレイヤーの名前</code></pre>
+
+
+
+<h3><strong>UniTask.WaitUntil</strong></h3>
+
+<p>指定した条件がtrueになるまで待機できます。</p>
+
+
+<pre><code class="language-C#">await UniTask.WaitUntil(() =&gt; isStart); // ゲームが始まるとtrueになるフラグ
+Debug.Log(&quot;ゲーム開始！&quot;);</code></pre>
+
+
+
+<h3><strong>UniTask.WaitWhile</strong></h3>
+
+<p>指定した条件がfalseになるまで待機できます。</p>
+
+
+<pre><code class="language-C#">await UniTask.WaitWhile(() =&gt; hp &gt; 0); // hpが0未満になると完了する
+Debug.Log(&quot;負け……&quot;);</code></pre>
+
+
+
+<h3><strong>WaitUntilValueChanged</strong></h3>
+
+<p>UniRxのObserveEveryValueChangedと同じ</p>
+
+
+<pre><code class="language-C#">await UniTask.WaitUntilValueChanged(this.transform, x =&gt; x.position.y);
+Debug.Log(&quot;縦に動いた！&quot;);</code></pre>
+
+
+
+<h3><strong>ToCoroutine</strong></h3>
+
+<p>UniTaskをコルーチンに変換するメソッドです。<br>インスタンスメソッドにも同じものがあります。<br>書き心地的にこっちはあまり使わない印象です。まとめて複数のUniTaskをコルーチンに変換する場合はこっちを使うといいかもしれません。</p>
+
+
+<pre><code class="language-C#">IEnumerator HogeCoroutine(){
+    yield return UniTask.ToCoroutine(() =&gt; HogeUniTaskAsync());
+}</code></pre>
+
+
+
+<h2>いろいろなAwaiter</h2>
+
+<p>Awaiterとは何かを説明します。</p>
+<p>まず復習。</p>
+<p>さっきからさんざん使ってきた非同期メソッド。<br><strong>async</strong>という修飾子を付けることでメソッドは非同期メソッドになります。</p>
+
+
+<pre><code class="language-C#">UniTask HogeMethod(){ //これは同期メソッド
+    //.....
+
+async UniTask HogeAsyncMethod(){ //これは非同期メソッド
+    //....
+</code></pre>
+
+
+<p>asyncをつけた非同期メソッドはこのように待機できます</p>
+
+
+<pre><code class="language-C#">await HogeAsyncHethod();</code></pre>
+
+
+<p>じゃあawaitって何を元に待機してるの？<br>その答えが<strong>Awaiter</strong>です。<br>あるオブジェクトにGetAwaiterメソッドが実装されていて、そこからAwaiterが取得できればコンパイラはawaitできると判断します。<br>ちなみに<strong>拡張メソッドでも可</strong>です。すなわち、既存のクラスを自分で拡張してawaitできるようにできるってわけです。<br><a href="#%E3%81%8A%E3%81%BE%E3%81%91(DOTween%E3%82%92await%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%97%E3%82%88%E3%81%86%EF%BC%81)">おまけ(DOTweenをawaitできるようにしよう！)</a> で解説しています。  </p>
+<p>プログラム中のawaitの実装に飛ぼうとすると、どのようにawaitされているかを見ることができます。<br><img src="pic/3.png" alt="3"></p>
+<p>UniTaskには、この機能を利用してUnity機能の様々なAwaiterが用意されています。</p>
+
+<h3><strong>コルーチン</strong></h3>
+
+<p>UniTaskを入れていると、コルーチンもawaitできます。<br>UniTaskは使いたいけどあのコルーチンメソッド書き直すの嫌だな～って思ったら、そのままawaitをつければいいので便利です。</p>
+
+
+<pre><code class="language-C#">await TimerDebug(&quot;１回目&quot;, 1); //1秒待ってからログ
+await TimerDebug(&quot;2回目&quot;, 3); //3秒待ってからログ
+await TimerDebug(&quot;3回目&quot;, 2); //2秒待ってからログ
+
+IEnumerator TimerDebug(object obj,float time){
+    yield return new WaitForSeconds(time);
+    Debug.Log(obj);
+}</code></pre>
+
+
+<p>上記のようにStartCoroutineを使わなくてもコルーチンが起動できます。<br>下記のコードとの違いがわかりますか？</p>
+
+
+<pre><code class="language-C#">StartCoroutine(TimerDebug(&quot;１回目&quot;, 1));
+StartCoroutine(TimerDebug(&quot;2回目&quot;, 3));
+StartCoroutine(TimerDebug(&quot;3回目&quot;, 2));</code></pre>
+
+
+
+<h3><strong>uGUIイベント</strong></h3>
+
+
+
+<pre><code class="language-C#">// ボタンクリックを待機する
+await button.OnClickAsync();
+// スライダーの値変更を待機する
+await slider.OnValueChangedAsync();
+// インプットの編集終了を待機する
+await inputField.OnEndEditAsync();
+// トグルの変更を待機する
+await toggle.OnValueChangedAsync();</code></pre>
+
+
+
+<h3><strong>AsyncOperation</strong></h3>
+
+
+
+<pre><code class="language-C#">await SceneManager.LoadSceneAsync(&quot;HogeScene&quot;); //Sceneの非同期読み込みを待機する
+
+await Resources.LoadAsync&lt;AudioClip&gt;(&quot;SE/jump&quot;);
+
+await SceneManager.LoadSceneAsync(&quot;HogeScene&quot;) //Progressから進行状況が取れる
+                  .ConfigureAwait(Progress.Create&lt;float&gt;(n =&gt; {
+                      Debug.Log($&quot;現在{n * 100}%&quot;);
+                  }));</code></pre>
+
+
+
+<h3><strong>Unityイベント</strong></h3>
+
+
+
+<pre><code class="language-C#">// Awakeを待機
+await this.AwakeAsync();
+// Startを待機
+await this.StartAsync();
+// OnDestroyを待機
+await this.OnDestroyAsync();
+// OnCollisionEnterを待機
+await this.GetAsyncCollisionTrigger().OnCollisionEnterAsync();
+// OnEnableを待機
+await this.GetAsyncEnableDisableTrigger().OnEnableAsync();</code></pre>
+
+
+<hr>
+
+<h2>コルーチン, UniRxとの相互変換</h2>
+
+
+<h3><strong>UniTask → Coroutine</strong></h3>
+
+<p>ToCoroutineメソッド</p>
+
+
+<pre><code class="language-C#">IEnumerator TimerDebug(object obj,float time){
+    // UniTaskをコルーチンに変換して待機
+    yield return UniTask.Delay(TimeSpan.FromMilliseconds(time)).ToCoroutine();
+    Debug.Log(obj);
+}</code></pre>
+
+
+
+<h3><strong>Coroutine → UniTask</strong></h3>
+
+
+
+<pre><code class="language-C#">// コルーチンをUniTaskに変換して待機(この場合はToUniTaskは省略できる)
+await TimerDebug(&quot;１回目&quot;, 1).ToUniTask();</code></pre>
+
+
+
+<h3><strong>UniRx → UniTask</strong></h3>
+
+
+
+<pre><code class="language-C#">var subject = Observable.Timer(TimeSpan.FromSeconds(10)); // 10秒待つストリーム
+// IObservableをUniTaskに変換
+var task = subject.ToUniTask();</code></pre>
+
+
+<p>無限に続くIObserbavleからの変換に注意しましょう。一生完了しないUniTaskを作ってしまいます。</p>
+
+<h3><strong>UniTask → UniRx</strong></h3>
+
+
+
+<pre><code class="language-C#">var task = UniTask.Delay(1000);
+// UniTaskをIObservableに変換
+var subject = task.ToObservable();</code></pre>
+
+
+
+<h3><strong>※余談</strong></h3>
+
+<p><strong>IObservableもawait</strong>することができます。<br>これはUniTaskの機能ではないのですが紹介しておきます。</p>
+
+
+<pre><code class="language-C#">var timerSubject = Observable.Timer(TimeSpan.FromSeconds(1));
+await timerSubject;
+Debug.Log(&quot;時間経過した！&quot;);</code></pre>
+
+
+<p>しかし、これだとTaskでawaitしてしまうので、UniTaskでawaitする場合はToUniTaskメソッドを使ってawaitすると良いと思います。</p>
+
+
+<pre><code class="language-C#">await Observable.Timer(TimeSpan.FromSeconds(1)).ToUniTask();
+Debug.Log(&quot;時間経過した！&quot;);</code></pre>
+
+
+<hr>
+
+<h2>UniTaskTracker</h2>
+
+<p>これはUnityエディター上でawaitを可視化できる機能です。<br>どこのUniTaskがawaitしてるのかや、状態も確認等ができます。<br>リークしてないか確認するのに便利ですね。<br><img src="pic/4.png" alt="4">  </p>
+
+<h1>キャンセル</h1>
+
+<p>非同期処理は<strong>キャンセル</strong>のことを考えなければいけません。<br>なにかの理由でいらなくなったときにそれを捨てることをしないといけないのです。<br>それがまぁちょっとめんどくさいですが、大事なことなので紹介します。</p>
+<p>Taskでは<strong>CancellationToken</strong>を使ってキャンセルを通知します。<br>UniTaskでも同じものを使います。UniTaskだからと言ってそういうのも全部勝手にやってくれる！ってわけではありません。  </p>
+<p>作り方</p>
+
+
+<pre><code class="language-C#">CancellationTokenSource source = new CancellationTokenSource();
+CancellationToken token = source.Token;</code></pre>
+
+
+<p>はい。<br><strong>CancellationTokenSource</strong>から<strong>CancellationToken</strong>を取得します。<br>ちょっとめんどくさいですね。<br>そしてCancellationTokenSourceの<strong>Cancelメソッド</strong>によってキャンセルを通知することができます。  </p>
+
+
+<pre><code class="language-C#">source.Cancel(); // キャンセル状態にする</code></pre>
+
+
+
+
+<pre><code class="language-C#">if(token.IsCancellationRequested){ //キャンセルされているとtrueになる
+    Debug.Log(&quot;キャンセルされてる！&quot;);
+}
+// キャンセルされていたらOperationCanceledExceptionを投げるというのを1行で書ける
+token.ThrowIfCancellationRequested();</code></pre>
+
+
+<p>UniTaskのメソッドには大体CancellationTokenを指定できます。<br>なので、めんどくさがらずやってください。</p>
+
+
+<pre><code class="language-C#">// オーバーロードでCancellationTokenを指定できる
+await UniTask.Delay(1000, cancellationToken:token);
+await button.OnClickAsync(token);</code></pre>
+
+
+
+
+<pre><code class="language-C#">TimeCountAsync(token).Forget();
+
+async UniTaskVoid TimeCountAsync(CancellationToken token){
+    var count = 0;
+    while(true){
+        await UniTask.DelayFrame(60,cancellationToken:token);
+        Debug.Log(++count + &quot;秒&quot;);
+    }
+}</code></pre>
+
+
+
+<h2>UniTask.Run</h2>
+
+<p>UniTask.RunはCancellationTokenを指定できないのでラムダ式外のCancellationTokenをキャプチャする必要があります。</p>
+
+
+<pre><code class="language-C#">async UniTask SaveAsync(CancellationToken token){
+    await UniTask.Run(() =&gt; {
+        // キャンセル確認
+        token.ThrowIfCancellationRequested();
+
+        // 重い同期処理。
+        HeavyMethod();
+
+        // 終わった後もキャンセル確認
+        token.ThrowIfCancellationRequested();
+    });
+}
+
+await SaveAsync(&quot;Resources\data.json&quot;, token);</code></pre>
+
+
+
+<h2>GetCancellationTokenOnDestroy</h2>
+
+<p>MonoBehaviourを使う場合は<strong>GetCancellationTokenOnDestroy</strong>を使うといいかと思います。</p>
+
+
+<pre><code class="language-C#">var token = this.GetCancellationTokenOnDestroy();</code></pre>
+
+
+<p>CancellationTokenをGetCancellationTokenOnDestroy()により生成することで、<strong>GameObjectが削除されると自動でキャンセル状態</strong>にしてくれます。</p>
+<hr>
+<p>OperationCanceledExceptionを投げられたUniTaskはキャンセル状態になります。<br>エラーログには出ませんが、それを良いことに自分で投げるのはやめましょう。<br>CancellationTokenはメソッドにどんどん受け渡ししていくものです。<br>必ずCancelメソッド経由で伝播されたキャンセル要求を見るようにしましょう。</p>
+
+
+<pre><code class="language-C#">// ダメな例
+async UniTask&lt;float&gt; SaveAsync(string path,CancellationToken token){
+    return await UniTask.Run(() =&gt; {
+        // ファイルが存在しないなら例外を吐く
+        if(!File.Exists(path)) throw new OperationCanceledException();</code></pre>
+
+
+
+<h1>別の非同期との使い分け</h1>
+
+
+<h2>async/await</h2>
+
+<p>よっぽどの理由がない限りTaskではなくUniTaskを使う</p>
+
+<h2>UniTask VS Observable</h2>
+
+<p>イベントや<strong>結果が複数</strong>になるときにはObservableを使う<br>結果が1つのときはUniTaskを使う<br>Observableで書いてて、<strong>コールバック地獄</strong>になりそうなら手続き型で書けるUniTaskを使う<br>UniRxはイベントと非同期の役割がありますが、非同期はUniTask一本でも良さそうです。<br>処理にもよるけど使いやすい方を使いましょう！</p>
+
+<h2>UniTask VS コルーチン</h2>
+
+<p>UniTaskが使い慣れたらコルーチンはいらなくなります。<br>こっちも使いやすい方を選択しましょう。  </p>
+
+<h2><del>UniTask VS Invoke</del></h2>
+
+
+<h1>結局UniTaskを使うと何がいいの？</h1>
+
+<p>何度か言いますが、コルーチンやInvokeといった、他の非同期処理がいらなくなります。<br>StartCoroutineもInvokeもMonoBehaviourのメンバなため、MonoBehaviourでないと使えないという制約があります。<br>そういった制約もUniTaskならありません。<br>しかし、完全な上位互換とはいかず、結構キャンセルが面倒という問題もあります。<br>コルーチンはゲームオブジェクトがDestroyしたら勝手に消えてくれましたが、UniTaskはそうはいきません。<br>ですが、使いこなせば想像以上のパフォーマンスを見せてくれると思います。<br>めちゃくちゃ便利なのでとりあえず使ってみましょう！  </p>
+
+<h1>まとめ</h1>
+
+<p>UniTaskは<strong>TaskをUnity用に最適化</strong>、<strong>使いやすく</strong>なったつよつよライブラリ！  </p>
+<p><strong>キャンセル</strong>しっかりやる！</p>
+<p>UniTaskとasync/awaitでなんでもできるようになる！</p>
+
+<h1>おまけ(DOTweenをawaitできるようにしよう！)</h1>
+
+<p>おまけとして<a href="#%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AAAwaiter">いろいろなAwaiter</a>で紹介したことを踏まえて、DOTweenをawaitできるようにしようと思います。<br>DOTweenとは、名前の通りtween系ライブラリです。結構使いやすいです。<br><a href="https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676">AssetStore</a> から無料でダウンロードできます。</p>
+<p><strong>そもそもAwaitableってなにをもってしたらAwatableなの？</strong><br>Interfaceも実装しなくていいの？<br>↓<br>その通り<br>↓<br>ということは型で判断してるのではない？<br>↓<br>そういうこと<br>↓<br>じゃあどうやるの？  </p>
+<p>ということで説明します。</p>
+
+<h2>Awaiter と Awaitable</h2>
+
+
+<h3>Awaitableになる条件</h3>
+
+<ul>
+<li><strong>Awaiterを返すGetAwaiterという名前のメソッドを持つ</strong></li>
+</ul>
+
+
+<pre><code class="language-C#">// Awaitableオブジェクトの例
+public class HogeAwaitable{
+    public HogeAwaiter GetAwaiter(){
+        return new HogeAwaiter(this);
+    }
+}</code></pre>
+
+
+<p>これはインスタンスメソッドでも拡張メソッドでも大丈夫です。</p>
+
+<h3>Awaiterになる条件</h3>
+
+<ul>
+<li><strong>IsCompletedという名前のプロパティを持つ</strong></li>
+<li><strong>INotifyCompletionインターフェイスを実装する</strong></li>
+<li><strong>GetResultという名前のメソッドを持つ</strong></li>
+</ul>
+
+
+<pre><code class="language-C#">// Awaiterの例
+public struct HogeAwaiter : INotifyCompletion {
+
+    public void OnCompleted(Action continuation){} // INotifyCompletionで実装される
+    public bool IsCompleted{get;}
+    public void GetResult(){}
+}</code></pre>
+
+
+<ul>
+<li><strong>IsCompletedプロパティ</strong><br>タスクが完了していればtrueを返す</li>
+<li><strong>OnCompletedメソッド</strong><br>IsCompletedがfalseなら引数のデリゲートを継続登録する</li>
+<li><strong>GetResultメソッド</strong></li>
+<li>非同期処理の結果を返す。戻り値の型は何でも良く、ジェネリックやvoidで対応する。</li>
+</ul>
+<p>AwaiterがINotifyCompletionを実装する以外、「○○という名前の～～を持つ」という条件になってます。このように、型ではなく名前で処理を振り分けることをダックタイピングと言います。</p>
+
+<h2>実際にDOTweenを拡張してみる</h2>
+
+
+<h3><strong>準備</strong></h3>
+
+<ul>
+<li><strong>汎用的にするためにIAwaiterインターフェースを定義する。</strong></li>
+</ul>
+
+
+<pre><code class="language-C#">public interface IAwaiter : ICriticalNotifyCompletion{
+    bool IsCompleted{get;}
+    void GetResult();
+}</code></pre>
+
+
+<p>※補足<br>今回はGetResultの返り値はvoidですが、返り血が欲しい場合は以下のようにしましょう</p>
+
+
+<pre><code class="language-C#">public interface IAwaiter&lt;out T&gt; : IAwaiter{
+    new T GetResult();
+}</code></pre>
+
+
+<p>ちなみに両方ともUniTaskの実装とほぼ一緒です。</p>
+<hr>
+<p><strong>DOTweenAsyncExtentionクラスを定義する</strong></p>
+
+
+<pre><code class="language-C#">public static class DOTweenAsyncExtention{}</code></pre>
+
+
+
+<h3><strong>実装</strong></h3>
+
+<p>DOTweenAsyncExtentionクラスにメンバを追加します。</p>
+<p><strong>TweenAwaiter構造体</strong></p>
+
+
+<pre><code class="language-C#">struct TweenAwaiter : IAwaiter{
+    Tween tween;
+    public TweenAwaiter(Tween tween) =&gt; this.tween = tween;
+
+    public void OnCompleted(Action continuation){
+        UnsafeOnCompleted(continuation);
+    }
+
+    // ICriticalNotifyCompletionにより実装されたメソッド
+    // OnCompletedと同じような意味合い
+    // awaitが展開されるとコールバックが登録される
+    public void UnsafeOnCompleted(Action continuation){
+        tween.OnKill(() =&gt; {
+            continuation();
+        });
+    }
+    // tweenが終わったらtrue
+    public bool IsCompleted =&gt; tween.IsComplete();
+    public void GetResult(){}
+}</code></pre>
+
+
+<hr>
+<p><strong>GetAwaiterメソッド</strong></p>
+
+
+<pre><code class="language-C#">// Awaiterを返すGetAwaiter
+public static IAwaiter GetAwaiter(this Tween self){
+    return new TweenAwaiter(self);
+}</code></pre>
+
+
+<hr>
+<p>デモということでキャンセル対応はしてないですが許してください……  </p>
+<p>コードと実行結果はこんな感じです。</p>
+
+
+<pre><code class="language-C#">private async void Start(){
+    await transform.DOMove(new Vector3(-3, 3, 0), 1); // 動く
+    await transform.DOScale(new Vector3(0.5f, 2, 1), 2); // 大きさ変える
+    await transform.DORotate(new Vector3(180, 90, 0), 3); // 回る
+}</code></pre>
+
+
+<p><img src="pic/DoTweenAsyncDemo.gif" alt="DoTweenAsyncDemo.gif"></p>
+
+<h1>あとがき</h1>
+
+<p>記事を読んでくれてありがとうございました。<br>どうもこんにちは、3回生P班のすいまと申します。</p>
+<p>UniTaskの記事を書いてみましたが、どうでしたか？<br>興味を持ってくれたらとても嬉しいです。  </p>
+<p>この記事はほんっっっっとにごくごく一部の人しか読んでくれないんだろうなぁっていう前提で書いています。<br>そもそもUniTaskっていう名前も知らない、名前は知ってるけどどういうものか知らない、async/awaitって怖い。みたいな人たちに刺さるような内容になったと思います。<br>最初から何を言ってるのか何もわからない！っていう人は、後々UniTaskに興味を持ったりしたときに再び読んでじわじわと取得してくれたら幸いです。<br>紹介しきれなかった機能もありますので、これを機に調べてみてはいかがでしょうか。<br>私自身まだ習熟していなく、わからないこともいっぱいあります。ということで勉強がてら記事を書いてみました。<br>Twitter等での質問も遠慮なくお願いします。<br>間違っていることがあれば優しく教えてくれるとありがたいです。</p>
+
+<h2>謝辞</h2>
+
+<p>この記事を作成するにあたり、さまざまな記事を参考にさせていただきました。感謝します。<br><del>参考って言うかパクｒ</del></p>
+<p>UniTask入門(<a href="https://speakerdeck.com/torisoup/unitaskru-men">https://speakerdeck.com/torisoup/unitaskru-men</a>)<br>UniTask - Unityでasync/awaitを最高のパフォーマンスで実現するライブラリ(<a href="http://tech.cygames.co.jp/archives/3256/">http://tech.cygames.co.jp/archives/3256/</a>)<br>neue cc - UniTask - Unity + async/awaitの完全でハイパフォーマンスな統合(<a href="http://neue.cc/2018/07/12_567.html">http://neue.cc/2018/07/12_567.html</a>)<br>Observableで非同期処理(<a href="https://www.slideshare.net/torisoup/observable">https://www.slideshare.net/torisoup/observable</a>)<br>非同期メソッドの内部実装(<a href="https://ufcpp.net/study/csharp/sp5_awaitable.html">https://ufcpp.net/study/csharp/sp5_awaitable.html</a>)  </p>
+
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    footer();
+</script>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop">
+        <i class="icon-chevron-thin-up"></i>
+    </a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
