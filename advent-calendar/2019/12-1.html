@@ -339,7 +339,7 @@ async UniTaskVoid HogeUniTaskAsync(){ //UniTaskで動かす場合はこう
 <p>Task.Delayとほぼ同じ。<br>引数で指定した秒数分待機できます。<br>これは、後に紹介するものも同様に、時間やフレームで待機するメソッドは、引数にUnityの<strong>どのタイミングで計測するか</strong>(デフォルトはUpdate())を指定できます。便利。<br>ここがTaskと違うところですね。</p>
 
 
-<pre><code class="language-csharp line-numbers">// FixedUpdateのタイミングで10秒待つ
+<pre><code class="language-csharp line-numbers">// FixedUpdateのタイミングで1秒待つ
 await UniTask.Delay(1000, delayTiming : PlayerLoopTiming.FixedUpdate);</code></pre>
 
 
