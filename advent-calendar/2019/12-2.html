@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Unity + Rider で効率的な開発を！</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月2日「Unity + Rider で効率的な開発を！」 -すいま-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail_2.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <link rel="stylesheet" type="text/css" href="/plugins/prism/prism.css" media="all" />
+    <script type="text/javascript" src="/plugins/prism/prism.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail_2.png);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>Unity + Rider で効率的な開発を！</h2>
+                            <p>すいま</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+<h1>はじめに</h1>
+
+<p>みなさんUnityでRiderを使っていますか？<br>使ってないあなたも！既に使っているあなたも！これを読んで効率的な開発を！</p>
+
+<h2>書いた人</h2>
+
+<p>HN: すいま<br>所属班: プログラム班<br>回生: 3回生<br>Twitter: <a href="https://twitter.com/SuimezZZ">@SuimezZZ</a>  </p>
+
+<h1>目次</h1>
+
+<ul>
+<li><a href="#%E8%AA%B0%E5%90%91%E3%81%91%E8%A8%98%E4%BA%8B%E3%81%AA%E3%82%93%E3%81%A0%E3%81%93%E3%82%8C%E3%81%AF">誰向け記事なんだこれは</a></li>
+<li><a href="#Rider%E3%81%A8%E3%81%AF">Rider とは</a></li>
+<li><a href="#Rider%E3%81%AF%E4%BD%95%E3%81%8C%E5%87%84%E3%81%84%E3%81%AE%EF%BC%9F">Rider は何が凄いの？</a></li>
+<li><a href="#using-%E3%82%92%E8%87%AA%E5%8B%95%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B">using を自動で追加してくれる</a></li>
+<li><a href="#Adjust-Namespaces">Adjust Namespaces</a></li>
+<li><a href="#%E5%AE%9F%E8%A3%85%E3%81%AB%E9%A3%9B%E3%81%B6">実装に飛ぶ</a></li>
+<li><a href="#Search-Everywhere">Search Everywhere</a></li>
+<li><a href="#Find-Usages">Find Usages</a></li>
+<li><a href="#Find-Unity-Usages">Find Unity Usages</a></li>
+<li><a href="#SerializeField%E3%81%AE%E4%B8%AD%E8%BA%AB%E3%81%8C%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%82%8B">SerializeFieldの中身が表示される</a></li>
+<li><a href="#Code-Inspections">Code Inspections</a><ul>
+<li><a href="#Code-Inspections-%E3%81%A8%E3%81%AF">Code Inspections とは</a></li>
+<li><a href="#%E3%82%BF%E3%82%A4%E3%83%9D%E3%81%AE%E6%A4%9C%E5%87%BA">タイポの検出</a></li>
+<li><a href="#foreach-to-LINQ">foreach to LINQ</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%B3%E3%83%BC%E3%83%89%E8%A3%9C%E5%AE%8C">コード補完</a><ul>
+<li><a href="#private%E4%BF%AE%E9%A3%BE%E5%AD%90-&amp;-%E5%A4%89%E6%95%B0%E5%90%8D-%E3%81%AE%E8%A3%9C%E5%AE%8C">private修飾子 &amp; 変数名 の補完</a></li>
+<li><a href="#Unity-%E3%81%A7%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%9F%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E8%A3%9C%E5%AE%8C">Unityで設定した文字列の補完</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90">コード生成</a><ul>
+<li><a href="#%E3%82%B3%E3%83%B3%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%82%BF">コンストラクタ</a></li>
+<li><a href="#%E8%AA%AD%E3%81%BF%E5%8F%96%E3%82%8A%E5%B0%82%E7%94%A8%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3">読み取り専用プロパティ</a></li>
+<li><a href="#Unity%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%81%AE%E8%A3%9C%E5%AE%8C%E3%80%81%E7%94%9F%E6%88%90">Unityイベントの補完、生成</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%AA%E3%83%8D%E3%83%BC%E3%83%A0">リネーム</a></li>
+<li><a href="#%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E8%87%AA%E5%8B%95%E4%BF%9D%E5%AD%98">コードの自動保存</a></li>
+<li><a href="#LiveTemplate">LiveTemplate</a></li>
+<li><a href="#%E8%87%AA%E4%BD%9CLiveTemplate">自作LiveTemplate</a></li>
+<li><a href="#%E3%81%82%E3%81%A8%E3%81%8C%E3%81%8D">あとがき</a></li>
+</ul>
+
+<h1>誰向け記事なんだこれは</h1>
+
+<p>.NETで開発してる人向けです。  初心者でも熟練者でも読める内容だと思います。<br>今回はUnityに絡めていろいろ紹介していきます。</p>
+
+<h1>Riderとは</h1>
+
+<p>RiderはJetBrains社が開発する.NET向けのクロスプラットフォームIDEです。<br>同社が開発しているReSharperというVisualStudio向けアドオンに、IntelliJというプラットフォームを合わせたものになります。<br>WindowsだけでなくMacでもLinuxでも使えます。<br>ちなみに名前の由来は「ReSharper」+「IDE」→「R + IDE + r」でRiderです。  </p>
+<p>また、通常は使うのにお金がかかりますが、千葉工大の学生であれば無償で利用可能です。<br><a href="https://www.jetbrains.com/ja-jp/rider/">公式サイト</a>からダウンロードできます</p>
+
+<h1>Riderは何が凄いの？</h1>
+
+<p>とにかくIDE、ReSharperの支援が凄い！！！<br>これを使ったらもうVSには戻れない！！！<br>ということでこの記事ではRiderの機能のごくごく一部を紹介していきます。<br>この記事を読んだあなたはきっとRiderを即DLするくらい興味を持ってくれるはず……！<br>ちなみに私はVSを全然使っていないのでVSと被る機能を紹介することもありますが悪しからず。<br>また、ショートカットキーを多用しますが、環境によって異なる場合があるのでご了承ください。</p>
+
+<h1>using を自動で追加してくれる</h1>
+
+<p><img src="img/2-4.gif" alt="4">  </p>
+<p>画像の通りです。usingを追加しないと使えない型もらくらく使えます。<br>あのクラスってどの名前空間だっけ？ってことがなくなります。  </p>
+<hr>
+<p><img src="img/2-5.gif" alt="5"><br>既に書いてあるコードの型の補完にも使えます。どっかからコードをコピペしてきても、わざわざ名前空間を調べる必要はありません。<br> <strong>「Alt + Enter」</strong> で勝手にusingを追加してくれます。<br>「Alt + Enter」はこれ以外にも色んなとこで使えます！<strong>とりあえず押しとけばOK！！</strong></p>
+
+<h1>Adjust Namespaces</h1>
+
+<p><strong>Namespaceをフォルダ名から取って付けてくれる</strong> 機能です。<br>例えば、「Asset\Scrips」に以下のようなフォルダとC#ファイルが入っているとします。</p>
+
+
+<pre><code>Scripts
+│
+├── Enemy
+│   ├── Boss
+│   │   ├── BossBase.cs
+│   │   └── NormalBoss.cs
+│   ├── EnemyBase.cs
+│   └── NormalEnemy.cs
+│
+├── Player
+│   ├── PlayerJump.cs
+│   └── PlayerMove.cs
+│
+└── UI
+    ├── ResultUI.cs
+    ├── TimerUI.cs
+    └── Title
+        ├── Exit.cs
+        ├── Menu.cs
+        └── Setting.cs</code></pre>
+
+<p><img src="img/2-30.gif" alt="30"></p>
+<p><strong>「Refactor this...」</strong> → <strong>「Adjust Namespaces」</strong> でウィンドウが出てきます。<br>Nextボタンを押せば、チェックがついたcsファイルまとめて全部Namespaceを付けてくれます。</p>
+<hr>
+<p><img src="img/2-31.gif" alt="31"></p>
+<p>もちろん単独での追加も可能です。<br><strong>「Alt + Enter」</strong> で楽々。</p>
+
+<h1>実装に飛ぶ</h1>
+
+<p><img src="img/2-7.gif" alt="7">  </p>
+<p>これはメソッドの実装に飛ぶ例です。メソッドだけじゃなくクラスでもなんでもOK<br><strong>「Ctrl + 左クリック」</strong> または <strong>「Ctrl + B」</strong> でできます。  </p>
+
+<h1>Search Everywhere</h1>
+
+<p>なんでもかんでも検索してくれます。<br>クラス名やメソッド名やフィールドはもちろんファイル名や設定までなんでもかんでもです。<br>コードを書いてるときにあのクラスってどういう役割だっけ？とか、エクスプローラーからファイル探すのだるい、とか、あれのショートカットキーってなんだっけ？とか、いろいろ使えます。  </p>
+<p><img src="img/2-6.gif" alt="6">  </p>
+<p><strong>「Shift」を2回</strong>押すと検索フォームがでてきます。</p>
+
+<h1>Find Usages</h1>
+
+<p>メソッドやプロパティなどが、どこで使用されているかを調べることができます。  </p>
+<p><img src="img/2-22.gif" alt="22">  </p>
+<p><strong>「n usage」</strong> をクリックすると使われている一覧が表示されます。<br><strong>「Alt + F7」</strong> でもできます。</p>
+
+<h1>Find Unity Usages</h1>
+
+<p>コンポーネントがUnityのどこで使われているか調べることができます。  </p>
+<p><img src="img/2-23.gif" alt="23">  </p>
+<p><strong>「n asset usage」</strong> をクリックすると、そのクラスをアタッチしてるオブジェクトが一覧で表示されます。選ぶとUnityにフォーカスが移りハイライトしてくれて、さらに一覧のウィンドウも表示されます。</p>
+<hr>
+<p>メソッドも探すことができます。  </p>
+<p><img src="img/2-24.gif" alt="24">  </p>
+<p>ボタンのOnClickに使用されているメソッドを探してみました。<br>こっちも使い方は同じです。</p>
+
+<h1>SerializeFieldの中身が表示される</h1>
+
+<p><img src="img/2-12.png" alt="12"></p>
+<p>画像の通りです。<br>SerializeField属性のフィールドにUnityエディタ上から値を入力していると、それを表示してくれます。  </p>
+<p><img src="img/2-32.gif" alt="32"></p>
+<p>複数アタッチされている場合は、どのオブジェクトにフォーカスするかを選択できます。</p>
+
+<h1>Code Inspections</h1>
+
+
+<h2>Code Inspections とは</h2>
+
+<p>Code Inspectionsは <strong>コードの問題を検出してくれる機能</strong> のことです。<br>ランプのマークや下線で教えてくれます。</p>
+<p><img src="img/2-1.png" alt="1">  </p>
+<p>このコードはStart関数とUpdate関数それぞれでGetComponentを呼んだ時のスクショです。<br>初心者がやりがちなUpdateでGetComponentを呼ぶという大罪です。RiderはUpdateの時だけ線を引いて教えてくれます。これはコストのかかるメソッドだよ～～と。  </p>
+<p><img src="img/2-12.gif" alt="12">  </p>
+<p>これも <strong>「Alt + Enter」</strong> でバーンと直してくれます！  </p>
+<p>ビフォー  </p>
+
+
+<pre><code class="language-Csharp">public class Sample : MonoBehaviour{
+    private void Update(){
+        GetComponent&lt;Hoge&gt;();
+    }
+}</code></pre>
+
+
+<p>アフター  </p>
+
+
+<pre><code class="language-Csharp">public class Sample : MonoBehaviour{
+    private Hoge hoge;
+    private void Start(){
+        hoge = GetComponent&lt;Hoge&gt;();
+    }
+
+    private void Update(){}
+}</code></pre>
+
+
+<p>private変数を作ってStartでキャッシュするよう修正をかけてくれました。  </p>
+<hr>
+<p><img src="img/2-2.png" alt="2">  </p>
+<p>他にもこんな感じ。<br>タグを比較するときはCompareTagを使え、と教えてくれていますね。  </p>
+<p><img src="img/2-3.gif" alt="3">  </p>
+<p>そしてこれも <strong>「Alt + Enter」</strong> で「こう直せばいいんじゃない？」と教えてくれます。</p>
+
+<h2>タイポの検出</h2>
+
+<p><img src="img/2-3.png" alt="3">  </p>
+<p>変数名やクラス名はもちろん、文字列の中のタイポまで緑のにょろにょろで教えてくれます。</p>
+
+<h2>foreach to LINQ</h2>
+
+<p>冗長なforaechをLINQに変えてくれます。  </p>
+<p><img src="img/2-25.gif" alt="3">  </p>
+
+
+<pre><code class="language-Csharp">var array = new[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+// ビフォー
+var total = 0;
+foreach(var item in array){
+    total += item;
+}
+
+// アフター
+var total = array.Sum();</code></pre>
+
+
+<p><img src="img/2-26.gif" alt="3">  </p>
+
+
+<pre><code class="language-Csharp">var array = new[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+// ビフォー
+var total = 0;
+foreach(var item in array){
+    if(item % 2 == 0){
+        total += item * 2;
+    }
+}
+
+// アフター
+var total = array.Where(item =&gt; item % 2 == 0)
+                 .Sum(item =&gt; item * 2);</code></pre>
+
+
+
+<h1>コード補完</h1>
+
+<p><img src="img/2-8.gif" alt="8">  </p>
+<p>なにか打ったら何か候補を教えてくれます。良いですね～～  </p>
+
+<h2>private修飾子 &amp; 変数名 の補完</h2>
+
+<p><img src="img/2-9.gif" alt="9">  </p>
+<p>C#のクラスのメンバはデフォルトでprivateとして扱われます。それも勝手に補完してくれます。<br>そして、型名から変数名も考えてくれます。</p>
+
+<h2>Unity で設定した文字列の補完</h2>
+
+<p>Riderでは、タイポを防ぐためにこんな機能もついています  </p>
+<p><img src="img/2-9.png" alt="9">  </p>
+<p>これは、InputManagerに登録されているキーを候補に出してくれます。<br>これでもう間違えようもないですね。  </p>
+<p><img src="img/2-8.png" alt="8"><br>もし存在しないキーを入力してしまっても、ないよ～～～って教えてくれます。  </p>
+<p><img src="img/2-10.png" alt="10">  </p>
+<p><img src="img/2-11.png" alt="11">  </p>
+<p>タグ、レイヤー、シーン名、のときも同じです。</p>
+
+<h1>コード生成</h1>
+
+<p><strong>「Alt + Insert」</strong> でコード生成をすることができます。</p>
+
+<h2>コンストラクタ</h2>
+
+<p><img src="img/2-10.gif" alt="10">  </p>
+
+<h2>読み取り専用プロパティ</h2>
+
+<p><img src="img/2-11.gif" alt="11"><br>これは、既に宣言しているフィールドを参照するプロパティを自動で宣言してくれます。</p>
+
+<h2>Unityイベントの補完、生成</h2>
+
+<p><img src="img/2-13.gif" alt="13">  </p>
+<p>途中まで打てば、シグネチャを含めイベント関数を補完してくれます。<br>イベント関数を使うときは返り値なんて気にしないでしょう。関数名だけ知っていればいいのです。<br><img src="img/2-14.gif" alt="14">  </p>
+<p>こっちは、イベント関数一覧からチェックボックスでポチポチしてくと生成してくれます。</p>
+<p>他にもいろいろなものを補完、生成できます。</p>
+
+<h1>リネーム</h1>
+
+<p><img src="img/2-27.gif" alt="27">  </p>
+<p>変数名や関数名はもちろん、クラス名やファイル名などを簡単にリネームできます。リネーム機能を使うと、他の行やファイルでも一括で変えてくれます。<br><strong>「F2」</strong> を押すとウィンドウが出るので入力して終わり。簡単！</p>
+<p>また、文字列やコメントも含めて変換することもできます。  </p>
+<p><img src="img/2-28.gif" alt="28">  </p>
+<p>リネームのときに「Search in comments and string literals」にチェックを入れるだけです。  </p>
+<p><img src="img/2-29.gif" alt="29">  </p>
+<p>また、バッキングフィールドは参照元も一緒に変えてくれます。この例では、プロパティ名を自動でアッパーキャメルにしてくれました。</p>
+
+<h1>コードの自動保存</h1>
+
+<p>Riderはデフォルトだと「Ctrl + S」でいちいち保存をかける必要がありません！！！自動で保存してくれます。ありがたや……  </p>
+
+<h1>LiveTemplate</h1>
+
+<p>めちゃくちゃ強力です。<br>LiveTemplateは、ある単語を入力するとコードに自動変換してくれる機能です。<br>Riderにはデフォルトでも沢山のLiveTemplateが用意されています。<br>foreachやwhileといった基本的なものから、コルーチンやSerializeField属性フィールドを生成したりなど、めちゃくちゃ便利な機能です。<br>既存のLiveTemplateは公式サイトやGithubで公開されていますが、使い方なども含め、個人的によく使うやつをいくつか紹介します。</p>
+
+<h2>cor</h2>
+
+<p>IEnumeratorを返り値とするメソッドを作ってくれます  </p>
+<p><img src="img/2-15.gif" alt="15">  </p>
+
+<h2>sfield</h2>
+
+<p>Serializefield属性のフィールドを作ってくれます  </p>
+<p><img src="img/2-16.gif" alt="16">  </p>
+
+<h2>reqcomp</h2>
+
+<p>RequireComponentを付与するやつです  </p>
+<p><img src="img/2-17.gif" alt="17">  </p>
+
+<h2>log</h2>
+
+<p><img src="img/2-18.gif" alt="18">  </p>
+<p>とりあえずこんな感じです！すごいでしょう？？？？</p>
+
+<h1>自作LiveTemplate</h1>
+
+<p>とても便利なLiveTemplate<br>実は、自作できちゃうんです！！</p>
+<p>デフォルトに「sprop」というLiveTemplateがあります。SerializeField属性をつけたprivateなフィールドをバッキングフィールドとして持つプロパティを作ることができます。  </p>
+<p><img src="img/2-19.gif" alt="19">  </p>
+
+
+<pre><code class="language-Csharp">[SerializeField] private int hoge;
+
+public int Hoge{
+    get{return this.hoge;}
+}</code></pre>
+
+
+<p>こんなのができるわけですが、でもこれって今風の書き方じゃないですよね。<br>C#6.0からは以下のような書き方ができます。</p>
+
+
+<pre><code class="language-Csharp">[SerializeField] private int hoge;
+
+public int Hoge =&gt; hoge</code></pre>
+
+
+<p>いつも書いてるのはこっちじゃん！ということでLiveTemplateを作っちゃいましょう。</p>
+
+<h2>1. LiveTemplateの編集画面を開く</h2>
+
+<p>「File」→「Setting」→「Editor」→「LiveTemplate」で編集画面を開きます。  </p>
+<p><img src="img/2-4.png" alt="4">  </p>
+
+<h2>2. 編集する</h2>
+
+<p><img src="img/2-5.png" alt="5">  </p>
+<p>編集画面の右上にある「New Template」をクリックすると新しいLiveTemplateが作れるようになります。  </p>
+<p><img src="img/2-6.png" alt="6">  </p>
+<p>そしてspropから適当にパクってきて補完内容とショートカット名を書く！！<br>readonly propertyということで「rprop」で設定してみました。</p>
+
+
+<pre><code class="language-Csharp">[UnityEngine.SerializeField] private $type$ $fieldName$;
+
+public $type$ $propertyName$ =&gt; $fieldName$; $END$</code></pre>
+
+
+<p><img src="img/2-7.png" alt="7">  </p>
+<p>最後にAvailabilityをメンバに制限する設定にしたら完成！！めっちゃ楽！！！</p>
+
+<h2>使ってみる</h2>
+
+<p><img src="img/2-20.gif" alt="20">  </p>
+<p>めっちゃ良いですね！！！！！！！！最高！！！！！！！！！</p>
+
+<h2>おまけ</h2>
+
+<p>ついでにUniRx御用達のこの文句もやってみました。  </p>
+<p><img src="img/2-21.gif" alt="21">  </p>
+
+
+<pre><code class="language-Csharp">private readonly Subject&lt;$type$&gt; $fieldName$ = new Subject&lt;$type$&gt;();
+public IObservable&lt;$type$&gt; $propertyName$ =&gt; $fieldName$;$END$</code></pre>
+
+
+<p>めっちゃ良いですね………。<br>$で囲まれているのはLiveTemplate変数ですが、マクロを設定することができます。この例ではtype変数のデフォルトをUnitにしてみました。<br>そして、propertyNameはfieldNameのアッパーキャメルに設定しフォーカスをスキップする設定にしました。とても快適です。</p>
+
+<h1>あとがき</h1>
+
+<p>昨日の記事に引き続き、読んでくださりありがとうございます。3回生P班のすいまです。<br>Riderの記事はいかかでしたでしょうか？使う気になってくれましたか？！？？！<br>昨日の記事よりは大分マイルドな内容になったと思います。  </p>
+<p>Riderは初心者から熟練者まで誰でも使えるツールです！是非愛用してください！！</p>
+<p>今回いろいろ紹介しましたが、Riderの機能はこんなもんではありません。まだまだ沢山の機能が盛りだくさんです。  </p>
+<p>ということで2日間に渡りお付き合いありがとうございました！<br>明日は Len Dilemma くんの『みんなもやろう！早押しクイズ』です！お楽しみに！</p>
+
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    footer();
+</script>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop">
+        <i class="icon-chevron-thin-up"></i>
+    </a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
