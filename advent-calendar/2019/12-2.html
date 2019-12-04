@@ -13,7 +13,7 @@
     <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
     <meta property="og:title" content="ソフメアドベントカレンダー12月2日「Unity + Rider で効率的な開発を！」 -すいま-"/>
     <meta property="og:description" content="SoftMedia Official Site | CIT"/>
-    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail_2.png"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_2.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
@@ -37,7 +37,7 @@
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(img/thumbnail_2.png);" class="overlay2">
+        <li style="background-image: url(img/thumbnail/thumbnail_2.png);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -116,10 +116,10 @@
 
 <h1>using を自動で追加してくれる</h1>
 
-<p><img src="img/2-4.gif" alt="4">  </p>
+<p><img src="img/2/2-4.gif" alt="4">  </p>
 <p>画像の通りです。usingを追加しないと使えない型もらくらく使えます。<br>あのクラスってどの名前空間だっけ？ってことがなくなります。  </p>
 <hr>
-<p><img src="img/2-5.gif" alt="5"><br>既に書いてあるコードの型の補完にも使えます。どっかからコードをコピペしてきても、わざわざ名前空間を調べる必要はありません。<br> <strong>「Alt + Enter」</strong> で勝手にusingを追加してくれます。<br>「Alt + Enter」はこれ以外にも色んなとこで使えます！<strong>とりあえず押しとけばOK！！</strong></p>
+<p><img src="img/2/2-5.gif" alt="5"><br>既に書いてあるコードの型の補完にも使えます。どっかからコードをコピペしてきても、わざわざ名前空間を調べる必要はありません。<br> <strong>「Alt + Enter」</strong> で勝手にusingを追加してくれます。<br>「Alt + Enter」はこれ以外にも色んなとこで使えます！<strong>とりあえず押しとけばOK！！</strong></p>
 
 <h1>Adjust Namespaces</h1>
 
@@ -147,44 +147,44 @@
         ├── Menu.cs
         └── Setting.cs</code></pre>
 
-<p><img src="img/2-30.gif" alt="30"></p>
+<p><img src="img/2/2-30.gif" alt="30"></p>
 <p><strong>「Refactor this...」</strong> → <strong>「Adjust Namespaces」</strong> でウィンドウが出てきます。<br>Nextボタンを押せば、チェックがついたcsファイルまとめて全部Namespaceを付けてくれます。</p>
 <hr>
-<p><img src="img/2-31.gif" alt="31"></p>
+<p><img src="img/2/2-31.gif" alt="31"></p>
 <p>もちろん単独での追加も可能です。<br><strong>「Alt + Enter」</strong> で楽々。</p>
 
 <h1>実装に飛ぶ</h1>
 
-<p><img src="img/2-7.gif" alt="7">  </p>
+<p><img src="img/2/2-7.gif" alt="7">  </p>
 <p>これはメソッドの実装に飛ぶ例です。メソッドだけじゃなくクラスでもなんでもOK<br><strong>「Ctrl + 左クリック」</strong> または <strong>「Ctrl + B」</strong> でできます。  </p>
 
 <h1>Search Everywhere</h1>
 
 <p>なんでもかんでも検索してくれます。<br>クラス名やメソッド名やフィールドはもちろんファイル名や設定までなんでもかんでもです。<br>コードを書いてるときにあのクラスってどういう役割だっけ？とか、エクスプローラーからファイル探すのだるい、とか、あれのショートカットキーってなんだっけ？とか、いろいろ使えます。  </p>
-<p><img src="img/2-6.gif" alt="6">  </p>
+<p><img src="img/2/2-6.gif" alt="6">  </p>
 <p><strong>「Shift」を2回</strong>押すと検索フォームがでてきます。</p>
 
 <h1>Find Usages</h1>
 
 <p>メソッドやプロパティなどが、どこで使用されているかを調べることができます。  </p>
-<p><img src="img/2-22.gif" alt="22">  </p>
+<p><img src="img/2/2-22.gif" alt="22">  </p>
 <p><strong>「n usage」</strong> をクリックすると使われている一覧が表示されます。<br><strong>「Alt + F7」</strong> でもできます。</p>
 
 <h1>Find Unity Usages</h1>
 
 <p>コンポーネントがUnityのどこで使われているか調べることができます。  </p>
-<p><img src="img/2-23.gif" alt="23">  </p>
+<p><img src="img/2/2-23.gif" alt="23">  </p>
 <p><strong>「n asset usage」</strong> をクリックすると、そのクラスをアタッチしてるオブジェクトが一覧で表示されます。選ぶとUnityにフォーカスが移りハイライトしてくれて、さらに一覧のウィンドウも表示されます。</p>
 <hr>
 <p>メソッドも探すことができます。  </p>
-<p><img src="img/2-24.gif" alt="24">  </p>
+<p><img src="img/2/2-24.gif" alt="24">  </p>
 <p>ボタンのOnClickに使用されているメソッドを探してみました。<br>こっちも使い方は同じです。</p>
 
 <h1>SerializeFieldの中身が表示される</h1>
 
-<p><img src="img/2-12.png" alt="12"></p>
+<p><img src="img/2/2-12.png" alt="12"></p>
 <p>画像の通りです。<br>SerializeField属性のフィールドにUnityエディタ上から値を入力していると、それを表示してくれます。  </p>
-<p><img src="img/2-32.gif" alt="32"></p>
+<p><img src="img/2/2-32.gif" alt="32"></p>
 <p>複数アタッチされている場合は、どのオブジェクトにフォーカスするかを選択できます。</p>
 
 <h1>Code Inspections</h1>
@@ -193,9 +193,9 @@
 <h2>Code Inspections とは</h2>
 
 <p>Code Inspectionsは <strong>コードの問題を検出してくれる機能</strong> のことです。<br>ランプのマークや下線で教えてくれます。</p>
-<p><img src="img/2-1.png" alt="1">  </p>
+<p><img src="img/2/2-1.png" alt="1">  </p>
 <p>このコードはStart関数とUpdate関数それぞれでGetComponentを呼んだ時のスクショです。<br>初心者がやりがちなUpdateでGetComponentを呼ぶという大罪です。RiderはUpdateの時だけ線を引いて教えてくれます。これはコストのかかるメソッドだよ～～と。  </p>
-<p><img src="img/2-12.gif" alt="12">  </p>
+<p><img src="img/2/2-12.gif" alt="12">  </p>
 <p>これも <strong>「Alt + Enter」</strong> でバーンと直してくれます！  </p>
 <p>ビフォー  </p>
 
@@ -222,20 +222,20 @@
 
 <p>private変数を作ってStartでキャッシュするよう修正をかけてくれました。  </p>
 <hr>
-<p><img src="img/2-2.png" alt="2">  </p>
+<p><img src="img/2/2-2.png" alt="2">  </p>
 <p>他にもこんな感じ。<br>タグを比較するときはCompareTagを使え、と教えてくれていますね。  </p>
-<p><img src="img/2-3.gif" alt="3">  </p>
+<p><img src="img/2/2-3.gif" alt="3">  </p>
 <p>そしてこれも <strong>「Alt + Enter」</strong> で「こう直せばいいんじゃない？」と教えてくれます。</p>
 
 <h2>タイポの検出</h2>
 
-<p><img src="img/2-3.png" alt="3">  </p>
+<p><img src="img/2/2-3.png" alt="3">  </p>
 <p>変数名やクラス名はもちろん、文字列の中のタイポまで緑のにょろにょろで教えてくれます。</p>
 
 <h2>foreach to LINQ</h2>
 
 <p>冗長なforaechをLINQに変えてくれます。  </p>
-<p><img src="img/2-25.gif" alt="3">  </p>
+<p><img src="img/2/2-25.gif" alt="3">  </p>
 
 
 <pre><code class="language-Csharp">var array = new[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -250,7 +250,7 @@ foreach(var item in array){
 var total = array.Sum();</code></pre>
 
 
-<p><img src="img/2-26.gif" alt="3">  </p>
+<p><img src="img/2/2-26.gif" alt="3">  </p>
 
 
 <pre><code class="language-Csharp">var array = new[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -271,22 +271,22 @@ var total = array.Where(item =&gt; item % 2 == 0)
 
 <h1>コード補完</h1>
 
-<p><img src="img/2-8.gif" alt="8">  </p>
+<p><img src="img/2/2-8.gif" alt="8">  </p>
 <p>なにか打ったら何か候補を教えてくれます。良いですね～～  </p>
 
 <h2>private修飾子 &amp; 変数名 の補完</h2>
 
-<p><img src="img/2-9.gif" alt="9">  </p>
+<p><img src="img/2/2-9.gif" alt="9">  </p>
 <p>C#のクラスのメンバはデフォルトでprivateとして扱われます。それも勝手に補完してくれます。<br>そして、型名から変数名も考えてくれます。</p>
 
 <h2>Unity で設定した文字列の補完</h2>
 
 <p>Riderでは、タイポを防ぐためにこんな機能もついています  </p>
-<p><img src="img/2-9.png" alt="9">  </p>
+<p><img src="img/2/2-9.png" alt="9">  </p>
 <p>これは、InputManagerに登録されているキーを候補に出してくれます。<br>これでもう間違えようもないですね。  </p>
-<p><img src="img/2-8.png" alt="8"><br>もし存在しないキーを入力してしまっても、ないよ～～～って教えてくれます。  </p>
-<p><img src="img/2-10.png" alt="10">  </p>
-<p><img src="img/2-11.png" alt="11">  </p>
+<p><img src="img/2/2-8.png" alt="8"><br>もし存在しないキーを入力してしまっても、ないよ～～～って教えてくれます。  </p>
+<p><img src="img/2/2-10.png" alt="10">  </p>
+<p><img src="img/2/2-11.png" alt="11">  </p>
 <p>タグ、レイヤー、シーン名、のときも同じです。</p>
 
 <h1>コード生成</h1>
@@ -295,27 +295,27 @@ var total = array.Where(item =&gt; item % 2 == 0)
 
 <h2>コンストラクタ</h2>
 
-<p><img src="img/2-10.gif" alt="10">  </p>
+<p><img src="img/2/2-10.gif" alt="10">  </p>
 
 <h2>読み取り専用プロパティ</h2>
 
-<p><img src="img/2-11.gif" alt="11"><br>これは、既に宣言しているフィールドを参照するプロパティを自動で宣言してくれます。</p>
+<p><img src="img/2/2-11.gif" alt="11"><br>これは、既に宣言しているフィールドを参照するプロパティを自動で宣言してくれます。</p>
 
 <h2>Unityイベントの補完、生成</h2>
 
-<p><img src="img/2-13.gif" alt="13">  </p>
-<p>途中まで打てば、シグネチャを含めイベント関数を補完してくれます。<br>イベント関数を使うときは返り値なんて気にしないでしょう。関数名だけ知っていればいいのです。<br><img src="img/2-14.gif" alt="14">  </p>
+<p><img src="img/2/2-13.gif" alt="13">  </p>
+<p>途中まで打てば、シグネチャを含めイベント関数を補完してくれます。<br>イベント関数を使うときは返り値なんて気にしないでしょう。関数名だけ知っていればいいのです。<br><img src="img/2/2-14.gif" alt="14">  </p>
 <p>こっちは、イベント関数一覧からチェックボックスでポチポチしてくと生成してくれます。</p>
 <p>他にもいろいろなものを補完、生成できます。</p>
 
 <h1>リネーム</h1>
 
-<p><img src="img/2-27.gif" alt="27">  </p>
+<p><img src="img/2/2-27.gif" alt="27">  </p>
 <p>変数名や関数名はもちろん、クラス名やファイル名などを簡単にリネームできます。リネーム機能を使うと、他の行やファイルでも一括で変えてくれます。<br><strong>「F2」</strong> を押すとウィンドウが出るので入力して終わり。簡単！</p>
 <p>また、文字列やコメントも含めて変換することもできます。  </p>
-<p><img src="img/2-28.gif" alt="28">  </p>
+<p><img src="img/2/2-28.gif" alt="28">  </p>
 <p>リネームのときに「Search in comments and string literals」にチェックを入れるだけです。  </p>
-<p><img src="img/2-29.gif" alt="29">  </p>
+<p><img src="img/2/2-29.gif" alt="29">  </p>
 <p>また、バッキングフィールドは参照元も一緒に変えてくれます。この例では、プロパティ名を自動でアッパーキャメルにしてくれました。</p>
 
 <h1>コードの自動保存</h1>
@@ -329,28 +329,28 @@ var total = array.Where(item =&gt; item % 2 == 0)
 <h2>cor</h2>
 
 <p>IEnumeratorを返り値とするメソッドを作ってくれます  </p>
-<p><img src="img/2-15.gif" alt="15">  </p>
+<p><img src="img/2/2-15.gif" alt="15">  </p>
 
 <h2>sfield</h2>
 
 <p>Serializefield属性のフィールドを作ってくれます  </p>
-<p><img src="img/2-16.gif" alt="16">  </p>
+<p><img src="img/2/2-16.gif" alt="16">  </p>
 
 <h2>reqcomp</h2>
 
 <p>RequireComponentを付与するやつです  </p>
-<p><img src="img/2-17.gif" alt="17">  </p>
+<p><img src="img/2/2-17.gif" alt="17">  </p>
 
 <h2>log</h2>
 
-<p><img src="img/2-18.gif" alt="18">  </p>
+<p><img src="img/2/2-18.gif" alt="18">  </p>
 <p>とりあえずこんな感じです！すごいでしょう？？？？</p>
 
 <h1>自作LiveTemplate</h1>
 
 <p>とても便利なLiveTemplate<br>実は、自作できちゃうんです！！</p>
 <p>デフォルトに「sprop」というLiveTemplateがあります。SerializeField属性をつけたprivateなフィールドをバッキングフィールドとして持つプロパティを作ることができます。  </p>
-<p><img src="img/2-19.gif" alt="19">  </p>
+<p><img src="img/2/2-19.gif" alt="19">  </p>
 
 
 <pre><code class="language-Csharp">[SerializeField] private int hoge;
@@ -373,13 +373,13 @@ public int Hoge =&gt; hoge</code></pre>
 <h2>1. LiveTemplateの編集画面を開く</h2>
 
 <p>「File」→「Setting」→「Editor」→「LiveTemplate」で編集画面を開きます。  </p>
-<p><img src="img/2-4.png" alt="4">  </p>
+<p><img src="img/2/2-4.png" alt="4">  </p>
 
 <h2>2. 編集する</h2>
 
-<p><img src="img/2-5.png" alt="5">  </p>
+<p><img src="img/2/2-5.png" alt="5">  </p>
 <p>編集画面の右上にある「New Template」をクリックすると新しいLiveTemplateが作れるようになります。  </p>
-<p><img src="img/2-6.png" alt="6">  </p>
+<p><img src="img/2/2-6.png" alt="6">  </p>
 <p>そしてspropから適当にパクってきて補完内容とショートカット名を書く！！<br>readonly propertyということで「rprop」で設定してみました。</p>
 
 
@@ -388,18 +388,18 @@ public int Hoge =&gt; hoge</code></pre>
 public $type$ $propertyName$ =&gt; $fieldName$; $END$</code></pre>
 
 
-<p><img src="img/2-7.png" alt="7">  </p>
+<p><img src="img/2/2-7.png" alt="7">  </p>
 <p>最後にAvailabilityをメンバに制限する設定にしたら完成！！めっちゃ楽！！！</p>
 
 <h2>使ってみる</h2>
 
-<p><img src="img/2-20.gif" alt="20">  </p>
+<p><img src="img/2/2-20.gif" alt="20">  </p>
 <p>めっちゃ良いですね！！！！！！！！最高！！！！！！！！！</p>
 
 <h2>おまけ</h2>
 
 <p>ついでにUniRx御用達のこの文句もやってみました。  </p>
-<p><img src="img/2-21.gif" alt="21">  </p>
+<p><img src="img/2/2-21.gif" alt="21">  </p>
 
 
 <pre><code class="language-Csharp">private readonly Subject&lt;$type$&gt; $fieldName$ = new Subject&lt;$type$&gt;();

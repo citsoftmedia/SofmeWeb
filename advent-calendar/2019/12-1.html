@@ -13,7 +13,7 @@
     <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
     <meta property="og:title" content="ソフメアドベントカレンダー12月1日「UniTaskでレッツ非同期！」 -すいま-"/>
     <meta property="og:description" content="SoftMedia Official Site | CIT"/>
-    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail_1.jpg"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_1.jpg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
@@ -37,7 +37,7 @@
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(img/thumbnail_1.jpg);" class="overlay2">
+        <li style="background-image: url(img/thumbnail/thumbnail_1.jpg);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -158,7 +158,7 @@ IEnumerator TimerDebug(object obj,float time){
 }</code></pre>
 
 
-<p>よくあるコルーチンのコードですね。では出力結果はどうなるでしょうか？<br><img src="img/1-1.png" alt="1"></p>
+<p>よくあるコルーチンのコードですね。では出力結果はどうなるでしょうか？<br><img src="img/1/1-1.png" alt="1"></p>
 <p>あれ？プログラムの順番は「はじまり～」→「こるーちん！」→「おわり～」なのに、順番が変わりました。<br>この例では</p>
 
 
@@ -295,7 +295,7 @@ private async UniTask HogeAsync(){
 }</code></pre>
 
 
-<p><img src="img/1-2.png" alt="2">  </p>
+<p><img src="img/1/1-2.png" alt="2">  </p>
 <p>ちゃんと1秒待ってからメインに戻ってきてくれました。<br>これが非同期を待つって感じです。便利ですね。</p>
 <p>ジェネリックでも同じです。</p>
 
@@ -462,7 +462,7 @@ Debug.Log(&quot;どれかが完了！&quot;);</code></pre>
 
 
 <p>そして、どのUniTaskが完了したのかを、インデックスで取得することができます。</p>
-<p><img src="img/1-5.PNG" alt="5"><br>winArgumentIndexが完了したUniTaskのインデックスです。</p>
+<p><img src="img/1/1-5.PNG" alt="5"><br>winArgumentIndexが完了したUniTaskのインデックスです。</p>
 <p>さらに、型引数が全て一致しているなら、どのUniTaskが完了したのかをオブジェクトで直接取得できます。</p>
 
 
@@ -539,7 +539,7 @@ async UniTask HogeAsyncMethod(){ //これは非同期メソッド
 
 
 <p>じゃあawaitって何を元に待機してるの？<br>その答えが<strong>Awaiter</strong>です。<br>あるオブジェクトにGetAwaiterメソッドが実装されていて、そこからAwaiterが取得できればコンパイラはawaitできると判断します。<br>ちなみに<strong>拡張メソッドでも可</strong>です。すなわち、既存のクラスを自分で拡張してawaitできるようにできるってわけです。<br><a href="#id_19">おまけ(DOTweenをawaitできるようにしよう！)</a> で解説しています。  </p>
-<p>プログラム中のawaitの実装に飛ぼうとすると、どのようにawaitされているかを見ることができます。<br><img src="img/1-3.png" alt="3"></p>
+<p>プログラム中のawaitの実装に飛ぼうとすると、どのようにawaitされているかを見ることができます。<br><img src="img/1/1-3.png" alt="3"></p>
 <p>UniTaskには、この機能を利用してUnity機能の様々なAwaiterが用意されています。</p>
 
 <h3><strong>コルーチン</strong></h3>
@@ -681,7 +681,7 @@ Debug.Log(&quot;時間経過した！&quot;);</code></pre>
 
 <h2 id="id_14">UniTaskTracker</h2>
 
-<p>これはUnityエディター上でawaitを可視化できる機能です。<br>どこのUniTaskがawaitしてるのかや、状態等も確認ができます。<br>リークしてないか確認するのに便利ですね。<br><img src="img/1-4.png" alt="4">  </p>
+<p>これはUnityエディター上でawaitを可視化できる機能です。<br>どこのUniTaskがawaitしてるのかや、状態等も確認ができます。<br>リークしてないか確認するのに便利ですね。<br><img src="img/1/1-4.png" alt="4">  </p>
 
 <h1 id="id_15">キャンセル</h1>
 
@@ -935,7 +935,7 @@ public static IAwaiter GetAwaiter(this Tween self){
 }</code></pre>
 
 
-<p><img src="img/DoTweenAsyncDemo.gif" alt="DoTweenAsyncDemo.gif"></p>
+<p><img src="img/1/DoTweenAsyncDemo.gif" alt="1/DoTweenAsyncDemo.gif"></p>
 
 <h1 id="id_20">あとがき</h1>
 

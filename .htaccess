@@ -10,3 +10,9 @@ Options -Indexes
 
 #Redirect
 Redirect permanent /project/dtm/m3/ http://softmedia.sakura.ne.jp/dtm/dtm-m3.html
+
+#video/audio
+AddType video/ogg .ogg .ogv
+AddType video/mp4 .mp4
+AddType audio/ogg .ogg
+AddType application/ogg .ogg .ogv
