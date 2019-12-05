@@ -247,3 +247,24 @@ p.index {
 img {
   max-width: 100%;
 }
+
+table.calendar {
+  margin: 40px 0;
+}
+
+table.calendar th {
+  width:14.28%;
+  text-align: center;
+  padding: 10px 0;
+}
+
+@media screen and (max-width: 640px) {
+  table.calendar th {
+    font-size: 10px;
+  }
+}
+
+table.calendar td {
+  width:14.28%;
+  padding: 0;
+}
