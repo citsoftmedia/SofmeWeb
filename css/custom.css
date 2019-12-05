@@ -540,11 +540,7 @@ a.multi-linkColor:hover {
 }
 
 
-/* pタグ */
-
-p {
-    margin-right: 20px;
-}
+/* リンクの色付け */
 
 a {
     color: rgb(14, 124, 73);
@@ -553,6 +549,6 @@ a {
 
 a:hover {
     text-decoration: underline;
-    color: rgb(85, 197, 21);
+    color: rgb(41, 167, 79);
 }
 

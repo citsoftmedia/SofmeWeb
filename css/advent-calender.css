@@ -28,13 +28,13 @@ table thead th {
 }
 
 @media screen and (max-width: 640px) {
-  table thead th {
+  table.index thead th {
     display: none;
   }
 }
 
 table .date {
-  width: 8%;
+  width: 65px;
   font-weight: 600;
 }
 
@@ -79,7 +79,8 @@ table .title a:focus {
 }
 
 table .icon {
-  width: 5%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @media screen and (max-width: 640px) {
@@ -94,7 +95,7 @@ table tr td {
 }
 
 @media screen and (max-width: 640px) {
-  table tr td {
+  table.index tr td {
     padding-top: 10px;
     padding-bottom: 10px;
   }
@@ -133,7 +134,7 @@ table tbody .author {
   }
 }
 
-table tbody tr td {
+table.index tbody tr td {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   margin: 30px 30px;
   max-width: 640px;
@@ -141,7 +142,7 @@ table tbody tr td {
 }
 
 @media screen and (max-width: 640px) {
-  table tbody tr td {
+  table.index tbody tr td {
     border: none;
     margin: 5px 10px;
     display: block;
@@ -260,11 +261,74 @@ table.calendar th {
 
 @media screen and (max-width: 640px) {
   table.calendar th {
-    font-size: 10px;
+    font-size: 15px;
   }
+}
+
+@media screen and (max-width: 640px) {
+  table.calendar p {
+    font-size: 14px;
+  }
+}
+
+table.calendar td {
+  vertical-align: top;
 }
 
 table.calendar td {
   width:14.28%;
   padding: 0;
+}
+
+p.calendar-day {
+  margin: 0;
+  vertical-align: top;
+  padding-left: 6px;
+  padding-top: 8px;
+}
+
+p.calendar-auther {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 640px) {
+  table.calendar p.calendar-auther {
+    font-size: 8px;
+  }
+}
+
+table.calendar p.work-title {
+  text-align: center;
+  font-size: 15px;
+  margin: 0;
+  padding-top: 6px
+}
+
+.icon_wrapper {
+  width: 60%;
+  height: 100%;
+  margin: auto;
+  font-size: 0;
+}
+
+img.calendar-icon {
+  border-radius: 50%;
+  transition-duration: 0.5s;
+  overflow: hidden;
+}
+
+div.calendar-info:hover img.calendar-icon {
+  transform: rotate(9deg);
+  transition-duration: 0.5s;
+}
+
+div.calendar-cell {
+  vertical-align: top;
+  padding-bottom: 18px;
+}
+
+div.calendar-info {
+  padding: 2px;
 }
