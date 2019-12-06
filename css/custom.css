@@ -552,3 +552,6 @@ a:hover {
     color: rgb(41, 167, 79);
 }
 
+video {
+    max-width: 100%;
+  }
