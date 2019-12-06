@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title></title>
+    <title>伝えたい情報の量について</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
     <meta name="description" content="ソフトメディア研究会"/>
     <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
@@ -11,7 +11,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:site" content="@cit_sofume"/>
     <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
-    <meta property="og:title" content="ソフメアドベントカレンダー12月日「」 --"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月8日「伝えたい情報の量について」 -鉄鉱石-"/>
     <meta property="og:description" content="SoftMedia Official Site | CIT"/>
     <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail_.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -34,13 +34,13 @@
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(img/thumbnail_.png);" class="overlay2">
+        <li style="background-image: url(img/thumbnail_8.png);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2></h2>
-                            <p></p>
+                            <h2>伝えたい情報の量について</h2>
+                            <p>鉄鉱石</p>
                         </div>
                     </div>
                 </div>
@@ -53,6 +53,103 @@
     <div class="container">
         <div class="item">
 
+<p>Sofme AdventCalendar 2019 8日目となりました。今日から第2週ですね。</p>
+<p>みなさんこんにちは。プログラム班2回生の鉄鉱石と申します。普段は副部長として部会で威張ったり、プログラム班長として部会で威張ったりしています。<br>僕は音楽ゲームが好きでよく遊んでいるのですが、自分でも音楽ゲームを作ってみたい！と思い、現在、Android音楽ゲーム『aspros.echo』の開発をしています。今回は、その開発中に感じたことを個人の見解で書いていこうと思います。<br>記事を書くのは初めてなので、お見苦しい点もあるかもしれませんが、ご了承いただければと思います。</p>
+
+<h1>情報量が多すぎた話</h1>
+
+<p>今年の春、僕はaspros.echoの選曲画面のレイアウトについて考えていました。</p>
+<p>「音ゲーだから曲の情報は全部載せたいなあ……でもジャケットもすごくいいから大きく表示したい……あと譜面のレベルは絶対必要だしハイスコアもあると嬉しいなあ……あっ決定ボタンもいるじゃん」<br>などと考えながら選曲画面に載せたい情報やボタンを列挙した結果、以下の通りになりました。</p>
+<ul>
+<li>曲名</li>
+<li>作曲者名</li>
+<li>ジャケット</li>
+<li>イラストレーター名</li>
+<li>BPM</li>
+<li>各譜面のレベル</li>
+<li>選択中の譜面の譜面製作者</li>
+<li>選択中の譜面のハイスコアランキング</li>
+<li>隣の曲を示すなにか(ジャケットなど？)</li>
+<li>スピード調節</li>
+<li>設定</li>
+<li>決定ボタン</li>
+</ul>
+<p><strong>多い。</strong><br>こんなに情報を詰め込むとどうなってしまうのでしょうか。試しに全部詰め込んでみたのが次のレイアウトです。</p>
+<img src="img/8/8-1.png" alt="ScreenUI">
+<p><strong>見づらい。</strong><br>iPadなどの画面の広いタブレット、あるいはPCで遊ぶのならまだ問題なさそうですが、展示に用いるZenpad 3(8インチ)に表示するにはあまりにも詰まりすぎてます。</p>
+<p>こうなるのを防ぐために、画面レイアウトを考える前に「どの情報を表示するか」を考えることにしました。</p>
+
+<h1>情報の取捨選択</h1>
+
+<p>まず、情報を優先度によってジャンル分けすることから始めました。<br>具体的には、</p>
+<ul>
+<li>常に大きく表示しておく情報<ul>
+<li>全員に見てほしい</li>
+</ul>
+</li>
+<li>小さくてもいいが常に表示しておく情報<ul>
+<li>ある程度の人に見てほしい</li>
+</ul>
+</li>
+<li>表示/非表示を選択できる情報<ul>
+<li>全員に必要ではないが、一部から強い需要がある</li>
+</ul>
+</li>
+<li>表示しなくてもいい情報<ul>
+<li>表示してもいいけど必要はない</li>
+</ul>
+</li>
+</ul>
+<p>の4種類に分けました。</p>
+<p>分類した結果が以下の通りです。</p>
+<table>
+    <thead>
+        <tr>
+            <th width=25% text-align="left">常に大きく表示</th>
+            <th width=25% text-align="left">常に表示</th>
+            <th width=25% text-align="left">表示/非表示を選択可能</th>
+            <th width=25% text-align="left">表示の必要なし</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td width=25% text-align="left">曲名、作曲者名、ジャケット、選択中の譜面レベル、決定ボタン</td>
+            <td width=25% text-align="left">イラストレーター名、隣接する楽曲の情報(曲名、ジャケット、レベル)</td>
+            <td width=25% text-align="left">ハイスコア、スピード調節、設定</td>
+            <td width=25% text-align="left">譜面制作者</td>
+        </tr>
+    </tbody>
+</table>
+<p>まあここは人によって違う分類をすると思うのですが、僕はこんな感じに分けました。<br>これを元にテキストなどの配置を決めた結果が次の画像です。</p>
+<img src="img/8/8-2.png" alt="ScreenUI">
+<p>これでも情報量は多いのですが(曲リスト中の全譜面のレベル表記はいらないかな？とか)、とりあえず個人的にはそこそこ満足が行く形になりました。</p>
+
+<h2>ここまでのまとめ</h2>
+
+<ul>
+<li>情報量が多すぎると見づらい</li>
+<li>情報を分類、取捨選択して重要度に合わせて表示をしよう</li>
+<li>表示させたい画面の大きさや端末によっても情報量を考える必要がある</li>
+</ul>
+
+<h1>情報量の目安</h1>
+
+<p>さて、ここまでは「音ゲーの選曲画面」、すなわち「<strong>UI(ユーザーインターフェース)</strong>」の話でしたが、これは<strong>人に情報を伝える時全て</strong>に当てはまります。</p>
+<p>例えば、「プレゼン資料に文字を詰め込んではいけない」と言われたことはありませんか？<br>これは「表示される情報が多いと、大事な情報が埋もれてしまい伝わらない」「遠くからプレゼン資料を見たときに文字が潰れて読めない」などの理由がありますが、つまるところ「情報量が多くなると見づらくなる」という理由にまとめることができます。</p>
+<p>ここは個人的な考え方なのですが、見せるべき情報の量は、<u><strong>情報を見せる時間×情報を表示する媒体の広さ</strong></u>を基準に考えるべきだと思っています。<br>情報を見せる時間というのは情報を理解させるためのタイムリミットに繋がり、表示する媒体の広さは違和感なく情報を表示できる上限値に直結します。<br>(ここでいう「広さ」は画面の絶対的な広さだけでなく、画面が視野に占める相対的な広さのことも含めます)</p>
+<p>先ほど挙げたプレゼンの場合、1ページを見せる時間は15~30秒程度ですが、後方の席から画面を見た場合の広さはかなり狭くなるため、情報をあまり多く載せるべきではないことがわかりますね。</p>
+
+<h1>まとめ</h1>
+
+<ul>
+<li>情報を分類、取捨選択して重要度に合わせて表示をしよう</li>
+<li>情報量は「情報を見せる時間×情報を表示する媒体の広さ」を基準にするとよさそう</li>
+</ul>
+
+<h1>最後に</h1>
+
+<p>僕は先日デジゲー博に参加するときに名刺を作ったのですが、名刺に載せる情報量が多すぎて失敗をしてしまいました。<br><span style="color: gray;">(まあ名刺の製作を超ギリギリにやってしまったのが原因なのですが。)</span><br>その反省を踏まえて、この記事を書くことにしました。</p>
+<p>情報量についての考え方は人それぞれだと思いますが、こんな考え方をしている人もいるんだなということを感じてもらえればありがたいです。</p>
 
             
         </div>
