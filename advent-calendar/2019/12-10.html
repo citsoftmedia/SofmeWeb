@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Arduino Leonardoで始める自作筐体</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月日「Arduino Leonardoで始める自作筐体」 -ナベ-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail/thumbnail_.png);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>ArduinoLeonardoで始める自作筐体</h2>
+                            <p>ナベ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+
+<h1>Arduino Leonardoで始める自作筐体</h1>
+
+<p>こんにちは、2回生P班のナベ(<a href="https://twitter.com/nbJohns98">@nbJohns98</a>)です。<br>津田沼祭では「Orche☆Star」と言う自作筐体の音楽ゲーム企画を展示していました。<br>今回はその企画の話を挟みつつ、どのようにArduino Leonardoで自作筐体を作成するか解説していきたいと思います。<br><strong>※Arduino Leonardoの話が主軸となり、筐体に関しての話は少なめです。ご了承下さい。</strong></p>
+<p>ちなみにOrche☆Starで使われていた自作筐体のコントローラは以下のようなものです。<br>8つのボタンと2つのスライドセンサで構成されていました。</p>
+<p><img src="orchestar_controller.jpg" alt="Orche☆Starのコントローラ"></p>
+
+<h2>目次</h2>
+
+<ul>
+<li><a href="#toc1">この記事のターゲット</a></li>
+<li><a href="#toc2">Arduino Leonardoってなに?</a><ul>
+<li><a href="#toc2-1">Arduinoについて</a> </li>
+</ul>
+</li>
+<li><a href="#toc3">Arduino Leonardoを使ってキーボードを操作してみる</a><ul>
+<li><a href="#toc3-1">1.開発環境のセットアップ</a></li>
+<li><a href="#toc3-2">2.基本プログラム</a></li>
+<li><a href="#toc3-3">3.キーを起動時に押すプログラム</a></li>
+<li><a href="#toc3-4">4.スイッチを押し続けている間、キーを押し続けるプログラム</a></li>
+</ul>
+</li>
+<li><a href="#toc4">USBの仕様と注意点</a></li>
+<li><a href="#toc5">どのように自作筐体の外装を作るか</a><ul>
+<li><a href="#toc5-1">既製品のケースを改造</a></li>
+<li><a href="#toc5-2">板を買って組む</a></li>
+<li><a href="#toc5-3">3Dプリンタを用いて造形</a></li>
+</ul>
+</li>
+<li><a href="#toc6">まとめ</a></li>
+<li><a href="#toc7">番外</a><ul>
+<li><a href="#toc7-1">Arduino Leonardoの購入</a></li>
+<li><a href="#toc7-2">その他、あったほうが良いもの</a></li>
+<li><a href="#toc7-3">電子工作をする際に役に立つサイト</a></li>
+</ul>
+</li>
+<li><a href="#toc8">注釈</a></li>
+</ul>
+<p><a></a></p>
+
+<h2>この記事のターゲット</h2>
+
+<p>・<strong>Arduino Leonardoを使ってみたい人</strong><br>・<strong>自作筐体に興味のある人</strong><br>上記以外の方でも少しプログラミング経験があればわかる内容になっているはずです。</p>
+<p><a></a></p>
+
+<h2>Arduino Leonardoってなに?</h2>
+
+<p>まずはArduino Leonardoの実物をご覧ください。</p>
+<p><img src="arduino_leonardo.jpg" alt="実際のArduino Leonardo"></p>
+<p>この青い機械がArduino Leonardoです。これを<strong>マイコンボード</strong>と呼びます。<br>マイコンボード上部の0, 1, 2,..., 13と書かれている近くにある黒い穴をIOポートと呼び、ここにボタンやセンサをつけたり、LEDをつけて光らせたりします。<br>Arduino LeonardoはPCに接続しプログラムを書き込むことで、<strong>キーボードやマウスとして振る舞う機能</strong>が搭載されています。<br>自作筐体ではこのキーボード機能をメインに使用することになります。実際にOrche☆Starの筐体にはこのArduino Leonardoが入っていました。</p>
+<p><a></a></p>
+
+<h3>Arduinoについて</h3>
+
+<p>Arduinoには様々な種類がありますが、自作筐体で使うキーボードやマウスの操作が出来るものは主にこの<strong>Arduino Leonardo</strong>と<strong>Arduino Micro</strong><a href="#anno1">[注1]</a>です。<br>Arduino MicroはArduino Leonardoより小さいマイコンボードで、狭いところで動作させることに向いていますが、<strong>IOポートの配線方法が通常と異なる</strong>ため、<strong>決まった用途がない限りはArduino Leonardoをおすすめします</strong>。<br>また、電子工作入門用のマイコンボードにArduino Unoという物もよく目にします。<br>こちらにはキーボードを操作する機能などはありません<a href="#anno2">[注2]</a>が、Arduinoの中でもベーシックなタイプでネット上に多くの情報がある利点があります。</p>
+<p>また、Arduinoには互換機と呼ばれるものがあります。<br>Arduinoはオープンソースハードウェアと呼ばれる形態で回路図やプログラムなどを誰でも見られる状態で公開しています。<br>そのため様々な会社が独自にカスタマイズをしたArduinoを出しています。これのことを<strong>「Arduino 互換機」</strong>と呼びます。<br>パーツを出来る限り安い構成で作った安価なボード、動作するスピードなどを変更したボードなどがありますが、ものによっては癖があるので購入する場合は慣れてきてからの購入をおすすめします。</p>
+<p><a></a></p>
+
+<h2>Arduino Leonardoを使ってキーボードを操作してみる</h2>
+
+<p><a></a></p>
+
+<h3>1.開発環境のセットアップ</h3>
+
+<p>まずはArduinoの開発環境をインストールします。<br>ここではあまり詳しく解説しませんが、ざっくりとした環境構築までの手順をご紹介します。</p>
+<p>Arduinoには「Arduino IDE」という専用の開発環境が用意されています。<br>まずは公式サイトのダウンロードページから開発環境をダウンロードします。<br><a href="https://www.arduino.cc/en/Main/Software">公式サイトダウンロードページ: https://www.arduino.cc/en/Main/Software</a><br>「Download the Arduino IDE」の項目からWindows, Mac, LinuxそれぞれのOSにあったものを選びます。</p>
+<p><img src="ide_setup_01.png" alt="Arduino IDEのダウンロード"></p>
+<p>ダウンロードしたインストーラの指示に従いながらセットアップを行います。<br>インストールが終わりソフトウェアを起動すると以下のような画面が出てきます。</p>
+<p><img src="ide_setup_02.png" alt="Arduino IDE"></p>
+<p>以上で開発環境のセットアップは終了です。<br>次はプログラムはこの画面に記述していきます。</p>
+<p><a></a></p>
+
+<h3>2.基本プログラム</h3>
+
+<p>キーボードを操作するプログラムの前に、Arduinoのプログラムの基本の形をご紹介します。<br>Arduinoのプログラムの基本が以下のようになります。</p>
+
+
+<pre><code class="language-c">void setup(){
+    //起動時に行う処理
+}
+
+void loop(){
+    //起動後、何度も行う処理
+}</code></pre>
+
+
+<p>ArduinoではC言語のようなmain関数は登場せず、代わりにsetupとloopと言う関数が必須です。<br>setup関数はArduinoに電源が投入され、起動した時に<strong>一度のみ動作</strong>。<br>loop関数はsetup関数が終了後、電源を切るまで<strong>何度も実行されます</strong>。</p>
+<p><a></a></p>
+
+<h3>3.キーを起動時に押すプログラム</h3>
+
+<p>基本プログラムにコード書き足し、起動時に「sofme」と入力するプログラムを作ってみます。以下のソースをご覧ください。</p>
+
+
+<pre><code class="language-c">#include &lt;Keyboard.h&gt;
+
+void setup(){
+    //起動時に行う処理
+    Keyboard.begin();
+    delay(1000);
+    Keyboard.print(&quot;sofme&quot;);
+}
+
+void loop(){
+    //起動後、何度も行う処理
+}</code></pre>
+
+
+<p>4行追加されました。追加された行について解説していきます。<br><code>#include &lt;Keyboard.h&gt;</code> キーボードを使う場合はKeyboard.hをインクルードします。<br><code>Keyboard.begin()</code> はキーボードを使うための準備です。<br>Keyboard.begin()のすぐあとにキーボードを操作しても上手く動作しない場合があるので<code>delay(1000)</code>の行で1000ms(=1秒)の待機をしています。<br><code>Keyboard.print(&quot;sofme&quot;)</code> PCに「sofme」という文字列を送信します。</p>
+<p>このプログラムを実際に書き込んでみます。</p>
+<p><img src="ide_upload.gif" alt="プログラムのアップロード"><br>プログラムの書き込みを開始...</p>
+<p><img src="arduino_write.gif" alt="Arduino Leonardoに書き込み中"><br>Arduino Leonardoに書き込み...</p>
+<p><img src="memo_write.gif" alt="メモ帳でプログラムを確認"><br>メモ帳などを開き待機していると...</p>
+<p><strong>出来ました!</strong><br>はい。たったこれだけArduino Leonardoがキーボードとして動作します!<br>しかし、今の状態ではキーボードでタイピングをしているような形でキーを押し続ける動作が行なえません。<br>次に、キーを押し続けるプログラムを書いてみましょう。</p>
+<p><a></a></p>
+
+<h3>4.スイッチを押し続けている間、キーを押し続けるプログラム</h3>
+
+<p>実際の自作筐体では文字列を送るだけのプログラムでは無く、何かしらのボタンを押している間キーを押し続けるような動作が必要になってきます。Orche☆Starのコントローラではボタンに1から8までの数字、スライドにqからiまでのキーを割り当てていました。</p>
+<p><img src="orchestar_key.jpg" alt="Orche☆Starのコントローラキー配列"></p>
+<p>ボタンを押している間はキーボードのキーを押し込んでいる状態、ボタンを離せばキーを離した状態になります。<br>ボタン部分はそのままですが、スライド部分は片方4分割でキーを割り当て、ゲームプログラム側で数フレームの平均を取るという実装でした。</p>
+<p>それでは、ボタンを押している間Aキーを押し続けるプログラムを書いてみましょう。ソースは以下のようになります。</p>
+
+
+<pre><code class="language-c">#include &lt;Keyboard.h&gt;
+
+boolean beforeState = false;
+
+void setup(){
+    //起動時に行う処理
+    pinMode(12, INPUT_PULLUP);
+    Keyboard.begin();
+}
+
+void loop(){
+    //起動後、何度も行う処理
+    if(digitalRead(12) == LOW){
+        if(!beforeState){
+            Keyboard.press(&#39;A&#39;);
+            beforeState = true;
+        }
+    }else{
+        if(beforeState){
+            Keyboard.release(&#39;A&#39;);
+            beforeState = false;
+        }
+    }
+}</code></pre>
+
+
+<p>先程より少し長くなりました。<br>重要な点は<code>Keyboard.press(&#39;A&#39;)</code>と<code>Keyboard.release(&#39;A&#39;)</code>の部分です。<br><code>Keyboard.press()</code>は引数に指定した文字のキーを押した状態にする関数です。今回の場合「A」を押したことになります。<br><code>Keyboard.release()</code>はKeyboard.press()とは逆に引数に指定した文字のキーを離した状態にする関数です。<br>プログラム全体の流れは12番のIOポートをGNDに繋げた時に<code>Keyboard.press(&#39;A&#39;)</code>を一度送り、GNDから離した時に<code>Keyboard.release(&#39;A&#39;)</code>を一度送るというプログラムになっています。</p>
+<p>今度はこのプログラムを書き込んでみます。</p>
+<p><img src="arduino_connect.jpg" alt="ピンを繋いだArduino"></p>
+<p>IOポートの12とGNDをジャンパワイヤと呼ばれる配線に使う線で繋ぎます。<br>ボタンの代わりにこの線を抜き差ししてみます。</p>
+<p><img src="memo_write2.gif" alt="メモ帳でプログラムを確認2"></p>
+<p>キーボードで(Shiftキーを押しながら)Aキーを押したり離したりしているような動作をしています。<br>文字のキー以外にもKEY_LEFT_CTRLやKEY_UP_ARROWといった定数を指定するとCtrlキーや上矢印キーを押すことも出来ます。<br>これを応用すれば予め設定したキーのマクロをボタン一つで実行させるようなことも可能です。</p>
+<p>ゲームに組む際は通常のキーボード操作と同じ処理を使うことが出来るので、何か特殊なことなどはする必要がありません。<br>コントローラにWASDを設定してゲーム操作したり、既存のPC音楽ゲームのキーを割り当てて楽しんだり、何かのセンサーをトリガーにキーを送信する仕掛けを作ったりと色々なことが出来ます。</p>
+<p><a></a></p>
+
+<h2>USBの仕様と注意点</h2>
+
+<p>ここまででArduino Leonardoでのキーボードでの扱い方を紹介してきました。<br>あとは自分の作りたい筐体に合わせたプログラムを工夫しながら行うだけなのですが、<strong>キーボードを操作する上での最大の注意点</strong>があります。<br>それは、<strong>「同時に押せるキーは6つまで」</strong><a href="#anno3">[注3]</a>という点です。</p>
+<p>これはUSBで扱うキーボード上の規格の問題で、「USBで扱う汎用的なキーボードは6キーまで」と決まっています。<br>こういった規格があるおかげでどのキーボードも特殊なソフトウェアなしに繋げられる反面、自作筐体を作る上での壁になります。<br>実際にOrche☆Starでは8つのボタンを全て押しても6ボタンまでしか反応しませんでした。<br>この仕様はUSBのキーボードである以上どうにもできない問題なためそこを踏まえて制作していかなくてはなりません。</p>
+<p><a></a></p>
+
+<h2>どのように自作筐体の外装を作るか</h2>
+
+<p>この記事ではArduino Leonardoの話がメインとなりますが筐体の部分に関しても軽く触れていきます。<br>プログラムが完成したあとは見栄えのためにもArduinoなどを収めるケースが必要になってきます。<br>どのように外装部分を作るか、例として以下のようなものが挙げられます。</p>
+<ul>
+<li>既製品のケースを改造</li>
+<li>板を買って組む</li>
+<li>3Dプリンタを用いて造形</li>
+</ul>
+<p><a></a></p>
+
+<h3>既製品のケースを改造</h3>
+
+<p>電子パーツを扱う店ではシンプルなケースが購入できます。<br>ケースに穴を開けたり切ったりして形を作っていきます。<br>素材により労力を使いますが一番無難な方法です。<br>見た目は少し悪くなりますが柔らかいタッパなど、カッターの刃が通るようなものを加工すると簡単に作ることが出来ます。  </p>
+<p><a href="">ケースは千石電商</a>という店で多く扱っています。</p>
+<p><a></a></p>
+
+<h3>板を買って組む</h3>
+
+<p>こちらも穴を開けたり切ったりといった作業が必要になってきます。<br>木材などであればドライバーやノコギリを使うことになりますがプラスチックを加工するより労力を抑えることが出来ます。<br>また、グルーガンとアクリル板などを使い箱を作っていくことも出来ます。</p>
+<p><a></a></p>
+
+<h3>3Dプリンタを用いて造形</h3>
+
+<p>Orche☆Starでは3Dプリンタを用いて筐体を作成しました。<br>3Dプリンタではどんなものでも造形できるかというとそうではなく、印刷可能範囲や印刷時間、設計技術など様々な制限があります。<br>今回使った3Dプリンタは20x20x20cm程度の範囲で印刷出来るものですが、立方体の1面ずつ印刷しそれを合わせていく方式にしました。<br>造形物が大きくなればそれだけ印刷時間も長くなり、今回の場合コントローラ片方で全てを一度に印刷すると5時間から10時間ほどかかります。<br>印刷時間が大きくなれば印刷に失敗する確率も高くなるため、1面ずつ1時間以内で印刷が終わるように設計しました。</p>
+<p>この方法は初期費用が大きく、慣れや経験を必要とします。<br>なので気軽におすすめ出来る方法ではありませんが、電子工作を行う方や創作意欲のある方は持っていて決して損はないと思います。</p>
+<p>使用した3DプリンタはAnycubic Mega-Sというものです。<br>価格は海外経由で購入し約2万5000円ほどです。個人用の3Dプリンタとしては安めのグレードですが使った感想としては問題のないクオリティです。<br><a href="https://www.anycubic.com/collections/anycubic-mega-3d-printers/products/anycubic-i3-mega-s">Anycubic公式サイト: Anycubic Mega-S</a></p>
+<p><a></a></p>
+
+<h2>まとめ</h2>
+
+<p>今回は記事を通してArduino Leonardoと一部自作筐体について触れていきました。<br>この記事を見て自作筐体や電子工作に興味を持つ方がいましたら幸いです。<br>自作筐体を始めるハードルは少し高いですが自分のプログラムに自作のコントローラを付けることで可能なことが増え制作の幅が広がります。<br>何か疑問点や始めてみたいけどイマイチ流れがわからないなどありましたら気軽にTwitterなどでご連絡下さい。<br><a href="https://twitter.com/nbJohns98">@nbJohns98</a></p>
+<p><a></a></p>
+
+<h2>番外</h2>
+
+<p>最後に自作筐体や電子工作をはじめてみたいというか向けの情報をまとめておきます。</p>
+<p><a></a></p>
+
+<h3>Arduino Leonardoの購入</h3>
+
+<p>Arduino Leonardoの購入はSwitch Scienceや秋月電子をおすすめします。<br><a href="https://www.switch-science.com/catalog/968/">Switch Scienceの商品ページ</a><br><a href="http://akizukidenshi.com/catalog/g/gM-07384/">秋月電子の商品ページ</a><br>その他、PCとの接続にMicroUSBケーブルも必要なのでない方は別途ご用意下さい。</p>
+<p><a></a></p>
+
+<h3>その他、あったほうが良いもの</h3>
+
+<p>電子工作を始めるにあたって以下のものがあると便利です。</p>
+<ul>
+<li><strong>ブレッドボード</strong><br>はんだ付けなしで配線が可能で試作品を作るのに向いています。</li>
+<li><strong>ジャンパワイヤ</strong><br>ブレッドボードやスイッチの配線に使います。</li>
+<li><strong>タクトスイッチ</strong><br>マウスのクリックなどに使われるカチカチと押すスイッチです。</li>
+</ul>
+<p>慣れてきたら以下のものもあると便利です。</p>
+<ul>
+<li><strong>はんだこて/はんだ</strong><br>ブレッドボードで全て配線できると楽ですが、最終的にはスイッチなどの配線に必要になります。私が使っているものはDAISOで500円で購入したものです。はんだは秋月電子で購入したものを使っています。</li>
+<li><strong>導線</strong><br>はんだでスイッチとピンや別のスイッチなどに配線する時に使います。</li>
+</ul>
+<p><a></a></p>
+
+<h3>電子工作をする際に役に立つサイト</h3>
+
+<ul>
+<li><a href="http://akizukidenshi.com/catalog/default.aspx">秋月電子通商</a><br>基本的な電子パーツが手に入ります。</li>
+<li><a href="https://www.sengoku.co.jp/">千石電商</a><br>ケースやゲームに使うスイッチなどの品揃えが豊富です。</li>
+<li><a href="https://www.marutsu.co.jp/">マルツ</a><br>様々なセンサなどのモジュールを多く扱っています。</li>
+<li><a href="https://www.arduino.cc/reference/en/language/functions/usb/keyboard/">Arduino Keyboad.hのリファレンス</a><br>基本的にはこの記事で紹介した関数しか使いませんが、どのようなことが出来るのか確認できます。</li>
+</ul>
+<p><a></a></p>
+
+<h2>注釈</h2>
+
+<p><a name="anno1"></a>※1 一部機種、また他の会社が作っているArduino(通称「Arduino互換機」)は含んでいません。<br><a name="anno2"></a>※2 本来はキーボードを操作する機能のないArduino Unoなどでキーボードを操作する方法もありますが、非推奨なので割愛。<br><a name="anno3"></a>※3 キーボードの中にはゲーム向けに「Nキーロールオーバー」というキーの同時押しに対応したキーボードがありますが、そういった製品でも6キー同時押しが最大になります。<br>AdventCalendar - 渡邉雄樹.md<br>AdventCalendar - 渡邉雄樹.md を表示しています。</p>
+
+            
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    footer();
+</script>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop">
+        <i class="icon-chevron-thin-up"></i>
+    </a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
