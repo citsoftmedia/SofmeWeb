@@ -11,9 +11,9 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:site" content="@cit_sofume"/>
     <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
-    <meta property="og:title" content="ソフメアドベントカレンダー12月日「Arduino Leonardoで始める自作筐体」 -ナベ-"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月10日「Arduino Leonardoで始める自作筐体」 -ナベ-"/>
     <meta property="og:description" content="SoftMedia Official Site | CIT"/>
-    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_.png"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_10.jpg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
@@ -34,7 +34,7 @@
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(img/thumbnail/thumbnail_.png);" class="overlay2">
+        <li style="background-image: url(img/thumbnail/thumbnail_10.jpg);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -58,7 +58,7 @@
 
 <p>こんにちは、2回生P班のナベ(<a href="https://twitter.com/nbJohns98">@nbJohns98</a>)です。<br>津田沼祭では「Orche☆Star」と言う自作筐体の音楽ゲーム企画を展示していました。<br>今回はその企画の話を挟みつつ、どのようにArduino Leonardoで自作筐体を作成するか解説していきたいと思います。<br><strong>※Arduino Leonardoの話が主軸となり、筐体に関しての話は少なめです。ご了承下さい。</strong></p>
 <p>ちなみにOrche☆Starで使われていた自作筐体のコントローラは以下のようなものです。<br>8つのボタンと2つのスライドセンサで構成されていました。</p>
-<p><img src="orchestar_controller.jpg" alt="Orche☆Starのコントローラ"></p>
+<p><img src="img/10/orchestar_controller.jpg" alt="Orche☆Starのコントローラ"></p>
 
 <h2>目次</h2>
 
@@ -101,7 +101,7 @@
 <h2>Arduino Leonardoってなに?</h2>
 
 <p>まずはArduino Leonardoの実物をご覧ください。</p>
-<p><img src="arduino_leonardo.jpg" alt="実際のArduino Leonardo"></p>
+<p><img src="img/10/arduino_leonardo.jpg" alt="実際のArduino Leonardo"></p>
 <p>この青い機械がArduino Leonardoです。これを<strong>マイコンボード</strong>と呼びます。<br>マイコンボード上部の0, 1, 2,..., 13と書かれている近くにある黒い穴をIOポートと呼び、ここにボタンやセンサをつけたり、LEDをつけて光らせたりします。<br>Arduino LeonardoはPCに接続しプログラムを書き込むことで、<strong>キーボードやマウスとして振る舞う機能</strong>が搭載されています。<br>自作筐体ではこのキーボード機能をメインに使用することになります。実際にOrche☆Starの筐体にはこのArduino Leonardoが入っていました。</p>
 <p><a></a></p>
 
@@ -119,9 +119,9 @@
 
 <p>まずはArduinoの開発環境をインストールします。<br>ここではあまり詳しく解説しませんが、ざっくりとした環境構築までの手順をご紹介します。</p>
 <p>Arduinoには「Arduino IDE」という専用の開発環境が用意されています。<br>まずは公式サイトのダウンロードページから開発環境をダウンロードします。<br><a href="https://www.arduino.cc/en/Main/Software">公式サイトダウンロードページ: https://www.arduino.cc/en/Main/Software</a><br>「Download the Arduino IDE」の項目からWindows, Mac, LinuxそれぞれのOSにあったものを選びます。</p>
-<p><img src="ide_setup_01.png" alt="Arduino IDEのダウンロード"></p>
+<p><img src="img/10/ide_setup_01.png" alt="Arduino IDEのダウンロード"></p>
 <p>ダウンロードしたインストーラの指示に従いながらセットアップを行います。<br>インストールが終わりソフトウェアを起動すると以下のような画面が出てきます。</p>
-<p><img src="ide_setup_02.png" alt="Arduino IDE"></p>
+<p><img src="img/10/ide_setup_02.png" alt="Arduino IDE"></p>
 <p>以上で開発環境のセットアップは終了です。<br>次はプログラムはこの画面に記述していきます。</p>
 <p><a></a></p>
 
@@ -163,16 +163,16 @@ void loop(){
 
 <p>4行追加されました。追加された行について解説していきます。<br><code>#include &lt;Keyboard.h&gt;</code> キーボードを使う場合はKeyboard.hをインクルードします。<br><code>Keyboard.begin()</code> はキーボードを使うための準備です。<br>Keyboard.begin()のすぐあとにキーボードを操作しても上手く動作しない場合があるので<code>delay(1000)</code>の行で1000ms(=1秒)の待機をしています。<br><code>Keyboard.print(&quot;sofme&quot;)</code> PCに「sofme」という文字列を送信します。</p>
 <p>このプログラムを実際に書き込んでみます。</p>
-<p><img src="ide_upload.gif" alt="プログラムのアップロード"><br>プログラムの書き込みを開始...</p>
-<p><img src="arduino_write.gif" alt="Arduino Leonardoに書き込み中"><br>Arduino Leonardoに書き込み...</p>
-<p><img src="memo_write.gif" alt="メモ帳でプログラムを確認"><br>メモ帳などを開き待機していると...</p>
+<p><img src="img/10/ide_upload.gif" alt="プログラムのアップロード"><br>プログラムの書き込みを開始...</p>
+<p><img src="img/10/arduino_write.gif" alt="Arduino Leonardoに書き込み中"><br>Arduino Leonardoに書き込み...</p>
+<p><img src="img/10/memo_write.gif" alt="メモ帳でプログラムを確認"><br>メモ帳などを開き待機していると...</p>
 <p><strong>出来ました!</strong><br>はい。たったこれだけArduino Leonardoがキーボードとして動作します!<br>しかし、今の状態ではキーボードでタイピングをしているような形でキーを押し続ける動作が行なえません。<br>次に、キーを押し続けるプログラムを書いてみましょう。</p>
 <p><a></a></p>
 
 <h3>4.スイッチを押し続けている間、キーを押し続けるプログラム</h3>
 
 <p>実際の自作筐体では文字列を送るだけのプログラムでは無く、何かしらのボタンを押している間キーを押し続けるような動作が必要になってきます。Orche☆Starのコントローラではボタンに1から8までの数字、スライドにqからiまでのキーを割り当てていました。</p>
-<p><img src="orchestar_key.jpg" alt="Orche☆Starのコントローラキー配列"></p>
+<p><img src="img/10/orchestar_key.jpg" alt="Orche☆Starのコントローラキー配列"></p>
 <p>ボタンを押している間はキーボードのキーを押し込んでいる状態、ボタンを離せばキーを離した状態になります。<br>ボタン部分はそのままですが、スライド部分は片方4分割でキーを割り当て、ゲームプログラム側で数フレームの平均を取るという実装でした。</p>
 <p>それでは、ボタンを押している間Aキーを押し続けるプログラムを書いてみましょう。ソースは以下のようになります。</p>
 
@@ -200,14 +200,15 @@ void loop(){
             beforeState = false;
         }
     }
-}</code></pre>
+}
+</code></pre>
 
 
 <p>先程より少し長くなりました。<br>重要な点は<code>Keyboard.press(&#39;A&#39;)</code>と<code>Keyboard.release(&#39;A&#39;)</code>の部分です。<br><code>Keyboard.press()</code>は引数に指定した文字のキーを押した状態にする関数です。今回の場合「A」を押したことになります。<br><code>Keyboard.release()</code>はKeyboard.press()とは逆に引数に指定した文字のキーを離した状態にする関数です。<br>プログラム全体の流れは12番のIOポートをGNDに繋げた時に<code>Keyboard.press(&#39;A&#39;)</code>を一度送り、GNDから離した時に<code>Keyboard.release(&#39;A&#39;)</code>を一度送るというプログラムになっています。</p>
 <p>今度はこのプログラムを書き込んでみます。</p>
-<p><img src="arduino_connect.jpg" alt="ピンを繋いだArduino"></p>
+<p><img src="img/10/arduino_connect.jpg" alt="ピンを繋いだArduino"></p>
 <p>IOポートの12とGNDをジャンパワイヤと呼ばれる配線に使う線で繋ぎます。<br>ボタンの代わりにこの線を抜き差ししてみます。</p>
-<p><img src="memo_write2.gif" alt="メモ帳でプログラムを確認2"></p>
+<p><img src="img/10/memo_write2.gif" alt="メモ帳でプログラムを確認2"></p>
 <p>キーボードで(Shiftキーを押しながら)Aキーを押したり離したりしているような動作をしています。<br>文字のキー以外にもKEY_LEFT_CTRLやKEY_UP_ARROWといった定数を指定するとCtrlキーや上矢印キーを押すことも出来ます。<br>これを応用すれば予め設定したキーのマクロをボタン一つで実行させるようなことも可能です。</p>
 <p>ゲームに組む際は通常のキーボード操作と同じ処理を使うことが出来るので、何か特殊なことなどはする必要がありません。<br>コントローラにWASDを設定してゲーム操作したり、既存のPC音楽ゲームのキーを割り当てて楽しんだり、何かのセンサーをトリガーにキーを送信する仕掛けを作ったりと色々なことが出来ます。</p>
 <p><a></a></p>
@@ -231,7 +232,7 @@ void loop(){
 <h3>既製品のケースを改造</h3>
 
 <p>電子パーツを扱う店ではシンプルなケースが購入できます。<br>ケースに穴を開けたり切ったりして形を作っていきます。<br>素材により労力を使いますが一番無難な方法です。<br>見た目は少し悪くなりますが柔らかいタッパなど、カッターの刃が通るようなものを加工すると簡単に作ることが出来ます。  </p>
-<p><a href="">ケースは千石電商</a>という店で多く扱っています。</p>
+<p>ケースは<a href="https://www.sengoku.co.jp/">千石電商</a>という店で多く扱っています。</p>
 <p><a></a></p>
 
 <h3>板を買って組む</h3>
