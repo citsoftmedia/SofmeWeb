@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>AutoHotkeyのすゝめ</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月12日「AutoHotkeyのすゝめ」 -kairi-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_12.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail/thumbnail_12.png);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>AutoHotkeyのすゝめ</h2>
+                            <p>kairi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+
+<h1>AutoHotkeyのすゝめ</h1>
+
+
+<h2>1. はじめに</h2>
+
+<p>こんにちは、P班２回生のkairiです！<br>今回はWindows用スクリプト言語、AutoHotkeyを紹介したいと思います。<br>MacやLinaxには対応していませんが、非常に簡単に作業の効率化ができるスクリプト言語なので、Windowsユーザーの方ならP班以外でもぜひ読んでみてください！</p>
+
+<h2>2. AutoHotkeyって何よ？</h2>
+
+<p>AutoHotkeyはWindowsで動作する、その名の通りホットキーなどの低レベル制御の常駐ソフトの作成に特化したスクリプト言語です。<br>公式ドキュメント曰く、パワフルでイージーなアルティメット自動化スクリプト言語です。<br>元々はCtrl+cのようなホットキーを作成することを目的に作られた言語で、入力制御周りが非常に簡単に書けます。</p>
+
+<h2>3. できること</h2>
+
+<p>AutoHotkeyは具体的には次のようなことができます。</p>
+
+<h3>3.1 ホットキー割り当て</h3>
+
+<ul>
+<li>キーやマウスなどからの入力でマクロなどを実行できる。具体的には入力からのイベント発火が超簡単に書ける。</li>
+<li>ホットキーに割り当てたキーはフックされ、本来の動作を防ぐ。貫通させることもできる。</li>
+</ul>
+
+<h3>3.2 キーボードやマウスなどのボタンのリマップ</h3>
+
+<ul>
+<li>入力のリマップ(入れ替え)はもっと簡単に書ける。<code>a::b</code>で「aを押すとbが押されたことになる」。</li>
+</ul>
+
+<h3>3.3 操作自動化</h3>
+
+<ul>
+<li>キーボード、マウスなどの入力を送信できる。</li>
+<li>ウィンドウを動かしたり大きさを変えたり消したり全面に固定したり色々できる。</li>
+</ul>
+
+<h3>3.4 常駐機能</h3>
+
+<ul>
+<li>右下のタスクバー(トレイ)に常駐できる。</li>
+<li>アイコンの動作は好きにできる。</li>
+<li>バルーン通知(だったトースト通知)を送れる。</li>
+<li>チップ通知を送れる。</li>
+</ul>
+
+<h3>3.5 GUI実装</h3>
+
+<ul>
+<li>Windowsフォームをガッツリ使える。</li>
+<li>ウィンドウを持ったGUIアプリにしたり、右クリックメニューだけ実装したりもできる。</li>
+</ul>
+
+<h3>3.6 プログラム実行、プロセス操作</h3>
+
+<ul>
+<li>外部プログラムを実行できる。</li>
+<li>他プロセスを弄れる。</li>
+</ul>
+
+<h3>3.7 ファイル操作</h3>
+
+
+<h3>3.8 クリップボード処理</h3>
+
+
+<h3>3.9 レジストリ操作</h3>
+
+
+<h3>3.10 DLL呼び出し</h3>
+
+<p>ぶっちゃけWindows上の操作なら大抵のことは実現可能ですね。<br>特に入力と出力関連は簡単に書けるようになってます。</p>
+
+<h3>例1: Win+cでコマンドプロンプトを起動</h3>
+
+
+
+<pre><code class="language-AutoHotkey">#c::
+Run, cmd, %HOMEDRIVE%%HOMEPATH%,, PID
+WinActivate, ahk_pid %PID%
+Return</code></pre>
+
+
+
+<h3>例2: GoogleChromeでマウスの左クリックを押しながら右クリックするとページを更新</h3>
+
+
+
+<pre><code class="language-AutoHotkey">#IfWinActive, ahk_exe chrome.exe
+~LButton &amp; RButton::
+Send, {F5}
+Return
+#IfWinActive</code></pre>
+
+
+
+<h2>4. AutoHotkeyのここがクソ</h2>
+
+<p>AutoHotkeyは非常に便利な言語ですがかなりクセがある言語でもあります。<br>というわけでAutoHotkeyを使う上では次のような点に注意(覚悟)する必要があります。</p>
+
+<h3>4.1 言語仕様がカオス</h3>
+
+<p>元々ホットキーを登録するための言語だったのを魔改造していった言語なので言語仕様がカオスでキメラです。特にコマンドの引数は変数を展開しないけど関数の引数は勝手に展開されるとかアホかって感じです。気をつけましょう。</p>
+
+<h3>4.2 すり抜けが起こる場合がある</h3>
+
+<p>キーバインドはたまにすり抜けることがあるらしいです。まあ普通に使う分には別に気になりませんが高速で大量に入力すると起こるのかもしれません。</p>
+
+<h3>4.3 日本語Wikiが遺跡</h3>
+
+<p><a href="http://ahkwiki.net/">日本語wiki</a>は５年以上更新が止まっています。といっても基本は変わらないので、大変参考になります。ただし新しい機能や細かい仕様は原文ドキュメントを見に行くことを推奨します。また5chに専用版があるので覗いてみてもいいと思います。</p>
+
+<h3>4.4 使い慣れると他のPC使うのがストレスになる</h3>
+
+<p>EXEにして持ち歩くくらいしかないですね。</p>
+
+<h2>5. インストール方法</h2>
+
+<p>インストーラが<a href="https://www.autohotkey.com/">公式ページ</a>からダウンロードできます。<br>なんか３個くらい出てきますけど普通にCurrentVersionでいいと思います。</p>
+<p>インストールオプションはバージョンはUnicodeで、オプションは全部載せでいいと思います。<br>&#39;Separete taskbar buttons&#39;はちょっと分かりづらいですが、タスクバー(タスクトレイ)への常駐をスクリプト毎に分けるか一つにまとめるかってヤツです。個人的には分けたほうが管理しやすくていいと思います。<br>ちなみにこのインストーラもAutoHotkeyで書かれてるみたいですね。</p>
+
+<h2>6. 使い方</h2>
+
+<p>ここで全部説明するのは無理なんで<a href="http://ahkwiki.net/Reference">wiki</a>や<a href="https://www.autohotkey.com/docs/AutoHotkey.htm">ドキュメント</a>を読んでください……と丸投げするのもいいのですが簡単に解説したいと思います。あくまで概要なので興味がでたら英語アレルギーがなければ<a href="https://www.autohotkey.com/docs/Tutorial.htm">公式チュートリアル</a>、あるなら<a href="http://ahkwiki.net/Reference">wikiのリファレンス</a>を読んでください。</p>
+
+<h3>6.1 スクリプトファイルについて</h3>
+
+<p>テキスト形式のスクリプトをAutoHotkeyで実行できます。インストールされた環境なら.ahkが関連付けられてるのでダブルクリックでOKです。編集はテキストエディタです。<br>テキストハイライトはサクラエディタやNotepad++のものはググれば見つかりますし、VSCCodeなら拡張機能で簡単に導入できます。みんなもVSCodeを使おう！(唐突な宗教勧誘)<br>ちなみにコマンドなどでは大文字小文字は区別されません。</p>
+
+<h3>6.2 Hello, World!</h3>
+
+<p>メッセージボックスでHello, World!してみましょう。次のスクリプトを書いて実行します。</p>
+
+
+<pre><code class="language-AutoHotkey">msgbox, Hello`, World!</code></pre>
+
+
+<p>「｀」はエスケープ文字です。実はこの場合カンマのエスケープをする必要はないのですが詳しくはwikiなどを見てください。</p>
+
+<h3>6.3 ホットキー</h3>
+
+<p>ホットキー登録は「(修飾キー)(キー)::」でできます。CtrlやAltなどの修飾キーは記号で表されます。<br>次のサンプルは、「Ctrl+jでHello, World!と入力する」スクリプトです。メモ帳などで入力カーソルを出した状態で押してみてください。</p>
+
+
+<pre><code class="language-AutoHotkey">^j::
+Send, Hello`, World{!}
+Return</code></pre>
+
+
+<p>Sendでキーを送信します。!は特殊文字扱いなので{}で囲みます。SpaceやEnterも囲まないと普通に&quot;Space&quot;などと文字で入力されます。<br>注意すべき点は、ホットキー部分は{}で囲む必要はない点です。<code>+Space::</code>だったら普通にShift+Spaceになります。<br>また修飾キーと記号の対応は次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>symbol</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl</td>
+<td>^</td>
+</tr>
+<tr>
+<td>Alt</td>
+<td>!</td>
+</tr>
+<tr>
+<td>Shift</td>
+<td>+</td>
+</tr>
+<tr>
+<td>Win</td>
+<td>#</td>
+</tr>
+</tbody></table>
+<p>また「~」で入力を貫通、「&amp;」で修飾キー以外との組み合わせになります。</p>
+<p>きりがなくなるので紹介はこのへんで……<br>制御構文や関数、オブジェクトもあるので残りはwikiなどを読んでください。</p>
+
+<h2>7. おわりに</h2>
+
+<p>いかがでしたか？何分この手の記事を書くのは初めてなので読みづらかったとは思いますが、少しでもAutoHotkeyに興味を持っていただけたら幸いです。<br>使いこなせれば作業効率やPCの使い心地が上がるのは間違いないので、ぜひ使ってみてください！</p>
+
+            
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    footer();
+</script>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop">
+        <i class="icon-chevron-thin-up"></i>
+    </a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
