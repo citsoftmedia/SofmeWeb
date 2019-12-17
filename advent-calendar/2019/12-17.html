@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>つよいきっくをつくる</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月17日「つよいきっくをつくる」 -saaa-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_17.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail/thumbnail_17.png);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>つよいきっくをつくる</h2>
+                            <p>saaa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+<p>※この記事は使用するプラグインや機能の関係上、FL Studioユーザー向けに書かれています。</p>
+
+<h1>はじめに</h1>
+
+<p>ウオオ　saaaと申します。さえさんと読みます。<br>突然ですが皆さん、歪んだキックは好きですか？好きですよね、ええ（？）歪んだ強いキックを作りたい！と思ったことはありませんか？<br>でも元の音から作って歪ませてEQかけてコンプで潰して…….とかいう難しそうな作業はちょっと敷居が高いと思ってませんか？？<br>そんな時には「運」に任せてキック作りしちゃいましょう。</p>
+
+<h1>運ゲーDTMする上での事前知識</h1>
+
+<p>FL StudioにはRandomizeという設定可能なパラメーターを全てランダムにしてしまう素晴らしい機能があることをご存知ですか？</p>
+
+<img src="img/17/1.png" alt="">
+    
+<p>左上の三角マーク→Presets→Randomize から選択することができます。三角を押したあとキーボードでp,rと押すと素早くランダマイズができます。</p>
+
+<img src="img/17/2.png" alt="">
+
+<p>ここに何の変哲も無いEQ君があります。これにRandomizeをかけてあげると…</p>
+
+<img src="img/17/3.png" alt="">
+
+<p>ウワーーーーーーーーッ<br>低音モリモリに魔改造されてしまいました。可哀想に…<br>基本的に最悪な状態にされてしまうのでぶっちゃけ普通にDTMする分には一切使用しない機能です。<br>でもこの機能、「一部のパラメーターだけ固定してあとはランダム」ってことが出来ればかなり便利な機能になると思いませんか？<br>これを実現する方法として、オートメーションを使用することで可能となります。<br>固定したい項目の上で右クリックしてCreate automation clipを押すことでオートメーションが作れます。右クリック後にaを押すと素早く作成できます。<br>作ったあとはオートメーションをいじるなどは行いません。</p>
+<p>試しにEQの形式を固定してランダマイズを行ってみます。</p>
+
+<img src="img/17/4.png" alt="">
+
+<p>それぞれのEQの形式（✨みたいなマーク）の上からオートメーションを作ってランダマイズ実行！</p>
+
+<img src="img/17/5.png" alt="">
+
+<p>気持ち悪いEQになりましたが固定したかった項目はちゃんと固定されています！これを利用してキックの作成を行います。</p>
+
+<h1>キック作成実践</h1>
+
+<p>まず１個以上のキックのサンプルを用意しましょう。複数使用する場合はピッチなどでキックの音程を合わせることを忘れずに。<br>とりあえず二つのキックを用意しました。</p>
+
+<video src="img/17/1.mp4" controls></video>
+
+<p>これを重ねてみます。</p>
+
+<video src="img/17/2.mp4" controls></video>
+
+<p>まだ強いキックには程遠いですね。ここから運ゲーを始めますが、ランダマイズの結果によって耳が死ぬレベルの爆音が出る危険性があるので、<br>エフェクトの後ろの方にSoundgoodizerなどのリミッターになるものを挿しておくことをお勧めします。</p>
+
+<img src="img/17/6.png" alt="">
+
+<p>まず用意したキックを別々のミキサーに配置します。</p>
+
+<img src="img/17/7.png" alt="">
+
+<p>次にミキサーからFruity Love Philterを挿してください。あと以下のリンクから運ゲー用のプリセットを用意しましたのでダウンロードしてください。<br><a href="https://drive.google.com/open?id=106cAhaE8e3U9yoFLtRwZsvsrmv_pgoI3">https://drive.google.com/open?id=106cAhaE8e3U9yoFLtRwZsvsrmv_pgoI3</a></p>
+<p>プリセットを読み込んだら、オートメーションでPAN（８ページ分）とマスター音量を固定してしまいましょう。</p>
+
+<img src="img/17/8.png" alt="">
+
+<p>固定が終わったら、ランダマイズ！！</p>
+
+<video src="img/17/3.mp4" controls></video>
+
+<p>ちょっと芯があるようなキックに変貌しました。実際にやる場合、好きな音が出るまでランダマイズを続けてください。</p>
+<p>キックを複数用意している場合、もう一方も同様に行いましょう。</p>
+
+<video src="img/17/4.mp4" controls></video>
+
+<p>こちらはランダマイズに加え、EQでちょっと高音をブーストして若干リバーブを加えています。エフェクトは付けたいと思ったら付けちゃいましょう。</p>
+<p>Fruity Love Philterを二重で挿すというのもアリです。実際にやってみましょう。ランダマイズ！！！</p>
+
+<video src="img/17/5.mp4" controls></video>
+
+<p>なんとﾎﾟと鳴るアタックになりました。意図しない音に変化するのは面白いですね。</p>
+<p>ここまで二つのキックにエフェクトを挿してきましたが、マスターのボリュームを見てみるとクリッピングが起きてませんか？<br>このままだとうまく出力ができなくなってしまうので、二つのキックをまとめて潰してしまいましょう。</p>
+
+<img src="img/17/9.png" alt="">
+
+<p>まずShift+Ctrl+ドラッグでキックを鳴らしてるチャンネル＋１個のチャンネルを選択してください。<br>次に＋１個の何も鳴らしてないチャンネルの上で右クリックしてTrack routing→Route selected to this track onlyを押しましょう。<br>こうすることで選択したチャンネルを一つのチャンネルにまとめることができます。<br>次にまとめたチャンネルにMaximusを挿します。こいつもランダマイズをするので以下の場所をオートメーションで固定してください。</p>
+
+<img src="img/17/10.png" alt="">
+
+<img src="img/17/11.png" alt="">
+
+<p>準備ができたら、ランダマイズ！！！！</p>
+
+<video src="img/17/6.mp4" controls></video>
+
+<p>ちょっとだけ歪みが出てるように聞こえます。さらにマスターを見てもクリッピングしなくなっているはずです。</p>
+<p>ここまでが付属エフェクトで可能なキック作成になります。他にいろんなエフェクトを試すと面白いキックが作れるかも…？</p>
+
+<h1>曲に使ってみよう</h1>
+
+<p>無事キックが完成したので実際に曲に組み込んでみましょう！作ったキックをそのまま使うのもいいですが、さらに改造するともっといい音になるかもしれません。</p>
+
+<video src="img/17/7.mp4" controls></video>
+
+<p>こちらは先ほどのキックを使って作った曲です。最初のビルドアップはそのままのキックを使用していますが、その後のキックはかなり改造してるのがわかると思います。</p>
+
+<img src="img/17/12.png" alt="">
+
+<p>これは元のキックをさらに歪ませてできたものを頭だけ取ったアタックを重ねて作っています。<br>この辺りの作り込みは本場の音を聴きまくって作り方を考察していくぐらいしかできないと思います…（それでもエフェクトのランダマイズはめっちゃ使ってます）</p>
+
+<h1>おわりに</h1>
+
+<p>歪み系のジャンルはキックが完成した地点で、曲が４割くらい完成したといっても過言ではないレベルでキックの作りを大事にします。<br>この記事で歪み系ジャンル作りたい！って思う人が増えたなら幸いです。おしまい</p>
+
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    footer();
+</script>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop">
+        <i class="icon-chevron-thin-up"></i>
+    </a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
