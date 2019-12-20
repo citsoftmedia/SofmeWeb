@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>ソーシャルゲーム"SINoALICE"におけるExcelの活用</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月19日「ソーシャルゲーム&quot;SINoALICE&quot;におけるExcelの活用」 -らぎ-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2019/img/thumbnail/thumbnail_19.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail/thumbnail_19.png);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>ソーシャルゲーム"SINoALICE"におけるExcelの活用</h2>
+                            <p>らぎ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+<p>こんにちは、もしかしたらお久しぶりです！<br>今回は、”SINoALICE”でのExcel活用術という事で書いて行きます。<br>前回(15日)と比べるとだいぶ真面目寄りな記事になっているはずです。<br>(自己紹介に関しては15日の記事に書いてるので省略します…)<br>※ グーグルフォームの使用も想定してVBAは使用しません</p>
+
+<h1>お品書き</h1>
+
+<ul>
+<li>スペシャルサンクス</li>
+<li>そもそもSINoALICEとは</li>
+<li>GvGであるコロシアムの構成要素</li>
+<li>SINoALCEにおいてExcelが必要な理由</li>
+<li>活用例1 -GvG結果報告-</li>
+<li>活用例2 -武器管理-</li>
+<li>他ゲームにおける事項の応用</li>
+</ul>
+
+<h1>スペシャルサンクス</h1>
+
+<p>多大なる協力をいただいたSBくん<br>許可をくださったカリスマさん<br>そういうものを見せてくださった香澄帝さん<br>ありがとうございましたっ！</p>
+
+<h1>そもそもSINoALICEとは</h1>
+
+<p>SINoALCEは2017年6月6日(仏滅)にSQUARE ENIXとPOKELABOによりリリースされたスマートフォン向けのゲームアプリ。ユーザー、キャラ共にメンヘラが多い<br>キャッチコピーは”それは最悪の「物語」”<br>リリース初期の１週間断続メンテナンスや誤配布でユーザーに借金(石)を負わせるソシャゲとして有名(多分)<br>ディレクターはヨコオタロウさん、音楽は岡部啓一さんと完全にNieR:Automataの<br>玉の輿に乗った作品である。<br>リアルタイムRPG(?)であり<br>基本的にはソロプレイだが15人ギルドでのGvGがメインコンテンツ<br>物語のあらすじは物語の作者を蘇らせるため物語の登場人物たちが他の登場人物達と戦う(良識フィルター)といった内容である。<br>公式サイト　<a href="http://sinoalice.jp">http://sinoalice.jp</a></p>
+
+<h1>GvGであるコロシアムの構成要素</h1>
+
+<p>GvGであるコロシアムは最大15vs15のギルド対抗バトルのことであり、1回20分間の戦闘でより多くのイノチを獲得したギルドの勝利となる。<br>イノチは数値で表され、敵にダメージを与えた場合、敵の船を撃墜した場合などに獲得できる。<br>やりたいときに集まってマッチングという形ではなく1日１回決まった時間でという形である。<br>15人中5人が前衛、10人が後衛であり前衛は攻撃、後衛は回復、強化、弱体化を基本的に行う。<br>前衛ジョブは攻撃武器しか持てず、後衛ジョブも基本的には支援武器しか持てない。(後衛は1種類攻撃武器をだけ持てるがここでは省略)<br>このゲームでは、キャラクター、ジョブ、装備、ランクの計4 つの要素からHP、物理攻撃、物理防御、魔法攻撃、魔法防御計5つのステータスが決定され、そのステータス値を参考に武器スキルを発動させ攻撃、支援を行なっていく戦闘形式である。<br>武器には武器それぞれの固有のスキルがあり、攻撃、支援の効果値やどのステータスに影響するかが決められる。</p>
+
+<h1>SINoALCEにおいてExcelが必要な理由</h1>
+
+<p>SINoALICEにおいてのメインコンテンツにおけるGvGでは情報の量が勝敗を決めると言っても過言でない。<br>このゲームでは、攻撃値と防御値のステータスには物理、魔法の2種類があり、ギルドによって得意不得意があることが多い。その得意不得意が大まかに判断できる対戦記録表や、ギルド単位での武器の本数調整で使用される場合が多い。<br>これをすることで対戦相手ごとに対策ができ勝率が大きく上がる(はず)</p>
+
+<h1>活用例1 -GvG結果報告-</h1>
+
+<p>多分最低限必要な情報はこれくらい</p>
+
+<img src="img/19/19-1.png" alt="">
+
+<p>この時、勝敗の欄としんまと装備構成の欄は楽をする方法があります。<br>まず勝敗の欄ではIf関数を使います<br>If関数は”=IF(理論式,真の場合,負の場合)”となっています<br>この文章だけじゃわかりにくいと思うので例を示すと</p>
+<p>“=IF(F3&gt;G3,&quot;勝ち&quot;,IF(G3&gt;F3,&quot;負け&quot;,&quot;引き分け&quot;))”<br>→もしF3のセルの値がG3よりも大きかった場合ここに”勝ち”と表示する<br>違った場合G3のセルがF3よりも大きかった場合ここに負けと表示して、<br>それ以外の場合(F3=G3の時のみ)は引き分けと表示する。<br>という長い文章が一式で表すことができます。</p>
+<p>次に神魔と装備構成の欄ではドロップダウンリストを表示させます。</p>
+
+<img src="img/19/19-2.png" alt="">
+
+<p>こんな感じのやつです<br>神魔には一定の組み合わせがあり、それを別のシートに全て書き写してそこをリストの要素とします。<br>そのためにはデータの入力規制というものを使います。</p>
+
+<img src="img/19/19-3.png" alt="">
+
+<p>ここを押すと条件の設定　許可:全ての値となっているのでここをクリックし、リストを選択します。<br>ここまで書いてめんどくさくなってきたので動画を撮ります。</p>
+
+https://www.youtube.com/watch?v=s7_LYr0lhMU&amp;feature=youtu.be
+
+<p>録画の止め方がわからなくて挙動不審な人がいますね…<br>ざっとこんな感じです。動画の中であるようにそのリストの中の要素であればそのセルの中に打ち込むこともできます</p>
+<p>以上のファイルのまとめとして、勝率などを出すことができ、<br>その場合関数の“COUNTIF“を使う必要があります<br>“COUNTIF”関数は”=COUNTIF(検索範囲,検索事項)”といった形になっています</p>
+
+<img src="img/19/19-4.png" alt="">
+
+<p>この画像では勝利数の欄は最初に示した表を参考にしています。<br>この時の勝利数の関数は”=COUNTIF(Sheet1!$C$3:$C$15,&quot;勝ち&quot;)”<br>となっていて($マークはコピペを楽にするためのものなので入れなくても可)<br>シート１の範囲で勝ちと書いてある数を数えています。またこの時に、テキストを検索する場合英語版の鉤括弧(?)の””で囲わなければ検索できません。(SUMはわかると思うので略)<br>こんな感じで大体の表はできると思います()</p>
+
+<h1>活用例2 -武器管理-</h1>
+
+<p>武器の主要データたくさん打ってから始まるやばいやつです()<br>打つデータはこんな感じ</p>
+
+<img src="img/19/19-5.png" alt="">
+
+<p>重要なことは何よりも横に並べることです。<br>この理由はこの動画を見ればわかると思います</p>
+
+https://www.youtube.com/watch?v=197FB9hISMQ&amp;feature=youtu.be
+
+<p>合計の欄が動いていないことは気にしないでください(許して)<br>なぜ武器の名前を入れると横に武器の情報が出るのか、これは<br>“VLOOKUP”という関数を使います<br>“=VLOOKUP(検索する名前,検索する範囲,見つかった同じものから左から何番目の内容を表示するか,検索の型)”<br>検索の型はとりあえずFALSEにします。<br>また検索の範囲は表示させたい範囲全てになります。<br>この場合B2のセルには”=VLOOKUP($A10,武器データ!$1:$1048576,2,FALSE)”と表記しています。<br>文章で説明するの仕切れてないですね…とても難しいので、仕方ないですね(逃げ)<br>これを別のシートに武器20本で絞って行うことでコロシアムや物語用の装備の編成にも使うことができます。<br>武器の構成要素の列で先ほどの“COUNTIF“関数を使うことで要素数の管理をすることができます。動画で使ったシートの右側です！<br>“VLOOKUP”関数はデータベースを使用する上でとても便利なので覚えておくと良いと思います！(説明できてないくせに何を…)</p>
+
+<h1>他ゲームでの応用</h1>
+
+<p>シノアリス勢ではないみなさんお待たせしましたっ…<br>シノアリス勢のみなさんはお疲れ様でした!<br>まあ、ここでは今までの関数で僕のやっているゲーム内でこんなこともできるねって提案なんですが…</p>
+<ol>
+<li>ポケモンの実数値表<br>(レート中に名前入れるだけで出ると楽だよね…)</li>
+<li>FEの武器リスト<br>　武器の値段とかも入れると便利ね</li>
+</ol>
+<p>Etc…</p>
+<p>って感じですね…<br>できたらファイルもらえるととても嬉しいです!(たかるな)<br>また、今まで使ってきた関数はグーグルのスプレッドシートでも使えます!</p>
+
+<h1>最後に</h1>
+
+<p><a href="https://twitter.com/aoi_hanana_2525">@aoi_hanana_2525</a> フォローして…</p>
+<p>SBくん本当にありがとうございます…</p>
+
+            
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    footer();
+</script>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop">
+        <i class="icon-chevron-thin-up"></i>
+    </a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
