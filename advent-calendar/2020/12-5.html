@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>今日のラーメン選択アルゴリズム</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月3日「今日のラーメン選択アルゴリズム」 -Ashiheart-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2020/img/thumbnail/thumbnail_5.jpg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://spans.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <link rel="stylesheet" type="text/css" href="/plugins/prism/prism.css" media="all" />
+    <script type="text/javascript" src="/plugins/prism/prism.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail/thumbnail_5.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>今日のラーメン選択アルゴリズム</h2>
+                            <p>Ashiheart</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+<h1 id="今日のラーメン選択アルゴリズム">今日のラーメン選択アルゴリズム</h1>
+<p>　こんにちは、2回生P班のAshiheartです。
+5日目のアドベントカレンダーでは、普段僕がラーメン屋を探すときの手順と、おすすめの店舗を紹介しようと思います。
+大学生になるとラーメンに行く頻度が激増すると思います。
+そんな皆さんのラーメン健康生活がより充実したものになれば幸いです。</p>
+<p>　じゃ、漏れのとっておき麺イッゾ！🍜🍜🍜</p>
+<h2 id="即席で分かる！ラーメンの見分け">即席で分かる！ラーメンの見分け</h2>
+<p>　本題へ入る前に、簡単だけど少し踏み込んだラーメンの見分け方を紹介したいと思います。</p>
+<h3 id="テボと平ざる">テボと平ざる</h3>
+<p>　麺の湯切りをしている動画を見たことがあるでしょうか。
+一般的に麺を茹で上げるときはテボか平ざるのどちらかを使います。</p>
+<p>　テボは使うのに難しい要素が無く、タイマーを使えば誰でも正確に茹でることができます。そのため、店の展開が速いチェーン店で使われることが特に多いです。
+ただし、テボの中は狭く麺が傷ついたり茹でムラができやすいため、高いクオリティを目指すなら平ざるに劣ります。</p>
+<p>　一方で平ざるは使いこなすのに数年単位の修行が必要だと言われています。数人分の麺が入ってる大釜の中から正確に一人分の麺量を掬いだすこと、こぼれないように丁寧に湯切りするのは一朝一夕には出来ません。しかし、大釜を広く泳いで茹でられた麺はムラが少なくなります。</p>
+<p>　個人的な意見になりますが、平ざるを使いこなしているラーメン屋はそれだけで期待できます。ただし、テボを使う店も決して悪いということはありません。</p>
+<img src="img/5/1.jpg" alt="">
+<p>テボ(出典:<a href="https://www.amazon.co.jp/%E6%96%B0%E8%B6%8A%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9-TS-%E6%9C%A8%E6%9F%84%E3%82%B9%E3%83%91%E3%82%B2%E3%83%86%E3%82%A3%E3%83%BC%E6%8F%9A-%E6%9C%AC%E4%BD%93-ASP03003/dp/B001U7ENSM">Amazon</a>)</p>
+<img src="img/5/2.jpg" alt="">
+<p>平ざる(出典:<a href="https://www.amazon.co.jp/PRO-%E6%A5%AD%E5%8B%99%E7%94%A8-%E7%AB%B9%E6%9F%84%E3%81%9D%E3%81%B0%E6%8F%9A%E3%81%92-%E6%A8%AA%E6%9F%84-21cm/dp/B003OBOWF6">Amazon</a>)</p>
+<h3 id="スープの乳化と非乳化">スープの乳化と非乳化</h3>
+<p>　乳化とは水と油が均一に混ざりあった状態のことで、白く濁っているのが特徴です。家系や博多ラーメンのような豚骨ラーメンが濁ったスープなのはこのためです。
+(ただし、家系ラーメンは追加で油を入れるため表面は透明に見えます。)</p>
+<p>　乳化しているほどまろやかなスープになり、油の分だけ甘味が増します。
+一方で非乳化スープは醤油がキリッと立っていて、あっさりした印象があります。そもそも非乳化スープは油をあまり含んでいないことが多いですね。</p>
+<p>　ただ、確かに最近の豚骨ラーメンの多くは乳化したスープが多いのですが、二郎(系,インスパイア)では店舗によって乳化度合いがかなり異なります。
+食べに行く前に食べログ等のサイトで写真を確認してみてください。色だけで判別できるのでそんなに難しくないと思います。</p>
+<p>　乳化度はそこそこ好みが分かれる所ではないでしょうか。
+個人的には乳化スープの方が好きです。<del>非乳化の二郎は化学調味料感満載の味がして怖いので</del></p>
+<img src="img/5/4.jpg" alt="">
+<p>　ラーメン二郎三田本店の非乳化スープ</p>
+<img src="img/5/3.jpg" alt="">
+<p>　ラーメン用心棒・神保町店のド乳化スープ</p>
+<h3 id="麺の食感を決める加水率">麺の食感を決める加水率</h3>
+<p>　製麺をするときに含ませる水分の割合のことです。
+この加水率次第で、湯で時間や食感が大きく異なります。</p>
+<p>　加水率が低いとボソボソ(ボキボキ?)食感になり、小麦の風味を強く楽しめるのが特徴です。低加水になるほど、麺が伸びやすくなるため細麺が多い印象があります。すでにイメージされている方もいると思いますが、まさに博多ラーメンが低加水麺です。</p>
+<p>　一方で多加水な麺は、モチモチ食感で麺が伸びづらいです。
+麺の太さはまちまちですが、超多加水な麺では太麺が多い気がします(個人の感想)。
+有名なジャンルでは喜多方ラーメンが多加水です、究極的にはうどんが当てはまりますね(笑)</p>
+<p>　加水率は麺の触感を決める重要な部分なので、店のこだわりが現れるところだと思います。店舗の説明や口コミで加水率の記述があったら是非参考にしてみてください。</p>
+<img src="img/5/5.jpg" alt="">
+<p>　一蘭は高いけどやっぱり美味い！こちらも低加水</p>
+<img src="img/5/6.jpg" alt="">
+<p>　超多加水自家製手揉み麺を提供する、神保町の喜多方食堂</p>
+<h2 id="ラーメン選択アルゴリズム">ラーメン選択アルゴリズム</h2>
+<h3 id="最高のラーメンを探す">最高のラーメンを探す</h3>
+<p>　自分は時間に余裕があるときは以下のページでラーメン屋を探しています。</p>
+<ol>
+<li>食べログをチェックする
+    100名店やThe Tabelog Awardをご存じでしょうか。
+    食べログでピックアップされているだけあって、食べて外したことがないのでおすすめです。
+<ul>
+<li><a href="https://award.tabelog.com/hyakumeiten/ramen_tokyo">東京ラーメン100名店</a></li>
+<li><a href="https://award.tabelog.com/hyakumeiten/ramen_east">東日本ラーメン100名店</a></li>
+<li><a href="https://award.tabelog.com/restaurants/bronze?utf8=%E2%9C%93&amp;genre_id=20&amp;prefecture_id=0">The Tabelog Award ブロンズ</a></li>
+</ul>
+ここで一点注意事項があるのですが、食べログのレビューは鵜呑みにしないことです。あくまでレビューは個人の感想なので、店の雰囲気や味は本人が足を運ぶまで分かりません。参考にするのは食べログユーザーが投稿しているラーメンの画像だけで十分だと思います。
+<li><a href="https://www.youtube.com/channel/UCXcjvt8cOfwtcqaMeE7-hqA">SUSURU TV.</a>を見る
+毎日ラーメンの食レポ動画を出しているYouTuberです。食べログで気になるお店を見つけたらSUSURUの動画を覗いておくと、周辺知識も得られます。
+2020年の間に自分は執筆時点で店舗175杯、ラーメン屋のアルバイト先で賄い125杯食べましたが、恐らく年末までに一年分の365杯には到達しません。かなりストイックに食べてみましたがSUSURUさんには届きませんでした。恐らく彼以上にラーメンを食べている著名人はいないので一番信頼できると思います。</li>
+</ol>
+</li>
+</ol>
+<h3 id="今すぐラーメン食べたい">今すぐラーメン食べたい</h3>
+<p>　関東のラーメン屋は競争率が高いので、超有名店じゃなくてもやはり美味いラーメンは多いですね。そこそこ店を展開していておすすめの店舗を紹介します。</p>
+<ul>
+<li>博多風龍：替え玉2回無料など一蘭よりもコスパ面で優秀です。</li>
+<li>春日亭：油そばと聞いて最初に思い浮かぶ店舗、少し並びますがおすすめです。</li>
+<li>麺屋武蔵：店舗ごとにメニューが違うのが特徴で、つけ麺が滅茶苦茶美味いです。</li>
+<li>武蔵家：かなり本格的なこってりした家系ラーメンです。近い系統では武道家、武将家などがあります。</li>
+<li>ラーメン大：元は二郎の暖簾分けであり、チャーシューはともかく、スープと麺の完成度が高い二郎系です。</li>
+</ul>
+<h2 id="おすすめラーメン達">おすすめラーメン達</h2>
+<h3 id="津田沼周辺">津田沼周辺</h3>
+<p>　津田沼が最寄りのラーメン屋は既に知っている人が多いと思うので、少し離れた店も見ていただけたらと思います。</p>
+<img src="img/5/7.jpg" alt="">
+
+
+<ul>
+<li>左上:すけがわ
+  津田沼駅付近で食べられる恐らく唯一の二郎インスパイアです。非乳化スープで、脂は強烈ですが全体的に食べやすいです。テレビが設置されているなど、店の雰囲気もカジュアルなので初見にも優しいと思います。
+  二郎インスパイアとしては珍しいことに味噌やゴマまぜそば等メニューが豊富なので、何度も行きたくなる点も好感度高いです。</li>
+<li>右上:鈴木さん
+  大学からは少し歩きますが、さんまや鯖を使った少し珍しい魚骨ラーメンをやっています。津田沼は脂ギットリな重めラーメンが多いので貴重な存在です。名字が「鈴木」の人はトッピングが一部無料になるので是非試してみてください。</li>
+<li>左下:BooBoo太郎
+  千葉中央が最寄りなので電車で20分ほどかかりますが、個人的に最も旨かった二郎インスパイアの一つです。ほんのりする甘味の後で豚骨が鼻を突き抜ける最高の乳化スープで、チーズを溶かすと最強でした(語彙力)。ヤサイの盛り付けたチャーシューの食感も何もかも満点です。</li>
+<li>右下:杉田家
+  東千葉が最寄りなので電車で30分ほどかかりますが(!?)、千葉方面で食べられる貴重な総本山直系の家系ラーメンです。これは完全に持論ですが、直系のラーメンはスープが黄金に輝いて見えます。また、こちらは平ざるを使用して麺上げをしているので、厨房の様子も必見です。</li>
+</ul>
+<h3 id="秋葉周辺">秋葉周辺</h3>
+<p>　ソフメ部員は秋葉に向かう頻度も高いと思うので併せて紹介したいと思います。</p>
+<img src="img/5/8.jpg" alt="">
+
+
+<ul>
+<li>左上:ほん田
+  営業中常に大行列ですが、ここはラーメンもつけ麺も本当に美味しいです。
+  奥に見えるこんぶ水は旨味を凝縮していて、これと麺だけでも食べられます。
+  また、ここはチャーシューを食べるのが目的と言っても良いほどクオリティが高いです。僕は初めて食べたとき文明に感謝しました。</li>
+<li>右上:MAZERU
+   ここはソフメの先輩方もよく行っているイメージがあります。ボキボキ食感の二郎系ジャンクまぜそばで有名です。無料トッピングにスライスチーズがあるなど、かなり異色な店舗でオンリーワンを築きあげています。まぜそばですが、最初からまぜようとすると重さで箸が折れるので、まずは野菜を片付けるのがおすすめです。</li>
+<li>左下:影武者
+   握りこぶし並みの特大チャーシューが特徴の多加水ラーメンの二郎インスパイアです。二郎系の中では少し麺量が少なく、あっさりとしたスープなので、二郎系の初挑戦におすすめです。自分も初めて食べた二郎系はここでした。</li>
+<li>青島食堂
+   ほん田とはまた違ったウマウマチャーシューを大量に食べられる長岡の生姜醤油ラーメンです。見た目にインパクトが足りないかもしれませんが、しっかりと東京ラーメン100名店入りしている有名店です。スタッフの「ﾎｳﾚﾝﾁｬｰｼｭｰ！」という掛け声を聞きながら着丼を待つ時間も楽しんで頂けたらと思います。</li>
+</ul>
+<h2 id="おわりに">おわりに</h2>
+<p>　かなり東京よりのラーメン紹介になってしまいましたが、以上で終わります。
+僕のラーメンのレビューは無視して気になったところは是非行ってみてください。
+ラーメンはどんなに贅沢しようとしても大体2000円以内に収まるので、本当に大学生の味方ですよね。ソフトメディア研究会でもラーメン好きが多いので、話題に困らないのは本当に助かっています。</p>
+<p>　コロナが収束してサークル活動も戻って、また部会終わりにTwitterのTLがラーメンの画像で埋め尽くされる光景が待ち遠しいです。僕も「オッケーらーめん」と一言くれたら即同行します。</p>
+<p>　6日目はmasuda君の「ぷよぷよにおける弥生手順」ですね。僕はGTRしか組めない初心者なので記事を見て勉強したいと思います。</p>
+   
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+footer();
+</script>
+
+<div class="gototop js-top">
+<a href="#" class="js-gotop">
+    <i class="icon-chevron-thin-up"></i>
+</a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
