@@ -245,6 +245,14 @@ p.index {
   margin-bottom: 2px;
 }
 
+p.adventcalendar_headerlink {
+  color: rgb(45, 214, 169);
+}
+
+p.adventcalendar_auther {
+  margin-bottom: 0;
+}
+
 img {
   max-width: 100%;
   margin-bottom: 20px;
