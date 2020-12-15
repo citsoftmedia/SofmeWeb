@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>CTFのすすめ</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="ソフトメディア研究会"/>
+    <meta name="keywords" content="ソフメ,ソフトメディア研究会,sofme"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@cit_sofume"/>
+    <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
+    <meta property="og:title" content="ソフメアドベントカレンダー12月15日「CTFのすすめ」 -32ba-"/>
+    <meta property="og:description" content="SoftMedia Official Site | CIT"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2020/img/thumbnail/thumbnail_15.jpg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles-merged.css"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/advent-calender.css" media="screen"/>
+
+    <link rel="stylesheet" type="text/css" href="/plugins/prism/prism.css" media="all" />
+    <script type="text/javascript" src="/plugins/prism/prism.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    header();
+</script>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(img/thumbnail/thumbnail_15.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>CTFのすすめ</h2>
+                            <p class="adventcalendar_auther">32ba</p>
+                            <a href="/advent-calendar/2020"><p class="adventcalendar_headerlink"><strong>ソフメアドベントカレンダー2020</strong></p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="item">
+
+
+<p>この記事は、<a href="http://softmedia.sakura.ne.jp/advent-calendar/2020/index.html">ソフメアドベントカレンダー2020</a> 15日目の記事です。</p>
+<h2 id="はじめに">はじめに</h2>
+<p>みなさん、こんにちは！<br>1回生P班の <strong>32ba</strong> です。この記事では <strong>CTF(Capture The Flag)</strong> という競技が面白いので、紹介しようと思います。</p>
+<h2 id="capture-the-flag-とは">Capture The Flag とは</h2>
+<p>Capture The Flag、略して CTF と呼ばれるこの競技は、コンピューターセキュリティーの知識を駆使して隠されたフラグを集める良いハッカー&quot;のための競技です。  </p>
+<p>「&quot;良いハッカー&quot;のための競技」と書きましたが、CTFで実際にやることは <strong>悪いハッカーのやっていること</strong> つまり、<strong>ハッキング</strong> です。  </p>
+<img src="img/15/0.jpg" alt=""> 
+<div style="text-align: center;">イメージ図のようなもの</div>
+
+<p>というのも、CTFは悪いハッカーの視点や攻撃手法を学ぶことで、自分の組むシステムに脆弱性を産まないようにすることや、ハッカーに見つかる前にバグを潰すなど、自分たちを守るために開催されています。<br>そんな感じで、CTFは『主催者があらかじめ用意した攻撃対象のサーバー、サービス、プログラムに対して攻撃をして、Flagをゲットする』というのが競技の基本形になっています。</p>
+<h2 id="やってみよう-ctf">やってみよう CTF</h2>
+<p>それではCTFという競技がどんなものなのかを、実際に常設されている問題<a href="https://ctf.cpaw.site/">(CpawCTF)</a>を使いながら紹介したいと思います。</p>
+<h3 id="その前に">その前に…</h3>
+<p>CTFの中で行われる攻撃行為を一般のサーバー、サービス、プログラムに行うことは<strong>法律違反にとなる可能性がある</strong>ので、十分に注意しましょう。</p>
+<p>それでは早速問題を見ていきましょう。<a href="https://ctf.cpaw.site/">CpawCTF</a>に登録、ログインして問題を見てみます。<br><a href="https://ctf.cpaw.site/questions.php?qnum=6">[Crypto] Classical Cipher</a> を例に問題を見てみます。以下は問題文の引用です。</p>
+<blockquote>
+<p>暗号には大きく分けて、古典暗号と現代暗号の2種類があります。特に古典暗号では、古代ローマの軍事的指導者ガイウス・ユリウス・カエサル（英語読みでシーザー）が初めて使ったことから、名称がついたシーザー暗号が有名です。これは3文字分アルファベットをずらすという単一換字式暗号の一つです。次の暗号文は、このシーザー暗号を用いて暗号化しました。暗号文を解読してフラグを手にいれましょう。</p>
+</blockquote>
+<p>問題文からわかる通り、上の暗号文はシーザー暗号<a href="#hosoku1">[1]</a>っぽいのでサクッと復号しちゃいましょう。<br>「シーザー暗号　復号」とかでGoogle検索するとか、手計算でも簡単に復号できます。</p>
+<p>あともう1問、問題のタイプが違う <a href="https://ctf.cpaw.site/questions.php?qnum=7">[Reversing] Can you execute ?</a> をやってみます。以下は問題文の引用です。</p>
+<blockquote>
+<p>拡張子がないファイルを貰ってこのファイルを実行しろと言われたが、どうしたら実行出来るのだろうか。
+この場合、UnixやLinuxのとあるコマンドを使ってファイルの種類を調べて、適切なOSで実行するのが一般的らしいが…  </p>
+</blockquote>
+<p>実行ファイルが与えられるのでこれを実行できればフラグが出てきそう。Linuxで <code>file</code> コマンドを使えばどのOS向けにコンパイルされたものか分かるので…
+<img src="img/15/1.png" alt="">
+コマンドを実行するとLinuxで実行できそうなバイナリなので、Linuxで実行してみると…
+<img src="img/15/2.png" alt="">
+フラグが出てきました！</p>
+<h3 id="問題の種類について">問題の種類について</h3>
+<p>一口にCTFと言ってもさまざまなタイプの問題があります。ここでは代表的な問題ジャンルを紹介したいと思います。</p>
+<ul>
+<li><p>Crypto</p>
+<hr>
+<p>暗号に関する問題です。<br>古典的な暗号(上であげたシーザー暗号など)や、より現代的な暗号を解読したりします。</p>
+</li>
+<li><p>Network</p>
+<hr>
+<p>パケットのキャプチャを解析してフラグを見つける問題です。<br>ちょうど<a href="https://book.mynavi.jp/manatee/detail/id=64023">ここに書いてある</a>ような感じでパケットキャプチャが渡されるので解析する問題が多い感じです。</p>
+</li>
+<li><p>Reversing</p>
+<hr>
+<p>与えられたプログラムの挙動を解析して、フラグを見つける問題です。<br>上でやった問題もReversingカテゴリの問題ですが、実際は実行しただけではフラグが出て来ない問題が多いので、逆コンパイルして挙動を解析したりするのが求められがち。</p>
+</li>
+<li><p>Pwn</p>
+<hr>
+<p>サーバー上で動いているプログラムが与えられるので、それの脆弱性を見つけて、攻撃することでフラグを得る問題です。<br>Reversingの知識とか色々必要となるので、難しいジャンル。ハッカーという言葉で想像する感じをそのままやるのがこの Pwn と後述する Web だと思います。</p>
+</li>
+<li><p>Web</p>
+<hr>
+<p>Webに関する、例えばWebブラウザや通信に使われるプロトコル、Webサーバーで動いているプログラムやDBなど、とりあえずWeb関連の知識が必要になるジャンルです。<br>Webブラウザだけで解ける問題も多く、敷居は低いですが、Web関連技術の知識がめっちゃ要求されるジャンル。</p>
+</li>
+<li><p>Forensics</p>
+<hr>
+<p>さまざまなデータの中に隠されたフラグを探す問題です。<br>例えば、HDDやSSD、USBメモリなどのイメージファイルを解析して、削除されたファイルを復元することでフラグを得られる問題だったり、壊れた圧縮ファイルを解析して、フラグを得る問題などがあります。</p>
+</li>
+<li><p>PPC</p>
+<hr>
+<p>プログラミングとアルゴリズムに関する問題です。<br>いわゆる競技プログラミングみたいな問題が出るジャンルです。</p>
+</li>
+<li><p>Misc</p>
+<hr>
+<p>その他の問題がこのジャンルに分別されます。<br>例えば、「<code>#!/bin/bash</code> の <code>!#</code> は何と読む？」<a href="https://ksnctf.sweetduet.info/problem/10">(こちらより引用)</a> みたいな問題があります。 </p>
+</li>
+</ul>
+<p>こんな感じで多くのジャンルの問題からCTFは構成されているので、競技としてのCTFでは4〜5人程度でチームを組んで参加するのが一般的です。<a href="#hosoku2">[2]</a></p>
+<h2 id="はじめよう-ctf">はじめよう CTF</h2>
+<p>今回取り上げた問題は初心者向けの問題でしたが、実際の競技で出てくる問題は、例えばバイナリを解析してフラグを探し当てたり、パケットキャプチャを分析してフラグを見つけたり、より高度な知識を組み合わせて問題を解く感じで、よりハッカーみが増して <strong><em>カッコいい</em></strong> 感じ(個人の感想)になります。</p>
+<p>もしこの記事を読んでCTFに興味を持ってくれた人だったり、もう既にやってるよって人がいたら、<a href="https://twitter.com/intent/user?user_id=3132201196">Twitter</a>とかに話しかけてくれるとめっちゃ喜びます。</p>
+<p><a id="hosoku1"></a>[1] <a href="https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B6%E3%83%BC%E6%9A%97%E5%8F%B7">https://ja.wikipedia.org/wiki/シーザー暗号</a></p>
+<p><a id="hosoku2"></a>[2] 個人で参加することも可能だけど、メジャーなコンテストではチーム参加がほとんどだと思います。</p>
+
+</div>
+</div>
+</section>
+
+<script type="text/javascript">
+footer();
+</script>
+
+<div class="gototop js-top">
+<a href="#" class="js-gotop">
+<i class="icon-chevron-thin-up"></i>
+</a>
+</div>
+
+<script src="/js/scripts.min.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+
+</html>
+    

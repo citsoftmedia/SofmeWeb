@@ -13,7 +13,7 @@
     <meta property="og:url" content="http://softmedia.sakura.ne.jp/"/>
     <meta property="og:title" content="ソフメアドベントカレンダー12月12日「『UniTask2』を使って快適なUnityライフを！」 -すいま-"/>
     <meta property="og:description" content="SoftMedia Official Site | CIT"/>
-    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2020/img/thumbnail/thumbnail_11.jpg"/>
+    <meta property="og:image" content="http://softmedia.sakura.ne.jp/advent-calendar/2020/img/thumbnail/thumbnail_12.jpg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
@@ -37,7 +37,7 @@
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(img/thumbnail/thumbnail_11.jpg);" class="overlay2">
+        <li style="background-image: url(img/thumbnail/thumbnail_12.jpg);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -160,7 +160,7 @@
 <p>『<strong><span style="color: red; ">非</span>同期処理</strong>』→ 同期<span style="color: red; ">じゃない</span>処理  </p>
 <p>そもそも<strong>同期処理</strong>とは何でしょう？  </p>
 <p>例えばこんなやつです</p>
-<pre><code class="language-C#">int a = 1;
+<pre><code class="language-csharp#">int a = 1;
 int b = 2;
 
 int sum = SumHoge(a,b); // 引数の数字を合計した値が返ってくる
@@ -180,7 +180,7 @@ int SumHoge(int a, int b){
 <li>処理を<strong>別のタイミング</strong>で実行すること</li>
 </ul>
 <p>例えばこんなやつです</p>
-<pre><code class="language-C#">void Start(){
+<pre><code class="language-csharp#">void Start(){
     Debug.Log(&quot;はじまり～&quot;);
     StartCoroutine(TimerDebug(&quot;こるーちん！&quot;,3)); //3秒後に出力
     Debug.Log(&quot;おわり～&quot;);
@@ -206,7 +206,7 @@ IEnumerator TimerDebug(object obj,float time){
 さっきはコルーチンの結果を待たずに二手に分岐して処理を行いました。
 async/await では、<strong>非同期メソッドがその結果を得るまで待つ</strong>ことができます。  </p>
 <p>C#では Task と async/await がセットで使われることが多いのでこんな例を出してみます。</p>
-<pre><code class="language-C#">async Task HogeAsync(){ //メソッド宣言時にasync修飾子をつける
+<pre><code class="language-csharp#">async Task HogeAsync(){ //メソッド宣言時にasync修飾子をつける
     Debug.Log(&quot;まつ！&quot;);
     await Task.Delay(1000);  //1000ミリ秒待つ
     Debug.Log(&quot;1秒経った！&quot;);
@@ -226,7 +226,7 @@ await HogeAsync();  //使うときはawaitをつける</code></pre>
 <p>AssetStore には無いので、<a href="https://github.com/Cysharp/UniTask">Github</a> か PackageManager から導入します。</p>
 <p>UniTaskとは、簡単にいうと Unity で async/await をより使いやすくしてくれるライブラリです。C# の <strong>ValueTask/IValueTaskSource</strong> の挙動を準拠して作られています。</p>
 <p>さきほど Task で書いたメソッドですが</p>
-<pre><code class="language-C#">private async UniTask HogeAsync(){ // TaskをUniTaskに書き換えるだけ
+<pre><code class="language-csharp#">private async UniTask HogeAsync(){ // TaskをUniTaskに書き換えるだけ
     Debug.Log(&quot;まつ！&quot;);
     await UniTask.Delay(1000);  // 1000ミリ秒待つ
     Debug.Log(&quot;1秒経った！&quot;);
@@ -235,7 +235,7 @@ await HogeAsync();  //使うときはawaitをつける</code></pre>
 await HogeAsync();  //使うときはawaitをつける</code></pre>
 <p>このように、 <code>Task</code> 部分を <code>UniTask</code> に書き換えるだけで使うことができます。</p>
 <p>また、<code>.NET Core</code> では Task だけでなく <code>ValueTask</code> も暗黙的な型変換に対応しています。  </p>
-<pre><code class="language-C#">public ValueTask DoAsync(){
+<pre><code class="language-csharp#">public ValueTask DoAsync(){
     return UniTask.Create(async () =&gt; {
         await Task.Delay(100);
         await UniTask.Delay(100);
@@ -243,7 +243,7 @@ await HogeAsync();  //使うときはawaitをつける</code></pre>
 }</code></pre>
 <p>UniTask は Unity 用に作られているため、Unity の機能や API が拡張されていて使いやすいものになっています。</p>
 <p>例えば</p>
-<pre><code class="language-C#">// 10フレーム待つ
+<pre><code class="language-csharp#">// 10フレーム待つ
 await UniTask.DelayFrame(10);
 
 // コルーチンではこんな感じ？
@@ -252,7 +252,7 @@ for(var i = 0; i &lt; 10; i++){
 }</code></pre>
 <p>このようにフレーム単位の await をしたり、Unity ならではの機能も多いです。
 ちなみに、コルーチンで表現できる非同期処理を UniTask で全て再現できます。なので最初はコルーチンを使う感覚で使ってみると扱いやすいと思います。</p>
-<pre><code class="language-C#">// ジェネリックで返り値を指定できる
+<pre><code class="language-csharp#">// ジェネリックで返り値を指定できる
 async UniTask&lt;int&gt; SumAsync(int num1,int num2){
     return await UniTask.Run(() =&gt; num1 + num2);
 }</code></pre>
@@ -269,7 +269,7 @@ async UniTask&lt;int&gt; SumAsync(int num1,int num2){
 <p>今は <code>Cysharp.Threading.Tasks</code> に変わりUniRxの名残は消えました。</p>
 <h2 id="同じ-unitask-の2回以上の-await-の制限">同じ UniTask の2回以上の await の制限</h2>
 <p>同じ UniTask,UniTask&lt;T&gt; の 2回以上の await が制限されました。</p>
-<pre><code class="language-C#">async UniTaskVoid Start(){
+<pre><code class="language-csharp#">async UniTaskVoid Start(){
     var hogeTask = HogeAsync(1000);
     await hogetask;
     // 2回目以上の await は InvalidOperationException がスローされる
@@ -287,7 +287,7 @@ async UniTask HogeAsync(int milliseconds){
 <p>同じ UniTask を2回以上 await をしたいときは以下の方法を使います。</p>
 <h2 id="preserve">Preserve()</h2>
 <p>UniTask,UniTask&lt;T&gt; のインスタンスには <code>Preserve()</code> というメソッドが生えてます。Preserve() を通した UniTask は<strong>2回以上 await できるようになります。</strong></p>
-<pre><code class="language-C#">async UniTaskVoid Start(){
+<pre><code class="language-csharp#">async UniTaskVoid Start(){
     var hogeTask = HogeAsync(1000);
     var reusableTask = hogeTask.Preserve();
     await reusableTask;
@@ -305,7 +305,7 @@ async UniTask HogeAsync(int milliseconds){
 <p>という機能を作ろうと思います。
 こんな感じです。</p>
 <p><img src="img/12/utcs_diagram.png" alt="utcs_diagram"></p>
-<pre><code class="language-C#">public class GameManager : MonoBehaviour {
+<pre><code class="language-csharp#">public class GameManager : MonoBehaviour {
     private int seconds = 3;
     private UniTaskCompletionSource utcs = new UniTaskCompletionSource();
     public UniTask CountdownAsync =&gt; utcs.Task;
@@ -321,7 +321,7 @@ async UniTask HogeAsync(int milliseconds){
 }</code></pre>
 <p><code>utcs.Task</code> により UniTaskCompletionSource から UniTask を取得することができます。
 このように2度以上 await 可能な UniTask を UniTaskCompletionSource 経由で公開することができます。</p>
-<pre><code class="language-C#">public class Sample1 : MonoBehaviour {
+<pre><code class="language-csharp#">public class Sample1 : MonoBehaviour {
     [SerializeField]private GameManager gameManager;
 
     private async UniTaskVoid Start(){
@@ -329,7 +329,7 @@ async UniTask HogeAsync(int milliseconds){
         Debug.Log(&quot;BGM~~~~♪♪♪♪&quot;);
     }
 }</code></pre>
-<pre><code class="language-C#">public class Sample2 : MonoBehaviour {
+<pre><code class="language-csharp#">public class Sample2 : MonoBehaviour {
     [SerializeField]private GameManager gameManager;
 
     private async UniTaskVoid Start(){
@@ -343,7 +343,7 @@ async UniTask HogeAsync(int milliseconds){
 <p>ゲームオブジェクトなどの初期化時、それを非同期にしたい場合があります。<br>UniTask.Lazyはその方法のうちの一つです。  </p>
 <p>旧UniTask の <code>public UniTask(Func&lt;UniTask&lt;T&gt;&gt; factory)</code> に相当するものです。ちなみにこのコンストラクタは廃止されています。</p>
 <p>UniTask.Lazyの返り値は <code>AsyncLazy型</code> で、こいつは awaitable なので直接 await できますし、2回以上の await が可能です。UniTaskに変換する場合は <code>.Task</code> を使います。</p>
-<pre><code class="language-C#">public UniTask PlayerInitAsync =&gt; textureLoadLazy.Task; // UniTaskとして公開
+<pre><code class="language-csharp#">public UniTask PlayerInitAsync =&gt; textureLoadLazy.Task; // UniTaskとして公開
 private AsyncLazy&lt;Texture&gt; textureLoadLazy;
 
 private void Awake(){
@@ -353,7 +353,7 @@ private void Awake(){
 }</code></pre>
 <h1 id="unitask-が即時実行に">UniTask が即時実行に</h1>
 <p>生成した UniTask は即時実行されるようになりました。<br>これは <strong>ValueTask/IValueTaskSource</strong> の挙動に沿っているためです。  </p>
-<pre><code class="language-C#">// 旧UniTaskの挙動
+<pre><code class="language-csharp#">// 旧UniTaskの挙動
 var task = UniTask.Delay(1000); // 1秒待つUniTaskを生成
 Debug.Log(&quot;a&quot;);                 // 
 await UniTask.Delay(2000);      // 2待つ
@@ -361,7 +361,7 @@ Debug.Log(&quot;b&quot;);                 //
 await task;                     // 1秒待つ(遅延実行)
 Debug.Log(&quot;c&quot;);                 //</code></pre>
 <p>これが 旧UniTask での 挙動でした。</p>
-<pre><code class="language-C#">// UniTaskの新しい挙動
+<pre><code class="language-csharp#">// UniTaskの新しい挙動
 var task = UniTask.Delay(1000); // 1秒待つUniTaskを生成(即時実行)
 Debug.Log(&quot;a&quot;);                 //
 await UniTask.Delay(2000);      // 2秒待つ
@@ -373,7 +373,7 @@ Debug.Log(&quot;c&quot;);                 // bのあとすぐにcも表示され
 <p>遅延実行される UniTask を生成するには専用のメソッドを使う必要があります。<br>デリゲートから遅延実行できる2つの方法を紹介します。<br>主に初期化を非同期にするのに用いられます。  </p>
 <h2 id="unitasklazy-1">UniTask.Lazy</h2>
 <p>さっき登場した <code>UniTask.Lazy</code> は 遅延実行できる UniTask を生成できます。  </p>
-<pre><code class="language-C#">public UniTask PlayerInitAsync =&gt; textureLoadLazy.Task; // UniTaskとして公開
+<pre><code class="language-csharp#">public UniTask PlayerInitAsync =&gt; textureLoadLazy.Task; // UniTaskとして公開
 private AsyncLazy&lt;Texture&gt; textureLoadLazy;
 
 private void Awake(){
@@ -389,7 +389,7 @@ private async UniTaskVoid Start(){
 <p>さっきの例と同じです。<br>返り値が <code>AsyncLazy型</code> なので 2回以上の await が可能です。  </p>
 <h2 id="unitaskdefer">UniTask.Defer</h2>
 <p>UniTask.Lazy と違い、返り値が <code>UniTask,UniTask&lt;T&gt;</code> なので1回しか await できません。</p>
-<pre><code class="language-C#">var task = UniTask.Defer(() =&gt; UniTask.Delay(1000));// 1秒待つUniTaskを生成(Deferで生成したので即時実行しない)
+<pre><code class="language-csharp#">var task = UniTask.Defer(() =&gt; UniTask.Delay(1000));// 1秒待つUniTaskを生成(Deferで生成したので即時実行しない)
 Debug.Log(&quot;a&quot;);                 //
 await UniTask.Delay(2000);      // 2秒待つ
 Debug.Log(&quot;b&quot;);                 //
@@ -400,27 +400,27 @@ Debug.Log(&quot;c&quot;);                 // </code></pre>
 Lazy ⇒ 複数 await 可能。</p>
 <p>Lazy は複数回 await できるので Defer より若干重いです。<br><strong>複数回 await するなら Lazy</strong>, <strong>1回だけなら Defer</strong> を使いましょう。  </p>
 <h1 id="asyncoperationconfigureawait-がなくなりtounitaskに">AsyncOperation.ConfigureAwait がなくなり.ToUniTaskに</h1>
-<pre><code class="language-C#">// 旧UniTask
+<pre><code class="language-csharp#">// 旧UniTask
 await SceneManager.LoadSceneAsync(&quot;HogeScene&quot;) //Progressから進行状況が取れる
     .ConfigureAwait(Progress.Create&lt;float&gt;(n =&gt; {
         Debug.Log($&quot;現在{n * 100}%&quot;);
     }));</code></pre>
 <p>旧UniTask では <code>Resources.LoadAsync</code> や <code>SceneManager.LoadSceneAsync</code> などの AsyncOperation は <code>ConfigureAwait</code> と <code>Progress</code> を使って進行状況を見ることができました。</p>
 <p>ですが、ConfigureAwait は廃止され、 <code>.ToUniTask</code> のオーバーロードとして拡張メソッドを使うことで同じ挙動をするようになりました。</p>
-<pre><code class="language-C#">await SceneManager.LoadSceneAsync(&quot;HogeScene&quot;)
+<pre><code class="language-csharp#">await SceneManager.LoadSceneAsync(&quot;HogeScene&quot;)
     .ToUniTask(Progress.Create&lt;float&gt;(n =&gt; { // ToUniTaskに変えるだけ
         Debug.Log($&quot;現在{n * 100}%&quot;);
     }));</code></pre>
 <h1 id="ファクトリメソッドの変更点">ファクトリメソッドの変更点</h1>
 <h2 id="unitaskwhenall">UniTask.WhenAll</h2>
 <p>指定した<strong>全てのUniTaskが完了するまで待機</strong>できます。<br>並列処理ができるのでとても便利！<br>UniTaskの型引数が異なる型でもOKです。</p>
-<pre><code class="language-C#">var task1 = UniTask.DelayFrame(10);      // UniTask型
+<pre><code class="language-csharp#">var task1 = UniTask.DelayFrame(10);      // UniTask型
 var task2 = UniTask.Run(() =&gt; &quot;完了！&quot;); // UniTask&lt;string&gt;型
 var task3 = UniTask.Run(() =&gt; 100f); // UniTask&lt;float&gt;型
 
 await UniTask.WhenAll(task1, task2, task3); // 全てのUniTaskが完了するまで待つ</code></pre>
 <p>UniTask, UniTask&lt;T&gt; のタプルに対する await で自動的に WhenAll 扱いになる仕様になりました。</p>
-<pre><code class="language-C#">// UniTask.WhenAll と同じ
+<pre><code class="language-csharp#">// UniTask.WhenAll と同じ
 await (
     UniTask.Run(() =&gt; &quot;完了！&quot;),
     UniTask.Run(() =&gt; 100f)
@@ -432,7 +432,7 @@ await (
     UniTask.Run(() =&gt; &quot;完了！&quot;) // UniTask&lt;string&gt;型
 );</code></pre>
 <p>仕様上、全て UniTask&lt;T&gt; か、全て UniTask でないとコンパイルエラーになります。単にC#の問題で、暗黙的な型変換ができていないので明示的な型変換を加えます。</p>
-<pre><code class="language-C#">// 非ジェネリック
+<pre><code class="language-csharp#">// 非ジェネリック
 await (
     UniTask.DelayFrame(10),
     (UniTask)UniTask.Run(() =&gt; &quot;完了！&quot;)
@@ -444,7 +444,7 @@ await (
     UniTask.Run(() =&gt; &quot;完了！&quot;) // UniTask&lt;string&gt;型
 );</code></pre>
 <p>ちなみに、この場合は結果をタプルで受け取ることができます。</p>
-<pre><code class="language-C#">// 非ジェネリック
+<pre><code class="language-csharp#">// 非ジェネリック
 ver result =　await (
     UniTask.DelayFrame(10),
     (UniTask)UniTask.Run(() =&gt; &quot;完了！&quot;)
@@ -468,7 +468,7 @@ Debug.Log(r2);</code></pre>
 <p>旧UniTask よりも await できるものが増えたので紹介します。</p>
 <h2 id="cancellationtokenwaituntilcanceled">CancellationToken.WaitUntilCanceled</h2>
 <p><code>CancellationToken</code> に <code>.WaitUntilCanceled</code>という拡張メソッドが追加されています。CancellationToken が キャンセル状態になると完了する awaitable です。</p>
-<pre><code class="language-C#">// GameObjectがDestroyされるとキャンセル状態になるCancellationTokenを生成
+<pre><code class="language-csharp#">// GameObjectがDestroyされるとキャンセル状態になるCancellationTokenを生成
 var ct = this.GetCancellationTokenOnDestroy();
 
 await ct.WaitUntilCanceled();
@@ -476,14 +476,14 @@ Debug.Log(&quot;Destroy!!&quot;);</code></pre>
 <h2 id="cancellationtokentounitask">CancellationToken.ToUniTask</h2>
 <p><code>CancellationToken.WaitUntilCanceled</code> の ToUniTask版 です。
 ただしこちらは返り値が <code>(UniTask, CancellationTokenRegistration)</code> というタプルになっています。</p>
-<pre><code class="language-C#">var ct = this.GetCancellationTokenOnDestroy();
+<pre><code class="language-csharp#">var ct = this.GetCancellationTokenOnDestroy();
 await ct.ToUniTask().Item1;
 Debug.Log(&quot;Destroy!!&quot;);</code></pre>
 <h2 id="dotween">DoTween</h2>
 <p>前回の記事のおまけで、<strong>DoTween</strong> を await するというのがありました。
 新しいUniTaskでは<strong>デフォルトで用意</strong>されていますし、もちろん<strong>キャンセルにも対応</strong>してます。</p>
 <p>OpenUPM 経由で DoTween をダウンロードすると依存関係を自動で解決してくれるのでオススメです。  </p>
-<pre><code>&gt; openupm add com.demigiant.dotween</code></pre><pre><code class="language-C#">// tweenが終わるまでawaitする
+<pre><code>&gt; openupm add com.demigiant.dotween</code></pre><pre><code class="language-csharp#">// tweenが終わるまでawaitする
 await text.DOFade(0,1);
 
 // UniTask.WhenAllで待機する
@@ -509,7 +509,7 @@ await audioSource.DOFade(0,1).WithCancellation(ct);</code></pre>
 <p><code>IEnumerator</code> は シーケンスの反復処理をサポートしてくれるインターフェースです。シーケンスの要素を示す <code>Current</code> と要素を進める <code>MoveNext</code> があります。</p>
 <p>MoveNext は次の要素に進める場合(次に要素)に Current を更新して <code>true</code> を返します。次に要素がない場合(シーケンスの最後)に <code>false</code> を返します。</p>
 <p>対して <code>IAsyncEnumerator</code> は <code>MoveNextAsync</code> があり、返り値が <code>ValueTask</code> なので <strong>await できる</strong> というのがポイントです。</p>
-<pre><code class="language-C#">public interface IEnumerator&lt;out T&gt; : IDisposable{
+<pre><code class="language-csharp#">public interface IEnumerator&lt;out T&gt; : IDisposable{
     bool MoveNext();
     T Current {get;}
 }
@@ -521,7 +521,7 @@ public interface IAsyncEnumerator&lt;out T&gt; : IAsyncDisposable{
 <h2 id="ienumerablet-と-iasyncenumerablet">IEnumerable&lt;T&gt; と IAsyncEnumerable&lt;T&gt;</h2>
 <p><code>IEnumerable</code> は 配列 や List&lt;T&gt; が実装しているインターフェースです。実装は、<code>IEnumerator&lt;T&gt;</code> を返すメソッドがあるだけ。</p>
 <p>対して <code>IAsyncEnumerable</code> は 名前の通りメソッドが非同期っぽくなってるだけです。</p>
-<pre><code class="language-C#">public interface IEnumerable&lt;out T&gt; : IEnumerable{
+<pre><code class="language-csharp#">public interface IEnumerable&lt;out T&gt; : IEnumerable{
     IEnumerator&lt;T&gt; GetEnumerator();
 }
 
@@ -531,7 +531,7 @@ public interface IAsyncEnumerable&lt;out T&gt;{
 <h2 id="foreach-と-await-foreach">foreach と await foreach</h2>
 <p>ここからが本題です。</p>
 <p><code>foreach</code> はコンパイラにより以下のように展開されます</p>
-<pre><code class="language-C#">try{
+<pre><code class="language-csharp#">try{
     IEnumerator e = array.GetEnumerator();
     while(e.MoveNext()){
         型 変数 = (型) e.Current;
@@ -542,7 +542,7 @@ public interface IAsyncEnumerable&lt;out T&gt;{
 }</code></pre>
 <p><code>.MoveNext()</code> で <code>.Current</code> を次の要素に進めているわけですね。<br>返り値は <code>bool</code> で、次の要素が存在しない場合はループを抜け出せます。</p>
 <p>対して <code>await foreach</code> は以下のように展開されます</p>
-<pre><code class="language-C#">try{
+<pre><code class="language-csharp#">try{
     IEnumerator e = array.GetAsyncEnumerator();
     while(await e.MoveNextAsync()){
         型 変数 = (型) e.Current;
@@ -552,13 +552,13 @@ public interface IAsyncEnumerable&lt;out T&gt;{
     await e.DisposeAsync();
 }</code></pre>
 <p>注目するところは</p>
-<pre><code class="language-C#">while(await e.MoveNextAsync()){</code></pre>
+<pre><code class="language-csharp#">while(await e.MoveNextAsync()){</code></pre>
 <p>この部分です。</p>
 <p><code>MoveNextAsync</code> は 返り値が <code>ValueTask&lt;bool&gt;</code> でそれを await しているので、<strong>次の要素が確定するまで待つ</strong>という挙動をするわけです。</p>
 <h2 id="何ができるようになるのか">何ができるようになるのか</h2>
 <p>IAsyncEnumerable&lt;T&gt;と await foreach は <strong>複数の非同期処理を直列でまとめて扱う</strong> ことに長けています。</p>
 <p>そして、 IAsyncEnumerable&lt;T&gt; を返り値にすると <code>await</code> と <code>yield</code> を共存させることができます。</p>
-<pre><code class="language-C#">// C#8未満だとawaitとyieldを一緒に使えない
+<pre><code class="language-csharp#">// C#8未満だとawaitとyieldを一緒に使えない
 async IAsyncEnumerable&lt;int&gt; HogeAsync(){
     foreach(var i in Enumerable.Range(1,100)){
         await Task.Delay(i * 1000);
@@ -583,7 +583,7 @@ async ValueTask MainAsync(string[] args){
 名前空間は <code>Cysharp.Threading.Tasks.Linq</code> です。</p>
 <p>さすがに <code>await foreach</code> や 非同期イテレータ は使うことはできませんが、それ以外の挙動は全く同じです。</p>
 <p>一つ例を挙げます。</p>
-<pre><code class="language-C#">// C#8の書き方
+<pre><code class="language-csharp#">// C#8の書き方
 // 毎フレーム次のUpdateのタイミングまでawaitする
 await foreach(var _ in UniTaskAsyncEnumerable.EveryUpdate()){
     Debug.Log(Time.frameCount);
@@ -596,7 +596,7 @@ await UniTaskAsyncEnumerable.EveryUpdate().ForEachAsync(_ =&gt; {
 <p><code>UniTaskAsyncEnumerable.EveryUpdate()</code> は次のUpdateのタイミングまで待機する非同期シーケンスを生成するメソッドです。要は渡したデリゲートを毎フレーム実行するイメージです。Updateメソッドみたいなものですね。<br><code>UniRx</code> の <code>Observable.EveryUpdate()</code> とよく似ています。</p>
 <h1 id="非同期イテレータの代わりに-unitaskasyncenumerablecreate">非同期イテレータの代わりに UniTaskAsyncEnumerable.Create</h1>
 <p>C#8 未満は await と yield を共存できません。<br>非同期イテレータライクな手法を扱う方法として <code>UniTaskAsyncEnumerable.Create</code> が用意されています。  </p>
-<pre><code class="language-C#">// C#8以上の書き方 //
+<pre><code class="language-csharp#">// C#8以上の書き方 //
 async IAsyncEnumerable&lt;int&gt; HogeAsync(){
     foreach(var i in Enumerable.Range(1,100)){
         await Task.Delay(i * 1000);
@@ -633,40 +633,40 @@ await HogeUniTaskAsync()
 </ul>
 <p>これらは、<strong>デリゲートを同期で実行するか</strong>(async にできるか)、<strong>デリゲートを非同期(Forget)で実行するか</strong>、<strong>デリゲートをawaitするか</strong>(メソッドの終了を待つか)、という違いがあります。</p>
 <h2 id="foreachasync">ForEachAsync</h2>
-<pre><code class="language-C#">await UniTaskAsyncEnumerable.EveryUpdate().ForEachAsync(_ =&gt; {
+<pre><code class="language-csharp#">await UniTaskAsyncEnumerable.EveryUpdate().ForEachAsync(_ =&gt; {
     Debug.Log(Time.frameCount);
 });</code></pre>
-<pre><code class="language-C#">// 内部の実装
+<pre><code class="language-csharp#">// 内部の実装
 while(await e.MoveNextAsync()){
     action(e.Current);
 }</code></pre>
 <p>渡したデリゲートは同期実行されます。ラムダ式の中で await を使うことができません。<br>返り値は <code>UniTask</code> です。</p>
 <h2 id="foreachawaitasync">ForEachAwaitAsync</h2>
-<pre><code class="language-C#">await UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">await UniTaskAsyncEnumerable.EveryUpdate()
                             .ForEachAwaitAsync(async _ =&gt; {
                                 await UniTask.DelayFrame(50);
                                 Debug.Log(Time.frameCount);
                             });</code></pre>
 <p><img src="img/12/ForEachAwaitAsync_sample.png" alt="ForEachAwaitAsync_sample"></p>
-<pre><code class="language-C#">// 内部の実装
+<pre><code class="language-csharp#">// 内部の実装
 while(await e.MoveNextAsync()){
     await action(e.Current);
 }</code></pre>
 <p>渡したデリゲートは <code>await</code> されます。<br>返り値は <code>UniTask</code> です。</p>
 <h2 id="subscribe">Subscribe</h2>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.EveryUpdate()
                       .Subscribe(async _ =&gt; {
                           await UniTask.DelayFrame(50);
                           Debug.Log(Time.frameCount);
                       });</code></pre>
 <p><img src="img/12/Subscribe_sample.png" alt="Subscribe_sample"></p>
-<pre><code class="language-C#">// 内部の実装(わかりやすいようにちょっと改変してます)
+<pre><code class="language-csharp#">// 内部の実装(わかりやすいようにちょっと改変してます)
 while(await e.MoveNextAsync()){
     onNext(e.Current).Forget();
 }</code></pre>
 <p>渡したデリゲートは await されず Forget されます。<br>返り値は <code>IDisposable</code> か <code>void</code> です。</p>
 <h2 id="subscribeawait">SubscribeAwait</h2>
-<pre><code class="language-C#">// 内部の実装(わかりやすいようにちょっと改変してます)
+<pre><code class="language-csharp#">// 内部の実装(わかりやすいようにちょっと改変してます)
 while(await e.MoveNextAsync()){
     await onNext(e.Current);
 }</code></pre>
@@ -674,30 +674,30 @@ while(await e.MoveNextAsync()){
 <h2 id="cancellationtoken-の渡し方">CancellationToken の渡し方</h2>
 <h3 id="foreachasync-foreachawaitasync">ForEachAsync, ForEachAwaitAsync</h3>
 <p><code>引数</code>で渡す</p>
-<pre><code class="language-C#">await UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">await UniTaskAsyncEnumerable.EveryUpdate()
                             .ForEachAsync(_ =&gt; {
                                 Debug.Log(Time.frameCount);
                             },this.GetCancellationTokenOnDestroy());</code></pre>
 <p><code>UniTask.WithCancellation</code> を使う</p>
-<pre><code class="language-C#">await UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">await UniTaskAsyncEnumerable.EveryUpdate()
                             .ForEachAsync(_ =&gt; {
                                 Debug.Log(Time.frameCount);
                             }).WithCancellation(this.GetCancellationTokenOnDestroy());</code></pre>
 <p><code>ForEachAwaitWithCancellationAsync</code> を使う</p>
-<pre><code class="language-C#">await UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">await UniTaskAsyncEnumerable.EveryUpdate()
                             .ForEachAwaitWithCancellationAsync(async (_,__,ct) =&gt; {
                                 await UniTask.DelayFrame(60,cancellationToken: ct);
                                 Debug.Log(Time.frameCount);
                             });</code></pre>
 <h3 id="subscribe-subscribeawait">Subscribe, SubscribeAwait</h3>
 <p><code>引数</code>で渡す</p>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.EveryUpdate()
                       .SubscribeAwait(async _ =&gt; {
                           await UniTask.DelayFrame(50);
                           Debug.Log(Time.frameCount);
                       }, this.GetCancellationTokenOnDestroy());</code></pre>
 <p><code>IDisposable.AddTo</code> を使う</p>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.EveryUpdate()
                       .SubscribeAwait(async _ =&gt; {
                           await UniTask.DelayFrame(50);
                           Debug.Log(Time.frameCount);
@@ -761,7 +761,7 @@ while(await e.MoveNextAsync()){
 <li>PostLateUpdate</li>
 <li>LastPostLateUpdate</li>
 </ul>
-<pre><code class="language-C#">// EveryUpdateの書き方
+<pre><code class="language-csharp#">// EveryUpdateの書き方
 await UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
                             .ForEachAsync(_ =&gt; {
                                 rigidbody.velocity += Vector3.forward;
@@ -775,18 +775,18 @@ while(true){
 <p>FixedUpdate のタイミングで待てば Rigidbody を操作しても安心安全。  </p>
 <h2 id="intervalintervalframe">Interval,IntervalFrame</h2>
 <p><code>時間やフレーム毎に経過するまで await</code> する IUniTaskAsyncEnumerable を生成します。<br>UniRx の <code>Observable.Interval</code> と <code>Observable.IntervalFrame</code> と同じです。  </p>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.Interval(TimeSpan.FromSeconds(1))
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.Interval(TimeSpan.FromSeconds(1))
                       .ForEachAsync(_ =&gt; {
                           Debug.Log(&quot;hoge&quot;);
                       });</code></pre>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.IntervalFrame(100,PlayerLoopTiming.FixedUpdate)
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.IntervalFrame(100,PlayerLoopTiming.FixedUpdate)
                       .ForEachAsync(_ =&gt; {
                           Debug.Log(&quot;hoge&quot;);
                       });</code></pre>
 <p>IntervalFrame は PlayerLoopTiming を指定できます。<br><strong>一生終わらない IUniTaskAsyncEnumerable を生成してしまう</strong>ので注意が必要です。必ず CancellationToken を指定しましょう。</p>
 <h1 id="ugui-as-iunitaskasyncenumerable">uGUI as IUniTaskAsyncEnumerable</h1>
 <p>uGUI からの変換も <code>UniRx</code> と似ています。<br>uGUIの様々なイベントを <code>~~AsAsyncEnumerable</code> のメソッドで <code>IUniTaskAsyncEnumerable</code> に変換して使うことができます。</p>
-<pre><code class="language-C#">// OnClickAsAsyncEnumerable で IUniTaskAsyncEnumerableに変換
+<pre><code class="language-csharp#">// OnClickAsAsyncEnumerable で IUniTaskAsyncEnumerableに変換
 button.OnClickAsAsyncEnumerable()
       .ForEachAsync(_ =&gt; {
           Debug.Log(&quot;Button Click!!&quot;);
@@ -800,7 +800,7 @@ Debug.Log(&quot;3回クリックされた&quot;);</code></pre>
 <p>使い方は普通の Linq と同じなのでかなり省きます。</p>
 <p>メソッドは <code>Select</code> と <code>SelectAwait</code> のように <code>~~</code>,<code>~~Await</code> のようなセットになっています。  </p>
 <h2 id="-await"><del>, ~</del>Await</h2>
-<pre><code class="language-C#">// 同期デリゲート版
+<pre><code class="language-csharp#">// 同期デリゲート版
 UniTaskAsyncEnumerable.EveryValueChanged(this.transform, t =&gt; t.position.y)
                       .Where(y =&gt; y &gt; 0)
                       .ForEachAsync(_ =&gt; {
@@ -816,14 +816,14 @@ UniTaskAsyncEnumerable.EveryValueChanged(this.transform, t =&gt; t.position.y)
 <h2 id="async">~~Async</h2>
 <p>次は返り値が <code>UniTask&lt;T&gt;</code> になるような(メソッドチェーンの末端にくる)メソッドたちです。</p>
 <p><code>SumAsync</code></p>
-<pre><code class="language-C#">// SumAsyncでIUniTaskAsyncEnumerable&lt;int&gt;の合計を出す
+<pre><code class="language-csharp#">// SumAsyncでIUniTaskAsyncEnumerable&lt;int&gt;の合計を出す
 var sum = await UniTaskAsyncEnumerable.Range(1, 10)
                       .SumAsync();
 Debug.Log(sum); // 55</code></pre>
 <h2 id="awaitasync">~~AwaitAsync</h2>
 <p>デリゲートを async にすることができます。  </p>
 <p><code>SumAsyncAwait</code></p>
-<pre><code class="language-C#">// SumAsyncAwaitでIUniTaskAsyncEnumerable&lt;int&gt;の合計を出す
+<pre><code class="language-csharp#">// SumAsyncAwaitでIUniTaskAsyncEnumerable&lt;int&gt;の合計を出す
 // デリゲートを async にできる
 var sum = await UniTaskAsyncEnumerable.Range(1, 10)
                       .SumAwaitAsync(async n =&gt; await ValueAsync(n));
@@ -835,7 +835,7 @@ async UniTask&lt;int&gt; ValueAsync(int n){
 }</code></pre>
 <h2 id="awaitwithcancellation">~~AwaitWithCancellation</h2>
 <p>ラムダ式の引数に CancellationToken を渡すことができるメソッド群です。</p>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.EveryUpdate()
                       .SelectAwaitWithCancellation(async (n,ct) =&gt; await ValueAsync(Time.frameCount,ct))
                       .ForEachAsync(n =&gt; {
                           Debug.Log(n);
@@ -856,7 +856,7 @@ async UniTask&lt;int&gt; ValueAsync(int n){
 <p><img src="img/12/queue.png" alt="Queue"></p>
 <p>Queue() ありとなしの違いを見てみましょう</p>
 <h2 id="queue-なし">Queue() なし</h2>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.EveryUpdate()
                       .Select(_ =&gt; Time.frameCount)
                       .ForEachAwaitAsync(async frameCount =&gt; {
                           Debug.Log(frameCount);
@@ -864,7 +864,7 @@ async UniTask&lt;int&gt; ValueAsync(int n){
                       });</code></pre>
 <p><img src="img/12/noQueueAwait.png" alt="noQueueAwait"></p>
 <h2 id="queue-あり">Queue() あり</h2>
-<pre><code class="language-C#">UniTaskAsyncEnumerable.EveryUpdate()
+<pre><code class="language-csharp#">UniTaskAsyncEnumerable.EveryUpdate()
                       .Select(_ =&gt; Time.frameCount)
                       .Queue()
                       .ForEachAwaitAsync(async frameCount =&gt; {
@@ -875,7 +875,7 @@ async UniTask&lt;int&gt; ValueAsync(int n){
 <p>await されているときのフレーム数が表示されているのでバッファリングされているのがわかります。</p>
 <h1 id="取りこぼしを利用する">取りこぼしを利用する</h1>
 <p>取りこぼしは絶対悪ではありません。<br>逆に利用して完結に機能を実装することもできます。  </p>
-<pre><code class="language-C#">// 押したら0.5秒間 押しても何もしないボタン(連打防止)
+<pre><code class="language-csharp#">// 押したら0.5秒間 押しても何もしないボタン(連打防止)
 button.OnClickAsAsyncEnumerable()
       .ForEachAwaitAsync(async _ =&gt; {
           Debug.Log(&quot;Button Click!&quot;);
@@ -888,7 +888,7 @@ button.OnClickAsAsyncEnumerable()
 Subject を知っていると理解が早いと思います。<br>非同期キューイングな処理ができるので取りこぼしがありません。</p>
 <p>Channel は メッセージを送る <code>ChannelWriter&lt;T&gt;(IObserver&lt;T&gt;に相当)</code> と メッセージを受け取る <code>ChannelReader&lt;T&gt;(IObservable&lt;T&gt;に相当)</code> に分けられます。</p>
 <h2 id="writer">Writer</h2>
-<pre><code class="language-C#">// channel生成
+<pre><code class="language-csharp#">// channel生成
 var channel = Channel.CreateSingleConsumerUnbounded&lt;int&gt;();
 
 // IObserver&lt;T&gt; 相当のオブジェクト
@@ -906,7 +906,7 @@ writer.TryComplete();
 // OnError() に相当
 writer.TryComplete(new Exception());</code></pre>
 <h2 id="reader">Reader</h2>
-<pre><code class="language-C#">// IObservable&lt;T&gt; 相当のオブジェクト
+<pre><code class="language-csharp#">// IObservable&lt;T&gt; 相当のオブジェクト
 var reader = channel.Reader;
 
 // 最初のwriter.TryWrite()を待つ
@@ -928,7 +928,7 @@ await reader.Completion;</code></pre>
 <p><code>Channel.CreateSingleConsumerUnbounded&lt;int&gt;();</code> は名前の通り単一消費者を想定されています。</p>
 <p>UniRx のように 複数個所で メッセージを待ち受けるような処理はブロードキャスト機能がないので正しく機能しません。</p>
 <p>複数個所で待ち受けしたい場合は <code>IUniTaskAsyncEnumerable&lt;T&gt;.Publish()</code> を使います。</p>
-<pre><code class="language-C#">// channel生成
+<pre><code class="language-csharp#">// channel生成
 var channel = Channel.CreateSingleConsumerUnbounded&lt;int&gt;();
 
 // Reader.ReadAllAsync().Publish() で安全に複数待機できる
@@ -942,7 +942,7 @@ connectable.ForEachAsync(n =&gt; {
 <h1 id="asyncreactiveproperty">AsyncReactiveProperty</h1>
 <p><code>AsyncReactiveProperty</code> は <code>UniRx.ReactiveProperty</code> と同じような使い方ができます。<br>Queueの機能はないので必要な時に <code>.Queue()</code> を挟みましょう。</p>
 <p><code>ReactiveProperty</code> とは 値を <code>Rx化</code> したいときに使います。<br>値が変わるとメッセージが発行される機能があります。<br>Rx を知らない人でも使いやすい機能だと思うので是非活用してください。</p>
-<pre><code class="language-C#">// 宣言
+<pre><code class="language-csharp#">// 宣言
 var asyncReactiveProperty = new AsyncReactiveProperty&lt;int&gt;(0);
 
 asyncReactiveProperty.Value += 1; // 購読者に通知
